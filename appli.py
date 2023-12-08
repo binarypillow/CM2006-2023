@@ -1,6 +1,7 @@
 from PyQt5 import QtWidgets, uic, QtCore
 import sys
 import vtk
+from PyQt5.QtCore import Qt
 from vtk.qt.QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
 from random import random
 import nibabel as nib
@@ -8,7 +9,7 @@ from vtkmodules.util.numpy_support import numpy_to_vtk
 
 # Visualize less organs instead of 13, so it is faster
 global nb_organs
-nb_organs = 3
+nb_organs = 4
 
 
 class WelcomeWindow(QtWidgets.QDialog):
@@ -155,6 +156,11 @@ class SecondWindow(QtWidgets.QMainWindow):
         # Slide for opacity change
         self.slider.valueChanged.connect(self.onOpacityChanged)
 
+        # Hide organs not showed in the slider
+        while self.comboBox.count() > nb_organs:
+            i = self.comboBox.count() - 1
+            self.comboBox.removeItem(i)
+
     def onOpacityChanged(self, value_slider):
         # Adjust opacitiy for a selected organ
         selected_index = self.comboBox.currentIndex()
@@ -299,9 +305,11 @@ class SecondWindow(QtWidgets.QMainWindow):
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
+
     welcome = WelcomeWindow()
     welcome.show()
 
+    # Use this to display only the second window
     img_path = "data/images/FLARE22_Tr_0001_0000.nii.gz"
     label_path = "data/labels/FLARE22_Tr_0001.nii.gz"
 
