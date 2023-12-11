@@ -28,10 +28,6 @@ class WelcomeWindow(QtWidgets.QDialog):
         # Connect the "Continue" button to the function to open a new window
         self.continue_button.clicked.connect(self.open_new_window)
 
-        # Stereo button is checkable, and not checked by default
-        self.stereo_button.setCheckable(True)
-        self.stereo_button.setChecked(False)
-
     def select_image_file(self):
         file_dialog = QtWidgets.QFileDialog()
         file_dialog.setFileMode(QtWidgets.QFileDialog.ExistingFile)
@@ -68,14 +64,13 @@ class WelcomeWindow(QtWidgets.QDialog):
 
     def open_new_window(self):
         # The next window is the main window
-        user_choice = self.stereo_button.isChecked()
-        self.next_window = SecondWindow(self.img_path, self.label_path, stereo=user_choice)
+        self.next_window = SecondWindow(self.img_path, self.label_path)
         self.next_window.show()
         self.close()
 
 
 class SecondWindow(QtWidgets.QMainWindow):
-    def __init__(self, path_img, path_label, stereo=False):
+    def __init__(self, path_img, path_label):
 
         # Load the nii.gz file with the images
         self.img_nii = nib.load(path_img)
@@ -88,7 +83,7 @@ class SecondWindow(QtWidgets.QMainWindow):
         # Create a list containing each organ separated
         self.segmented_organs = self.createListSegmentedOrgans()
 
-        # Colors for organs
+        # Colors for surface organs
         self.colors = [
             (0.86, 0.37, 0.34),  # Red
             (0.48, 0.77, 0.46),  # Green
@@ -119,7 +114,7 @@ class SecondWindow(QtWidgets.QMainWindow):
 
         # Default rendering : surface
         # self.segmented_actors defines the displayed actors
-        self.segmented_actors = self.segmented_surface_actors
+        self.segmented_actors = list(self.segmented_surface_actors)
 
         # Create a VTK renderer
         self.renderer = vtk.vtkRenderer()
@@ -132,10 +127,10 @@ class SecondWindow(QtWidgets.QMainWindow):
         # Add the renderer to the window
         self.vtk_widget.GetRenderWindow().AddRenderer(self.renderer)
 
-        if stereo:
-            self.vtk_widget.GetRenderWindow().StereoCapableWindowOn()
-            self.vtk_widget.GetRenderWindow().SetStereoTypeToInterlaced()
-            self.vtk_widget.GetRenderWindow().StereoRenderOn()
+        # Initialize stereo rendering
+        self.vtk_widget.GetRenderWindow().GetStereoCapableWindow()
+        self.vtk_widget.GetRenderWindow().StereoCapableWindowOn()
+
 
         # Set up the camera and start the interactor
         self.renderer.ResetCamera()
@@ -147,6 +142,9 @@ class SecondWindow(QtWidgets.QMainWindow):
 
         ##############################################################################################
         # INTERACTIONS AND BUTTONS
+
+        # Volume rendering button is hidden
+        self.volume_button.setVisible(False)
 
         # Change the actor from surface to volume if volume button is checked
         self.volume_button.setCheckable(True)
@@ -161,20 +159,57 @@ class SecondWindow(QtWidgets.QMainWindow):
             i = self.comboBox.count() - 1
             self.comboBox.removeItem(i)
 
+        # Change the view and show volume rendering if the glass button is clicked
+        self.glass_button.clicked.connect(self.onGlassButtonClicked)
+
+        # Change the organ view and volume rendering if user changes the specified organ
+        self.comboBox.currentIndexChanged.connect(self.onComboBoxChanged)
+
+        self.stereo_button.clicked.connect(self.onStereoClicked)
+
+    def onStereoClicked(self):
+        if self.stereo_button.isChecked():
+            self.vtk_widget.GetRenderWindow().SetStereoTypeToInterlaced()
+            self.vtk_widget.GetRenderWindow().StereoRenderOn()
+
+        else:
+            self.vtk_widget.GetRenderWindow().StereoRenderOff()
+
+        # Update window
+        self.vtk_widget.GetRenderWindow().Render()
+
+    def onComboBoxChanged(self):
+        # Change organ
+        selected_index = self.comboBox.currentIndex()
+        selected_actor = self.segmented_actors[selected_index]
+
+        # If the actor is a volume, we cannot adjust opacity
+        # If the actor is a surface, we must adjust the position of the slider with its opacity
+        if isinstance(selected_actor, vtk.vtkActor):
+            opacity = selected_actor.GetProperty().GetOpacity()
+            self.slider.setValue(int(opacity * 100))
+
+        self.onGlassButtonClicked()
+        self.onVolumeButtonClicked()
+
+    def onGlassButtonClicked(self):
+        if self.glass_button.isChecked():
+            # The view changes and volume rendering possibilitity appear
+            print("CHANGE THE VIEW HERE")
+            self.volume_button.setVisible(True)
+        else:
+            # Volume rendering disappear and the volume becomes a surface
+            self.volume_button.setChecked(False)
+            self.volume_button.setVisible(False)
+            self.onVolumeButtonClicked()
+
     def onOpacityChanged(self, value_slider):
         # Adjust opacitiy for a selected organ
         selected_index = self.comboBox.currentIndex()
         selected_actor = self.segmented_actors[selected_index]
         opacity = value_slider / 100
 
-        if isinstance(selected_actor, vtk.vtkVolume):
-            volume_property = selected_actor.GetProperty()
-            opacity_function = vtk.vtkPiecewiseFunction()
-            opacity_function.AddPoint(0, 0.0)
-            opacity_function.AddPoint(255, opacity)
-            volume_property.SetScalarOpacity(opacity_function)
-
-        elif isinstance(selected_actor, vtk.vtkActor):
+        if isinstance(selected_actor, vtk.vtkActor):
             selected_actor.GetProperty().SetOpacity(opacity)
 
         # Update window
@@ -182,17 +217,22 @@ class SecondWindow(QtWidgets.QMainWindow):
 
     def onVolumeButtonClicked(self):
         if self.volume_button.isChecked():
-            # If button is checked : launch volume rendering
-            self.segmented_actors = self.segmented_volume_actors
+            # If button is checked : launch volume rendering of the selected organ
+            selected_index = self.comboBox.currentIndex()
+            self.segmented_actors = list(self.segmented_surface_actors)
+            self.segmented_actors[selected_index] = self.segmented_volume_actors[selected_index]
+            # We cannot adjust opacity for a volume
+            self.slider.setVisible(False)
 
         else:
             # If button is unchecked : launch surface rendering
-            self.segmented_actors = self.segmented_surface_actors
+            self.segmented_actors = list(self.segmented_surface_actors)
+            self.slider.setVisible(True)
 
         # Delete existing actor of the renderer
         self.renderer.RemoveAllViewProps()
 
-        # Add the actors to the renderer and set the background color
+        # Add the actors to the renderer
         for actor in self.segmented_actors:
             self.renderer.AddActor(actor)
 
@@ -313,7 +353,7 @@ if __name__ == '__main__':
     img_path = "data/images/FLARE22_Tr_0001_0000.nii.gz"
     label_path = "data/labels/FLARE22_Tr_0001.nii.gz"
 
-    # main_window = SecondWindow(img_path,label_path)
-    # main_window.show()
+    #main_window = SecondWindow(img_path, label_path)
+    #main_window.show()
 
     sys.exit(app.exec_())

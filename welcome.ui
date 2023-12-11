@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
     <widget class="QWidget" name="widget" native="true">
      <property name="styleSheet">
@@ -21,37 +21,25 @@
     background-color: qlineargradient(spread:reflect, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(34, 148, 157, 255), stop:0.890052 rgba(255, 177, 177, 255));
 }</string>
      </property>
-     <widget class="QLabel" name="welcome_label">
-      <property name="geometry">
-       <rect>
-        <x>150</x>
-        <y>20</y>
-        <width>169</width>
-        <height>46</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">color: rgb(255, 255, 255);
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item alignment="Qt::AlignHCenter">
+       <widget class="QLabel" name="welcome_label">
+        <property name="styleSheet">
+         <string notr="true">color: rgb(255, 255, 255);
 font: 30pt &quot;Ubuntu&quot;;</string>
-      </property>
-      <property name="text">
-       <string>Welcome</string>
-      </property>
-     </widget>
-     <widget class="QToolButton" name="img_button">
-      <property name="geometry">
-       <rect>
-        <x>190</x>
-        <y>130</y>
-        <width>111</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QToolButton {
+        </property>
+        <property name="text">
+         <string>Welcome</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QToolButton" name="img_button">
+          <property name="styleSheet">
+           <string notr="true">QToolButton {
 	font: 15pt &quot;Ubuntu&quot;;
-    width: 20px;
-    height: 20px;
     background-color: transparent;
     border: 1px solid transparent;
     color: #FFFFFF; /* Couleur du texte */
@@ -64,98 +52,98 @@ QToolButton:hover {
 QToolButton:pressed {
     background-color: rgba(0, 0, 0, 0.4); /* Couleur de fond lorsqu'il est cliqué */
 }</string>
-      </property>
-      <property name="text">
-       <string>Image file</string>
-      </property>
-      <property name="checkable">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QToolButton" name="seg_button">
-      <property name="geometry">
-       <rect>
-        <x>120</x>
-        <y>160</y>
-        <width>181</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QToolButton {
-	font: 15pt &quot;Ubuntu&quot;;
-    width: 20px;
-    height: 20px;
-    background-color: transparent;
-    border: 1px solid transparent;
-    color: #FFFFFF; /* Couleur du texte */
-}
-
-QToolButton:hover {
-    background-color: rgba(0, 0, 0, 0.2); /* Couleur de fond lorsqu'il est survolé */
-}
-
-QToolButton:pressed {
-    background-color: rgba(0, 0, 0, 0.4); /* Couleur de fond lorsqu'il est cliqué */
-}</string>
-      </property>
-      <property name="text">
-       <string>Segmentation file</string>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="stereo_button">
-      <property name="geometry">
-       <rect>
-        <x>330</x>
-        <y>200</y>
-        <width>31</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>131</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QCheckBox::indicator {
+          </property>
+          <property name="text">
+           <string>Image file</string>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="img_box">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>131</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QCheckBox::indicator {
     width: 23px;
     height: 23px;
 }</string>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-     <widget class="QLabel" name="stereo_label">
-      <property name="geometry">
-       <rect>
-        <x>140</x>
-        <y>200</y>
-        <width>163</width>
-        <height>23</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">color: rgb(255, 255, 255);
-font: 15pt &quot;Ubuntu&quot;;</string>
-      </property>
-      <property name="text">
-       <string>Stereo rendering</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="continue_button">
-      <property name="geometry">
-       <rect>
-        <x>410</x>
-        <y>260</y>
-        <width>80</width>
-        <height>24</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton {
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="QToolButton" name="seg_button">
+          <property name="styleSheet">
+           <string notr="true">QToolButton {
+	font: 15pt &quot;Ubuntu&quot;;
+    background-color: transparent;
+    border: 1px solid transparent;
+    color: #FFFFFF; /* Couleur du texte */
+}
+
+QToolButton:hover {
+    background-color: rgba(0, 0, 0, 0.2); /* Couleur de fond lorsqu'il est survolé */
+}
+
+QToolButton:pressed {
+    background-color: rgba(0, 0, 0, 0.4); /* Couleur de fond lorsqu'il est cliqué */
+}</string>
+          </property>
+          <property name="text">
+           <string>Segmentation file</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="seg_box">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>131</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QCheckBox::indicator {
+    width: 23px;
+    height: 23px;
+}</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QPushButton" name="continue_button">
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
     background-color: transparent;
     border: 1px solid transparent;
     color: #FFFFFF; /* Couleur du texte */
@@ -170,73 +158,13 @@ QPushButton:pressed {
 }
 
 </string>
-      </property>
-      <property name="text">
-       <string>Continue</string>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="seg_box">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>330</x>
-        <y>170</y>
-        <width>31</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>131</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QCheckBox::indicator {
-    width: 23px;
-    height: 23px;
-}</string>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="checkable">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="img_box">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>330</x>
-        <y>140</y>
-        <width>31</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>131</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QCheckBox::indicator {
-    width: 23px;
-    height: 23px;
-}</string>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="checkable">
-       <bool>true</bool>
-      </property>
-     </widget>
+        </property>
+        <property name="text">
+         <string>Continue</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
   </layout>

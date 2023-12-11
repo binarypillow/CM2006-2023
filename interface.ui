@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>792</width>
+    <width>992</width>
     <height>516</height>
    </rect>
   </property>
@@ -196,36 +196,35 @@ QSlider::sub-page:horizontal {
          </widget>
         </item>
         <item>
-         <widget class="QToolButton" name="glass_button">
-          <property name="enabled">
-           <bool>true</bool>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>16777215</height>
-           </size>
-          </property>
+         <widget class="QCheckBox" name="glass_button">
           <property name="styleSheet">
-           <string notr="true">QToolButton {
-	border-radius: 15px;
-    background-color: transparent;
-    border: 1px solid transparent;
+           <string notr="true">QCheckBox {
     color: #FFFFFF; /* Couleur du texte */
+	font: 15pt &quot;Ubuntu&quot;;
 }
 
-QToolButton:hover {
-    background-color: rgba(0, 0, 0, 0.2); /* Couleur de fond lorsqu'il est survolé */
-}</string>
+QCheckBox::indicator {
+	border-radius: 10px;
+	padding: 1.5px;
+    background-color: rgba(255, 255, 255, 1); /* Couleur de fond de la case à cocher */
+    border: 1px solid #FFFFFF; /* Couleur de la bordure de la case à cocher */
+    width: 15px; /* Largeur de la case à cocher */
+    height: 15px; /* Hauteur de la case à cocher */
+}
+
+QCheckBox::indicator:hover {
+    background-color: rgba(0, 0, 0, 0.2); /* Couleur de fond de la case à cocher lorsqu'elle est survolée */
+}
+
+QCheckBox::indicator:checked {
+    background-color: rgba(0, 255, 0, 0.4); /* Couleur de fond de la case à cocher lorsqu'elle est cochée */
+    border-color: #FFFFFF;
+}
+
+</string>
           </property>
           <property name="text">
-           <string>...</string>
+           <string/>
           </property>
           <property name="icon">
            <iconset>
@@ -233,8 +232,8 @@ QToolButton:hover {
           </property>
           <property name="iconSize">
            <size>
-            <width>35</width>
-            <height>35</height>
+            <width>34</width>
+            <height>34</height>
            </size>
           </property>
          </widget>
@@ -274,7 +273,7 @@ QCheckBox::indicator:checked {
         </property>
        </widget>
       </item>
-      <item alignment="Qt::AlignLeft">
+      <item>
        <widget class="QCheckBox" name="label_button">
         <property name="styleSheet">
          <string notr="true">QCheckBox {
@@ -304,6 +303,39 @@ QCheckBox::indicator:checked {
         </property>
         <property name="text">
          <string>Label</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="stereo_button">
+        <property name="styleSheet">
+         <string notr="true">QCheckBox {
+    color: #FFFFFF; /* Couleur du texte */
+	font: 15pt &quot;Ubuntu&quot;;
+}
+
+QCheckBox::indicator {
+	border-radius: 10px;
+	padding: 1.5px;
+    background-color: rgba(255, 255, 255, 1); /* Couleur de fond de la case à cocher */
+    border: 1px solid #FFFFFF; /* Couleur de la bordure de la case à cocher */
+    width: 15px; /* Largeur de la case à cocher */
+    height: 15px; /* Hauteur de la case à cocher */
+}
+
+QCheckBox::indicator:hover {
+    background-color: rgba(0, 0, 0, 0.2); /* Couleur de fond de la case à cocher lorsqu'elle est survolée */
+}
+
+QCheckBox::indicator:checked {
+    background-color: rgba(0, 255, 0, 0.4); /* Couleur de fond de la case à cocher lorsqu'elle est cochée */
+    border-color: #FFFFFF;
+}
+
+</string>
+        </property>
+        <property name="text">
+         <string>Stereo rendering</string>
         </property>
        </widget>
       </item>
@@ -359,7 +391,7 @@ QToolButton:pressed {
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>792</width>
+     <width>992</width>
      <height>21</height>
     </rect>
    </property>
