@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>992</width>
+    <width>1017</width>
     <height>516</height>
    </rect>
   </property>
@@ -307,9 +307,11 @@ QCheckBox::indicator:checked {
        </widget>
       </item>
       <item>
-       <widget class="QCheckBox" name="stereo_button">
-        <property name="styleSheet">
-         <string notr="true">QCheckBox {
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QCheckBox" name="stereo_button">
+          <property name="styleSheet">
+           <string notr="true">QCheckBox {
     color: #FFFFFF; /* Couleur du texte */
 	font: 15pt &quot;Ubuntu&quot;;
 }
@@ -333,11 +335,48 @@ QCheckBox::indicator:checked {
 }
 
 </string>
-        </property>
-        <property name="text">
-         <string>Stereo rendering</string>
-        </property>
-       </widget>
+          </property>
+          <property name="text">
+           <string>Stereo rendering</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="stereo_param_button">
+          <property name="styleSheet">
+           <string notr="true">QToolButton {
+	font: 15pt &quot;Ubuntu&quot;;
+    background-color: transparent;
+    border: 1px solid transparent;
+    color: #FFFFFF; /* Couleur du texte */
+	border-radius: 10px;
+	padding: 1.5px;
+}
+
+QToolButton:hover {
+    background-color: rgba(0, 0, 0, 0.2); /* Couleur de fond lorsqu'il est survolé */
+}
+
+QToolButton:pressed {
+    background-color: rgba(0, 0, 0, 0.4); /* Couleur de fond lorsqu'il est cliqué */
+}</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>stereo.png</normaloff>stereo.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>30</width>
+            <height>30</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
       <item>
        <widget class="QToolButton" name="ruler_button">
@@ -391,7 +430,7 @@ QToolButton:pressed {
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>992</width>
+     <width>1017</width>
      <height>21</height>
     </rect>
    </property>

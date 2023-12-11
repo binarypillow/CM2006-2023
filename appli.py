@@ -12,6 +12,38 @@ global nb_organs
 nb_organs = 4
 
 
+class StereoParam(QtWidgets.QDialog):
+    # Signal sent to the first window with the values of IPD and angle
+    values = QtCore.pyqtSignal(float, float)
+
+    def __init__(self):
+        super(StereoParam, self).__init__()
+        self.setWindowTitle('Stereo parameters')
+        uic.loadUi('stereo.ui', self)
+
+        self.ipd_line_edit.textChanged.connect(self.updateOKButtonVisibility)
+        self.angle_line_edit.textChanged.connect(self.updateOKButtonVisibility)
+        self.ok_button.setVisible(False)
+        self.ok_button.clicked.connect(self.sendValues)
+
+    def updateOKButtonVisibility(self):
+        # Check if the two LineEdits contain numbers
+        ipd_text = self.ipd_line_edit.text()
+        angle_text = self.angle_line_edit.text()
+
+        try:
+            ipd_value = float(ipd_text)
+            angle_value = float(angle_text)
+            self.ok_button.setVisible(True)
+        except ValueError:
+            self.ok_button.setVisible(False)
+
+    def sendValues(self):
+        ipd_text = self.ipd_line_edit.text()
+        angle_text = self.angle_line_edit.text()
+        self.values.emit(float(ipd_text), float(angle_text))
+
+
 class WelcomeWindow(QtWidgets.QDialog):
 
     def __init__(self):
@@ -131,7 +163,6 @@ class SecondWindow(QtWidgets.QMainWindow):
         self.vtk_widget.GetRenderWindow().GetStereoCapableWindow()
         self.vtk_widget.GetRenderWindow().StereoCapableWindowOn()
 
-
         # Set up the camera and start the interactor
         self.renderer.ResetCamera()
 
@@ -143,11 +174,14 @@ class SecondWindow(QtWidgets.QMainWindow):
         ##############################################################################################
         # INTERACTIONS AND BUTTONS
 
-        # Volume rendering button is hidden
+        # Window for stereo parameters
+        self.stereo_window = StereoParam()
+
+        # Volume rendering button and stereo parameters are hidden
         self.volume_button.setVisible(False)
+        self.stereo_param_button.setVisible(False)
 
         # Change the actor from surface to volume if volume button is checked
-        self.volume_button.setCheckable(True)
         self.volume_button.setChecked(False)  # initial state : unchecked
         self.volume_button.clicked.connect(self.onVolumeButtonClicked)
 
@@ -165,15 +199,30 @@ class SecondWindow(QtWidgets.QMainWindow):
         # Change the organ view and volume rendering if user changes the specified organ
         self.comboBox.currentIndexChanged.connect(self.onComboBoxChanged)
 
+        # Display stereo if clicked. Display a parameter button to adjust stereo parameters
         self.stereo_button.clicked.connect(self.onStereoClicked)
+
+        # Choose stereo parameters. It oppens a new dialog window
+        self.stereo_param_button.clicked.connect(self.onStereoParamClicked)
+
+    def onStereoParamClicked(self):
+        self.stereo_window.values.connect(self.setStereoValues)
+        self.stereo_window.show()
+
+    def setStereoValues(self, ipd, angle):
+        # How do we change the parameters ? Which parameters ?
+        print(ipd, angle)
 
     def onStereoClicked(self):
         if self.stereo_button.isChecked():
             self.vtk_widget.GetRenderWindow().SetStereoTypeToInterlaced()
             self.vtk_widget.GetRenderWindow().StereoRenderOn()
+            # Choose stereo parameters
+            self.stereo_param_button.setVisible(True)
 
         else:
             self.vtk_widget.GetRenderWindow().StereoRenderOff()
+            self.stereo_param_button.setVisible(False)
 
         # Update window
         self.vtk_widget.GetRenderWindow().Render()
@@ -346,14 +395,14 @@ class SecondWindow(QtWidgets.QMainWindow):
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
 
-    welcome = WelcomeWindow()
-    welcome.show()
+    # welcome = WelcomeWindow()
+    # welcome.show()
 
     # Use this to display only the second window
     img_path = "data/images/FLARE22_Tr_0001_0000.nii.gz"
     label_path = "data/labels/FLARE22_Tr_0001.nii.gz"
 
-    #main_window = SecondWindow(img_path, label_path)
-    #main_window.show()
+    main_window = SecondWindow(img_path, label_path)
+    main_window.show()
 
     sys.exit(app.exec_())
