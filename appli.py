@@ -9,7 +9,7 @@ from vtkmodules.util.numpy_support import numpy_to_vtk
 
 # Visualize less organs instead of 13, so it is faster
 global nb_organs
-nb_organs = 4
+nb_organs = 5
 
 
 class StereoParam(QtWidgets.QDialog):
@@ -49,6 +49,7 @@ class WelcomeWindow(QtWidgets.QDialog):
     def __init__(self):
         super(WelcomeWindow, self).__init__()
         uic.loadUi('welcome.ui', self)
+        self.setWindowTitle('File choice')
         self.continue_button.setVisible(False)
         self.img_button.clicked.connect(self.select_image_file)
         self.seg_button.clicked.connect(self.select_segmentation_file)
@@ -135,6 +136,7 @@ class SecondWindow(QtWidgets.QMainWindow):
         super(SecondWindow, self).__init__()
         uic.loadUi('interface.ui', self)
 
+        self.setWindowTitle('Visualization application')
         self.vtk_widget = QVTKRenderWindowInteractor(self.frame)
         self.image_layout.addWidget(self.vtk_widget)
 
@@ -166,6 +168,10 @@ class SecondWindow(QtWidgets.QMainWindow):
         # Set up the camera and start the interactor
         self.renderer.ResetCamera()
 
+        # Initial position of the camera
+        self.renderer.GetActiveCamera().SetPosition(-0.68699, -371.3468, 61.26843)
+        self.renderer.GetActiveCamera().Roll(110)
+
         # Set interactor, initialize and start
         self.interactor = self.vtk_widget.GetRenderWindow().GetInteractor()
         self.interactor.Initialize()
@@ -173,6 +179,9 @@ class SecondWindow(QtWidgets.QMainWindow):
 
         ##############################################################################################
         # INTERACTIONS AND BUTTONS
+
+        # Know the position of the camera each right click : just for us, to better place the camera
+        self.interactor.AddObserver('RightButtonPressEvent', self.get_camera_position)
 
         # Window for stereo parameters
         self.stereo_window = StereoParam()
@@ -205,13 +214,21 @@ class SecondWindow(QtWidgets.QMainWindow):
         # Choose stereo parameters. It oppens a new dialog window
         self.stereo_param_button.clicked.connect(self.onStereoParamClicked)
 
-    def onStereoParamClicked(self):
-        self.stereo_window.values.connect(self.setStereoValues)
-        self.stereo_window.show()
+
+    def get_camera_position(self,obj, event):
+        # Get the position of the camera at right click mouse to make adjustments for focus mode
+        position = self.renderer.GetActiveCamera().GetPosition()
+        angle = self.renderer.GetActiveCamera().GetRoll()
+        print("Camera's position :", position)
+        print("Camera's Roll :", angle)
 
     def setStereoValues(self, ipd, angle):
         # How do we change the parameters ? Which parameters ?
         print(ipd, angle)
+
+    def onStereoParamClicked(self):
+        self.stereo_window.values.connect(self.setStereoValues)
+        self.stereo_window.show()
 
     def onStereoClicked(self):
         if self.stereo_button.isChecked():
