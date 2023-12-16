@@ -197,6 +197,9 @@ QSlider::sub-page:horizontal {
         </item>
         <item>
          <widget class="QCheckBox" name="glass_button">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
           <property name="styleSheet">
            <string notr="true">QCheckBox {
     color: #FFFFFF; /* Couleur du texte */
@@ -228,13 +231,7 @@ QCheckBox::indicator:checked {
           </property>
           <property name="icon">
            <iconset>
-            <normaloff>glass.png</normaloff>glass.png</iconset>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>34</width>
-            <height>34</height>
-           </size>
+            <normaloff>../resources/icons/interface/magnifying-glass.svg</normaloff>../resources/icons/interface/magnifying-glass.svg</iconset>
           </property>
          </widget>
         </item>
@@ -366,7 +363,7 @@ QToolButton:pressed {
           </property>
           <property name="icon">
            <iconset>
-            <normaloff>stereo.png</normaloff>stereo.png</iconset>
+            <normaloff>../resources/icons/interface/gear.svg</normaloff>../resources/icons/interface/gear.svg</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -431,7 +428,7 @@ QToolButton:pressed {
      <x>0</x>
      <y>0</y>
      <width>1017</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
