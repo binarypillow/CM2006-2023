@@ -9,11 +9,6 @@ from app.ui import main_interface
 from app.utils import get_index_from_key, get_abs_path
 
 
-def setStereoValues(ipd, angle):
-    # How do we change the parameters? Which parameters?
-    print(ipd, angle)
-
-
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self, path_img, path_label, checked_labels):
         self.checked_labels = checked_labels
@@ -107,8 +102,9 @@ class MainWindow(QtWidgets.QMainWindow):
         # Know the position of the camera each right-click: just for us, to better place the camera
         self.interactor.AddObserver("RightButtonPressEvent", self.get_camera_position)
 
+        self.current_ipd = self.renderer.GetActiveCamera().GetEyeAngle()
         # Window for stereo parameters
-        self.stereo_window = StereoParam()
+        self.stereo_window = StereoParam(self.current_ipd)
 
         # Change the actor from surface to volume if the volume button is checked
         self.ui.volume_button.setChecked(False)  # initial state : unchecked
@@ -166,8 +162,21 @@ class MainWindow(QtWidgets.QMainWindow):
         Returns:
             None
         """
-        self.stereo_window.values.connect(setStereoValues)
+
+        # Pass the current eye angle
+        self.stereo_window.value.connect(self.setStereoValues)
+        self.stereo_window.setModal(True)  # Make the dialog modal
         self.stereo_window.show()
+
+    def setStereoValues(self, ipd):
+        # Get the active camera from the renderer
+        camera = self.renderer.GetActiveCamera()
+
+        # Set the inter-pupillary distance (IPD) in degree
+        camera.SetEyeAngle(ipd)
+        self.current_ipd = ipd
+        # Update the window to apply the changes
+        self.vtk_widget.GetRenderWindow().Render()
 
     def onColorButtonClicked(self):
         """
@@ -245,7 +254,7 @@ class MainWindow(QtWidgets.QMainWindow):
             None
         """
         if self.ui.stereo_button.isChecked():
-            self.vtk_widget.GetRenderWindow().SetStereoTypeToInterlaced()
+            self.vtk_widget.GetRenderWindow().SetStereoTypeToCrystalEyes()
             self.vtk_widget.GetRenderWindow().StereoRenderOn()
             # Choose stereo parameters
             self.ui.stereo_param_button.setDisabled(False)

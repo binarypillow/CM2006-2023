@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>353</width>
-    <height>167</height>
+    <width>337</width>
+    <height>136</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -38,7 +38,7 @@
            <string notr="true"/>
           </property>
           <property name="text">
-           <string>Interpupillary distance (mm)</string>
+           <string>Interpupillary distance (degree)</string>
           </property>
          </widget>
         </item>
@@ -57,46 +57,6 @@
         </item>
         <item alignment="Qt::AlignRight">
          <widget class="QLineEdit" name="ipd_line_edit">
-          <property name="maximumSize">
-           <size>
-            <width>114</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
-        <item>
-         <widget class="QLabel" name="angle_label">
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-          <property name="text">
-           <string>Stereo angle</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item alignment="Qt::AlignRight">
-         <widget class="QLineEdit" name="angle_line_edit">
           <property name="maximumSize">
            <size>
             <width>114</width>
@@ -146,7 +106,7 @@
          </spacer>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton">
+         <widget class="QPushButton" name="cancel_button">
           <property name="text">
            <string>Cancel</string>
           </property>
@@ -154,6 +114,9 @@
         </item>
         <item>
          <widget class="QPushButton" name="ok_button">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
           <property name="styleSheet">
            <string notr="true"/>
           </property>
