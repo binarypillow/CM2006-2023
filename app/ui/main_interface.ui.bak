@@ -43,7 +43,7 @@
       <item>
        <widget class="QLabel" name="label">
         <property name="text">
-         <string>Hello world!</string>
+         <string>TextLabel</string>
         </property>
        </widget>
       </item>
@@ -71,7 +71,7 @@
              </property>
             </widget>
            </item>
-           <item>
+           <item alignment="Qt::AlignRight">
             <widget class="QRadioButton" name="glass_button">
              <property name="enabled">
               <bool>true</bool>
@@ -98,27 +98,10 @@
          </item>
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_4">
-           <item>
-            <widget class="QLabel" name="label_2">
-             <property name="text">
-              <string>Color</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QToolButton" name="color_button">
-             <property name="enabled">
-              <bool>true</bool>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item>
+           <item alignment="Qt::AlignLeft">
             <widget class="QLabel" name="op_text">
              <property name="text">
-              <string>Opacity</string>
+              <string>Change opacity</string>
              </property>
             </widget>
            </item>
@@ -163,6 +146,40 @@
           </layout>
          </item>
          <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_5">
+           <item>
+            <widget class="QPushButton" name="color_button">
+             <property name="text">
+              <string>Change color</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QToolButton" name="active_color">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
+         <item>
           <layout class="QVBoxLayout" name="verticalLayout">
            <item>
             <widget class="QCheckBox" name="volume_button">
@@ -178,7 +195,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QFrame" name="frame">
+            <widget class="QFrame" name="func_frame">
              <property name="frameShape">
               <enum>QFrame::StyledPanel</enum>
              </property>
@@ -466,6 +483,8 @@
   <tabstop>treeWidget</tabstop>
   <tabstop>stereo_button</tabstop>
   <tabstop>stereo_param_button</tabstop>
+  <tabstop>color_button</tabstop>
+  <tabstop>active_color</tabstop>
  </tabstops>
  <resources/>
  <connections/>

@@ -1,4 +1,5 @@
 from PyQt6 import QtWidgets
+from PyQt6.QtWidgets import QColorDialog
 import vtk
 from vtkmodules.qt.QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
 import nibabel as nib
@@ -49,8 +50,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.setupUi(self)
 
         self.setWindowTitle("Visualization application")
-        self.vtk_widget = QVTKRenderWindowInteractor(self.ui.frame)
-        self.ui.image_layout.addWidget(self.vtk_widget)
+        self.vtk_widget = QVTKRenderWindowInteractor(self.ui.render_frame)
+        self.ui.vtk_frame.addWidget(self.vtk_widget)
 
         # Create a list of volume actors: each element in the list is an actor for one organ
         self.segmented_volume_actors = self.createSegmentedVolumeActors()
@@ -98,6 +99,11 @@ class MainWindow(QtWidgets.QMainWindow):
         ##############################################################################################
         # INTERACTIONS AND BUTTONS
 
+        # Initialize color
+        self.ui.color_button.setStyleSheet(
+            f"border: 0px; background-color: rgb{tuple(int(c * 255) for c in self.colors[0])}"
+        )
+
         # Know the position of the camera each right-click: just for us, to better place the camera
         self.interactor.AddObserver("RightButtonPressEvent", self.get_camera_position)
 
@@ -113,7 +119,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.volume_button.clicked.connect(self.onVolumeButtonClicked)
 
         # Slide for opacity change
-        self.ui.slider.valueChanged.connect(self.onOpacityChanged)
+        self.ui.op_slider.valueChanged.connect(self.onOpacityChanged)
 
         # Create the slider list
         for organ in self.checked_labels:
@@ -121,6 +127,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # Change the view and show volume rendering if the glass button is clicked
         self.ui.glass_button.clicked.connect(self.onGlassButtonClicked)
+        self.ui.color_button.clicked.connect(self.open_color_picker)
 
         # Change the organ view and volume rendering if user changes the specified organ
         self.ui.comboBox.currentIndexChanged.connect(self.onComboBoxChanged)
@@ -166,6 +173,28 @@ class MainWindow(QtWidgets.QMainWindow):
         self.stereo_window.values.connect(setStereoValues)
         self.stereo_window.show()
 
+    def open_color_picker(self):
+        """
+        Opens a color picker and sets the color of the selected actor based on the chosen color.
+
+        Returns:
+            None
+        """
+        color_dialog = QColorDialog(self)
+        chosen_color = color_dialog.getColor()
+
+        if chosen_color.isValid():
+            selected_index = self.ui.comboBox.currentIndex()
+            selected_actor = self.segmented_actors[selected_index]
+            rgb = chosen_color.redF(), chosen_color.greenF(), chosen_color.blueF()
+            if isinstance(selected_actor, vtk.vtkActor):
+                selected_actor.GetProperty().SetColor(rgb)
+                self.vtk_widget.GetRenderWindow().Render()
+            self.ui.color_button.setStyleSheet(
+                f"border: 0px; background-color: rgb{tuple(int(c * 255) for c in rgb)}"
+            )
+            self.colors[selected_index] = rgb
+
     def onStereoClicked(self):
         """
         Handles the click event of the stereo button.
@@ -210,7 +239,13 @@ class MainWindow(QtWidgets.QMainWindow):
         # If the actor is a surface, we must adjust the position of the slider with its opacity
         if isinstance(selected_actor, vtk.vtkActor):
             opacity = selected_actor.GetProperty().GetOpacity()
-            self.ui.slider.setValue(int(opacity * 100))
+            self.ui.op_slider.setValue(int(opacity * 100))
+
+        # Update the active color widget with the color of the selected organ
+        rgb = tuple(
+            int(c * 255) for c in self.colors[selected_index % len(self.colors)]
+        )
+        self.ui.color_button.setStyleSheet(f"border: 0px; background-color: rgb{rgb};")
 
         self.onGlassButtonClicked()
         self.onVolumeButtonClicked()
@@ -282,12 +317,12 @@ class MainWindow(QtWidgets.QMainWindow):
                 selected_index
             ]
             # We cannot adjust opacity for a volume
-            self.ui.slider.setVisible(False)
+            self.ui.op_slider.setVisible(False)
 
         else:
             # If the button is unchecked: launch surface rendering
             self.segmented_actors = list(self.segmented_surface_actors)
-            self.ui.slider.setVisible(True)
+            self.ui.op_slider.setVisible(True)
 
         # Delete existing actor of the renderer
         self.renderer.RemoveAllViewProps()
@@ -367,7 +402,7 @@ class MainWindow(QtWidgets.QMainWindow):
             # surface_actor.GetProperty().SetSpecularColor(1.0, 0.0, 0.0)  # Couleur specular rouge (R, G, B)
             # surface_actor.GetProperty().SetColor(1.0, 0.0, 0.0)  # Red (R, G, B)
 
-            # By default : one color per organ
+            # By default: one color per organ
             color = self.colors[organ % len(self.colors)]
             surface_actor.GetProperty().SetColor(color)
 
