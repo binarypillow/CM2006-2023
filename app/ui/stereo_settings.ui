@@ -6,28 +6,25 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>517</width>
-    <height>309</height>
+    <width>353</width>
+    <height>167</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
     <widget class="QWidget" name="widget" native="true">
      <property name="styleSheet">
-      <string notr="true">QWidget#widget {
-    background-color: qlineargradient(spread:reflect, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(34, 148, 157, 255), stop:0.890052 rgba(255, 177, 177, 255));
-}</string>
+      <string notr="true"/>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
-      <item alignment="Qt::AlignHCenter">
-       <widget class="QLabel" name="stereo_param_label">
-        <property name="styleSheet">
-         <string notr="true">color: rgb(255, 255, 255);
-font: 18pt &quot;Ubuntu&quot;;</string>
-        </property>
+      <item>
+       <widget class="QLabel" name="label">
         <property name="text">
          <string>Stereo parameters</string>
         </property>
@@ -38,8 +35,7 @@ font: 18pt &quot;Ubuntu&quot;;</string>
         <item>
          <widget class="QLabel" name="ipd_label">
           <property name="styleSheet">
-           <string notr="true">color: rgb(255, 255, 255);
-font: 15pt &quot;Ubuntu&quot;;</string>
+           <string notr="true"/>
           </property>
           <property name="text">
            <string>Interpupillary distance (mm)</string>
@@ -47,20 +43,28 @@ font: 15pt &quot;Ubuntu&quot;;</string>
          </widget>
         </item>
         <item>
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item alignment="Qt::AlignRight">
          <widget class="QLineEdit" name="ipd_line_edit">
+          <property name="maximumSize">
+           <size>
+            <width>114</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="styleSheet">
-           <string notr="true">QLineEdit {
-    color: rgba(0, 25, 12, 0.7); /* Couleur du texte */
-    font: 15pt &quot;Ubuntu&quot;;
-    padding: 5px; /* Ajustement de la marge intérieure */
-    border: 1px solid rgba(0, 25, 12, 0.4); /* Couleur de la bordure */
-    border-radius: 5px; /* Arrondi des coins */
-    background-color: transparent; /* Couleur de fond */
-    selection-background-color: rgba(34, 148, 157, 1); /* Couleur de fond de la sélection */
-
-	padding-top: 1px; /* Ajustez la marge supérieure pour centrer verticalement le texte */
-    padding-bottom: 1px;
-}</string>
+           <string notr="true"/>
           </property>
          </widget>
         </item>
@@ -71,8 +75,7 @@ font: 15pt &quot;Ubuntu&quot;;</string>
         <item>
          <widget class="QLabel" name="angle_label">
           <property name="styleSheet">
-           <string notr="true">color: rgb(255, 255, 255);
-font: 15pt &quot;Ubuntu&quot;;</string>
+           <string notr="true"/>
           </property>
           <property name="text">
            <string>Stereo angle</string>
@@ -80,48 +83,86 @@ font: 15pt &quot;Ubuntu&quot;;</string>
          </widget>
         </item>
         <item>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item alignment="Qt::AlignRight">
          <widget class="QLineEdit" name="angle_line_edit">
+          <property name="maximumSize">
+           <size>
+            <width>114</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="styleSheet">
-           <string notr="true">QLineEdit {
-    color: rgba(0, 25, 12, 0.7); /* Couleur du texte */
-    font: 15pt &quot;Ubuntu&quot;;
-    padding: 5px; /* Ajustement de la marge intérieure */
-    border: 1px solid rgba(0, 25, 12, 0.4); /* Couleur de la bordure */
-    border-radius: 5px; /* Arrondi des coins */
-    background-color: transparent; /* Couleur de fond */
-    selection-background-color: rgba(34, 148, 157, 1); /* Couleur de fond de la sélection */
-
-	padding-top: 1px; /* Ajustez la marge supérieure pour centrer verticalement le texte */
-    padding-bottom: 1px;
-}</string>
+           <string notr="true"/>
           </property>
          </widget>
         </item>
        </layout>
       </item>
       <item>
-       <widget class="QPushButton" name="ok_button">
-        <property name="styleSheet">
-         <string notr="true">QPushButton {
-    background-color: transparent;
-    border: 1px solid transparent;
-    color: #FFFFFF; /* Couleur du texte */
-}
-
-QPushButton:hover {
-    background-color: rgba(0, 0, 0, 0.2); /* Couleur de fond lorsqu'il est survolé */
-}
-
-QPushButton:pressed {
-    background-color: rgba(0, 0, 0, 0.4); /* Couleur de fond lorsqu'il est cliqué */
-}
-
-</string>
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
         </property>
-        <property name="text">
-         <string>OK</string>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="Line" name="line">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
         </property>
        </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <item>
+         <spacer name="horizontalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton">
+          <property name="text">
+           <string>Cancel</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="ok_button">
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="text">
+           <string>Confirm</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
      </layout>
     </widget>

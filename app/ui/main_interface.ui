@@ -13,12 +13,14 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QToolButton {
+	background-color: transparent;
+}</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <property name="styleSheet">
-    <string notr="true">QWidget#centralwidget {
-    background-color: qlineargradient(spread:reflect, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(34, 148, 157, 255), stop:0.890052 rgba(255, 177, 177, 255));
-}
-</string>
+    <string notr="true"/>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
@@ -27,127 +29,85 @@
        <number>5</number>
       </property>
       <property name="leftMargin">
-       <number>20</number>
+       <number>10</number>
+      </property>
+      <property name="topMargin">
+       <number>10</number>
       </property>
       <property name="rightMargin">
-       <number>20</number>
+       <number>10</number>
+      </property>
+      <property name="bottomMargin">
+       <number>5</number>
       </property>
       <item>
-       <layout class="QHBoxLayout" name="organ_layout">
-        <property name="spacing">
-         <number>40</number>
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>TextLabel</string>
         </property>
-        <property name="leftMargin">
-         <number>0</number>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="groupBox">
+        <property name="title">
+         <string>Select organ</string>
         </property>
-        <property name="rightMargin">
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <widget class="QComboBox" name="comboBox">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="glass_button">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
+           <property name="text">
+            <string>Focus</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>../resources/icons/interface/search.svg</normaloff>../resources/icons/interface/search.svg</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>18</width>
+             <height>18</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <property name="bottomMargin">
          <number>0</number>
         </property>
         <item>
-         <widget class="QComboBox" name="comboBox">
-          <property name="enabled">
-           <bool>true</bool>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>16777215</height>
-           </size>
-          </property>
+         <widget class="QCheckBox" name="volume_button">
           <property name="styleSheet">
-           <string notr="true">QComboBox {
-    color: #FFFFFF; /* Couleur du texte */
-    font: 15pt &quot;Ubuntu&quot;;
-    padding: 5px; /* Ajustement de la marge intérieure */
-    border: 1px solid rgba(0, 25, 12, 0.4); /* Couleur de la bordure */
-    border-radius: 5px; /* Arrondi des coins */
-    background-color: transparent; /* Couleur de fond */
-    selection-background-color: rgba(34, 148, 157, 1); /* Couleur de fond de la sélection */
-
-	padding-top: 1px; /* Ajustez la marge supérieure pour centrer verticalement le texte */
-    padding-bottom: 1px;
-}
-
-QComboBox:hover {
-    border-color: #FFFFFF; /* Couleur de la bordure lorsque survolé */
-}
-
-QComboBox::drop-down {
-    border: none; /* Suppression de la flèche de liste déroulante par défaut */
-}
-
-
-QComboBox QAbstractItemView {
-    border: 2px solid darkgray; /* Bordure de la liste déroulante */
-    background-color:rgba(69, 154, 160, 0.7); 
-    selection-background-color: rgba(34, 148, 157, 1); /* Couleur de fond de la sélection */
-}</string>
+           <string notr="true"/>
           </property>
-          <item>
-           <property name="text">
-            <string>Liver</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Right kidney</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Spleen</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Pancreas</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Aorta</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Inferior vena cava</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Right adrenal gland</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Left adrenal gland</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Gallbladder</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Esophagus</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Stomach</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Duodenum</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Left kidney</string>
-           </property>
-          </item>
+          <property name="text">
+           <string>Volume rendering</string>
+          </property>
          </widget>
         </item>
         <item>
@@ -165,27 +125,7 @@ QComboBox QAbstractItemView {
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">QSlider::groove:horizontal {
-    border: 1px solid #999999;
-    height: 8px; /* the groove expands to the size of the slider by default. by giving it a height, it has a fixed size */
-    background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #B1B1B1, stop:1 #c4c4c4);
-    margin: 2px 0;
-}
-
-QSlider::handle:horizontal {
-    background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #b4b4b4, stop:1 #8f8f8f);
-    border: 1px solid #5c5c5c;
-    width: 18px;
-    margin: -2px 0; /* handle is placed by default on the contents rect of the groove. Expand outside the groove */
-    border-radius: 3px;
-}
-
-QSlider::sub-page:horizontal {
-    border: 1px solid #999999;
-    height: 8px; /* the groove expands to the size of the slider by default. by giving it a height, it has a fixed size */
-    background: rgba(0, 25, 12, 0.4);
-    margin: 2px 0;
-}</string>
+           <string notr="true"/>
           </property>
           <property name="sliderPosition">
            <number>99</number>
@@ -196,207 +136,110 @@ QSlider::sub-page:horizontal {
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="glass_button">
-          <property name="enabled">
-           <bool>true</bool>
+         <widget class="QFrame" name="render_util">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
           </property>
-          <property name="styleSheet">
-           <string notr="true">QCheckBox {
-    color: #FFFFFF; /* Couleur du texte */
-	font: 15pt &quot;Ubuntu&quot;;
-}
-
-QCheckBox::indicator {
-	border-radius: 10px;
-	padding: 1.5px;
-    background-color: rgba(255, 255, 255, 1); /* Couleur de fond de la case à cocher */
-    border: 1px solid #FFFFFF; /* Couleur de la bordure de la case à cocher */
-    width: 15px; /* Largeur de la case à cocher */
-    height: 15px; /* Hauteur de la case à cocher */
-}
-
-QCheckBox::indicator:hover {
-    background-color: rgba(0, 0, 0, 0.2); /* Couleur de fond de la case à cocher lorsqu'elle est survolée */
-}
-
-QCheckBox::indicator:checked {
-    background-color: rgba(0, 255, 0, 0.4); /* Couleur de fond de la case à cocher lorsqu'elle est cochée */
-    border-color: #FFFFFF;
-}
-
-</string>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="icon">
-           <iconset>
-            <normaloff>../resources/icons/interface/magnifying-glass.svg</normaloff>../resources/icons/interface/magnifying-glass.svg</iconset>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
           </property>
          </widget>
         </item>
        </layout>
       </item>
-      <item alignment="Qt::AlignLeft">
-       <widget class="QCheckBox" name="volume_button">
-        <property name="styleSheet">
-         <string notr="true">QCheckBox {
-    color: #FFFFFF; /* Couleur du texte */
-	font: 15pt &quot;Ubuntu&quot;;
-}
-
-QCheckBox::indicator {
-	border-radius: 10px;
-	padding: 1.5px;
-    background-color: rgba(255, 255, 255, 1); /* Couleur de fond de la case à cocher */
-    border: 1px solid #FFFFFF; /* Couleur de la bordure de la case à cocher */
-    width: 15px; /* Largeur de la case à cocher */
-    height: 15px; /* Hauteur de la case à cocher */
-}
-
-QCheckBox::indicator:hover {
-    background-color: rgba(0, 0, 0, 0.2); /* Couleur de fond de la case à cocher lorsqu'elle est survolée */
-}
-
-QCheckBox::indicator:checked {
-    background-color: rgba(0, 255, 0, 0.4); /* Couleur de fond de la case à cocher lorsqu'elle est cochée */
-    border-color: #FFFFFF;
-}
-
-</string>
+      <item>
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
         </property>
-        <property name="text">
-         <string>Volume rendering</string>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
         </property>
-       </widget>
+       </spacer>
       </item>
       <item>
-       <widget class="QCheckBox" name="label_button">
-        <property name="styleSheet">
-         <string notr="true">QCheckBox {
-    color: #FFFFFF; /* Couleur du texte */
-	font: 15pt &quot;Ubuntu&quot;;
-}
-
-QCheckBox::indicator {
-	border-radius: 10px;
-	padding: 1.5px;
-    background-color: rgba(255, 255, 255, 1); /* Couleur de fond de la case à cocher */
-    border: 1px solid #FFFFFF; /* Couleur de la bordure de la case à cocher */
-    width: 15px; /* Largeur de la case à cocher */
-    height: 15px; /* Hauteur de la case à cocher */
-}
-
-QCheckBox::indicator:hover {
-    background-color: rgba(0, 0, 0, 0.2); /* Couleur de fond de la case à cocher lorsqu'elle est survolée */
-}
-
-QCheckBox::indicator:checked {
-    background-color: rgba(0, 255, 0, 0.4); /* Couleur de fond de la case à cocher lorsqu'elle est cochée */
-    border-color: #FFFFFF;
-}
-
-</string>
+       <widget class="QGroupBox" name="groupBox_2">
+        <property name="title">
+         <string>Rulers</string>
         </property>
-        <property name="text">
-         <string>Label</string>
-        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <property name="sizeConstraint">
+          <enum>QLayout::SetDefaultConstraint</enum>
+         </property>
+         <property name="rightMargin">
+          <number>10</number>
+         </property>
+         <item>
+          <widget class="QToolButton" name="ruler_button">
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
+           <property name="text">
+            <string>Add new ruler</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QTreeWidget" name="treeWidget">
+           <column>
+            <property name="text">
+             <string notr="true">1</string>
+            </property>
+           </column>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
-        <item>
+        <item alignment="Qt::AlignVCenter">
          <widget class="QCheckBox" name="stereo_button">
           <property name="styleSheet">
-           <string notr="true">QCheckBox {
-    color: #FFFFFF; /* Couleur du texte */
-	font: 15pt &quot;Ubuntu&quot;;
-}
-
-QCheckBox::indicator {
-	border-radius: 10px;
-	padding: 1.5px;
-    background-color: rgba(255, 255, 255, 1); /* Couleur de fond de la case à cocher */
-    border: 1px solid #FFFFFF; /* Couleur de la bordure de la case à cocher */
-    width: 15px; /* Largeur de la case à cocher */
-    height: 15px; /* Hauteur de la case à cocher */
-}
-
-QCheckBox::indicator:hover {
-    background-color: rgba(0, 0, 0, 0.2); /* Couleur de fond de la case à cocher lorsqu'elle est survolée */
-}
-
-QCheckBox::indicator:checked {
-    background-color: rgba(0, 255, 0, 0.4); /* Couleur de fond de la case à cocher lorsqu'elle est cochée */
-    border-color: #FFFFFF;
-}
-
-</string>
+           <string notr="true"/>
           </property>
           <property name="text">
-           <string>Stereo rendering</string>
+           <string>Enable stereo rendering</string>
           </property>
          </widget>
         </item>
-        <item>
+        <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
          <widget class="QToolButton" name="stereo_param_button">
           <property name="styleSheet">
-           <string notr="true">QToolButton {
-	font: 15pt &quot;Ubuntu&quot;;
-    background-color: transparent;
-    border: 1px solid transparent;
-    color: #FFFFFF; /* Couleur du texte */
-	border-radius: 10px;
-	padding: 1.5px;
-}
-
-QToolButton:hover {
-    background-color: rgba(0, 0, 0, 0.2); /* Couleur de fond lorsqu'il est survolé */
-}
-
-QToolButton:pressed {
-    background-color: rgba(0, 0, 0, 0.4); /* Couleur de fond lorsqu'il est cliqué */
-}</string>
+           <string notr="true"/>
           </property>
           <property name="text">
            <string/>
           </property>
           <property name="icon">
            <iconset>
-            <normaloff>../resources/icons/interface/gear.svg</normaloff>../resources/icons/interface/gear.svg</iconset>
+            <normaloff>../resources/icons/interface/cog.svg</normaloff>../resources/icons/interface/cog.svg</iconset>
           </property>
           <property name="iconSize">
            <size>
-            <width>30</width>
-            <height>30</height>
+            <width>18</width>
+            <height>18</height>
            </size>
           </property>
          </widget>
         </item>
+        <item>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
        </layout>
-      </item>
-      <item>
-       <widget class="QToolButton" name="ruler_button">
-        <property name="styleSheet">
-         <string notr="true">QToolButton {
-	font: 15pt &quot;Ubuntu&quot;;
-    background-color: transparent;
-    border: 1px solid transparent;
-    color: #FFFFFF; /* Couleur du texte */
-}
-
-QToolButton:hover {
-    background-color: rgba(0, 0, 0, 0.2); /* Couleur de fond lorsqu'il est survolé */
-}
-
-QToolButton:pressed {
-    background-color: rgba(0, 0, 0, 0.4); /* Couleur de fond lorsqu'il est cliqué */
-}</string>
-        </property>
-        <property name="text">
-         <string>Add ruler</string>
-        </property>
-       </widget>
       </item>
      </layout>
     </item>
@@ -431,8 +274,147 @@ QToolButton:pressed {
      <height>22</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionLoad"/>
+    <addaction name="actionSave"/>
+    <addaction name="separator"/>
+    <addaction name="actionClose"/>
+   </widget>
+   <widget class="QMenu" name="menuAbout">
+    <property name="geometry">
+     <rect>
+      <x>249</x>
+      <y>344</y>
+      <width>142</width>
+      <height>68</height>
+     </rect>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="title">
+     <string>About</string>
+    </property>
+    <addaction name="actionInfo"/>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>View</string>
+    </property>
+    <widget class="QMenu" name="menuChange_view">
+     <property name="title">
+      <string>Change view</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../resources/icons/interface/eye.svg</normaloff>../resources/icons/interface/eye.svg</iconset>
+     </property>
+     <addaction name="actionFront_view"/>
+     <addaction name="actionBack_view_2"/>
+     <addaction name="actionLeft_view_2"/>
+     <addaction name="actionRight_view_2"/>
+    </widget>
+    <addaction name="actionShow_labels"/>
+    <addaction name="separator"/>
+    <addaction name="menuChange_view"/>
+   </widget>
+   <addaction name="menu"/>
+   <addaction name="menuView"/>
+   <addaction name="menuAbout"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionNew">
+   <property name="icon">
+    <iconset>
+     <normaloff>../../../../../../../../../../.designer/resources/icons/interface/file.svg</normaloff>../../../../../../../../../../.designer/resources/icons/interface/file.svg</iconset>
+   </property>
+   <property name="text">
+    <string>New...</string>
+   </property>
+  </action>
+  <action name="actionClose">
+   <property name="icon">
+    <iconset>
+     <normaloff>../resources/icons/interface/times.svg</normaloff>../resources/icons/interface/times.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="icon">
+    <iconset>
+     <normaloff>../resources/icons/interface/save.svg</normaloff>../resources/icons/interface/save.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Save annotations...</string>
+   </property>
+  </action>
+  <action name="actionLoad">
+   <property name="icon">
+    <iconset>
+     <normaloff>../resources/icons/interface/folder-open.svg</normaloff>../resources/icons/interface/folder-open.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Load annotations...</string>
+   </property>
+  </action>
+  <action name="actionFront_view">
+   <property name="text">
+    <string>Front view</string>
+   </property>
+  </action>
+  <action name="actionBack_view">
+   <property name="text">
+    <string>Back view</string>
+   </property>
+  </action>
+  <action name="actionLeft_view">
+   <property name="text">
+    <string>Left view</string>
+   </property>
+  </action>
+  <action name="actionRight_view">
+   <property name="text">
+    <string>Right view</string>
+   </property>
+  </action>
+  <action name="actionShow_labels">
+   <property name="icon">
+    <iconset>
+     <normaloff>../resources/icons/interface/tag.svg</normaloff>../resources/icons/interface/tag.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Show labels</string>
+   </property>
+  </action>
+  <action name="actionBack_view_2">
+   <property name="text">
+    <string>Back view</string>
+   </property>
+  </action>
+  <action name="actionLeft_view_2">
+   <property name="text">
+    <string>Left view</string>
+   </property>
+  </action>
+  <action name="actionRight_view_2">
+   <property name="text">
+    <string>Right view</string>
+   </property>
+  </action>
+  <action name="actionInfo">
+   <property name="icon">
+    <iconset>
+     <normaloff>../resources/icons/interface/info.svg</normaloff>../resources/icons/interface/info.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Version info</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

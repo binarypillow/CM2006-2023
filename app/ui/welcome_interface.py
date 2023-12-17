@@ -10,134 +10,152 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 from app.utils import get_abs_path
 
 
-class Ui_Dialog(object):
-    def setupUi(self, Dialog):
-        Dialog.setObjectName("Dialog")
-        Dialog.resize(517, 309)
-        self.horizontalLayout = QtWidgets.QHBoxLayout(Dialog)
-        self.horizontalLayout.setObjectName("horizontalLayout")
-        self.widget = QtWidgets.QWidget(parent=Dialog)
-        self.widget.setStyleSheet(
-            "QWidget#widget {\n"
-            "    background-color: qlineargradient(spread:reflect, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(34, 148, 157, 255), stop:0.890052 rgba(255, 177, 177, 255));\n"
-            "}"
-        )
-        self.widget.setObjectName("widget")
-        self.verticalLayout = QtWidgets.QVBoxLayout(self.widget)
-        self.verticalLayout.setObjectName("verticalLayout")
-        self.welcome_label = QtWidgets.QLabel(parent=self.widget)
-        self.welcome_label.setStyleSheet(
-            "color: rgb(255, 255, 255);\n" 'font: 30pt "Ubuntu";'
-        )
+class Ui_MainWindow(object):
+    def setupUi(self, MainWindow):
+        MainWindow.setObjectName("MainWindow")
+        MainWindow.resize(691, 554)
+        MainWindow.setStyleSheet("QCheckBox::indicator:disabled#img_button,  QCheckBox::indicator:disabled#seg_button{\n"
+"    background-color: red;\n"
+"    border-radius: 4px;\n"
+"}\n"
+"\n"
+"QCheckBox::indicator:checked#img_button,\n"
+"QCheckBox::indicator:checked#seg_button {\n"
+"    background-color: green;\n"
+"    border-radius: 4px;\n"
+"}")
+        self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
+        self.centralwidget.setEnabled(True)
+        self.centralwidget.setStyleSheet("")
+        self.centralwidget.setObjectName("centralwidget")
+        self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
+        self.gridLayout.setObjectName("gridLayout")
+        self.action_box = QtWidgets.QHBoxLayout()
+        self.action_box.setContentsMargins(9, -1, 9, -1)
+        self.action_box.setObjectName("action_box")
+        self.exit_button = QtWidgets.QPushButton(parent=self.centralwidget)
+        self.exit_button.setObjectName("exit_button")
+        self.action_box.addWidget(self.exit_button)
+        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
+        self.action_box.addItem(spacerItem)
+        self.continue_button = QtWidgets.QPushButton(parent=self.centralwidget)
+        self.continue_button.setEnabled(False)
+        self.continue_button.setMinimumSize(QtCore.QSize(0, 0))
+        self.continue_button.setStyleSheet("")
+        self.continue_button.setObjectName("continue_button")
+        self.action_box.addWidget(self.continue_button, 0, QtCore.Qt.AlignmentFlag.AlignRight)
+        self.gridLayout.addLayout(self.action_box, 6, 0, 1, 1)
+        spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Minimum)
+        self.gridLayout.addItem(spacerItem1, 5, 0, 1, 1)
+        self.welcome_label = QtWidgets.QLabel(parent=self.centralwidget)
+        self.welcome_label.setStyleSheet("font: 30pt \"Ubuntu\";\n"
+"background-color: transparent;\n"
+"\n"
+"")
         self.welcome_label.setObjectName("welcome_label")
-        self.verticalLayout.addWidget(
-            self.welcome_label, 0, QtCore.Qt.AlignmentFlag.AlignHCenter
-        )
+        self.gridLayout.addWidget(self.welcome_label, 0, 0, 1, 1, QtCore.Qt.AlignmentFlag.AlignHCenter)
+        self.app_descr = QtWidgets.QLabel(parent=self.centralwidget)
+        self.app_descr.setObjectName("app_descr")
+        self.gridLayout.addWidget(self.app_descr, 1, 0, 1, 1)
+        self.image_box = QtWidgets.QGroupBox(parent=self.centralwidget)
+        self.image_box.setObjectName("image_box")
+        self.gridLayout_2 = QtWidgets.QGridLayout(self.image_box)
+        self.gridLayout_2.setObjectName("gridLayout_2")
+        self.verticalLayout = QtWidgets.QVBoxLayout()
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.horizontalLayout = QtWidgets.QHBoxLayout()
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.img_button = QtWidgets.QCheckBox(parent=self.image_box)
+        self.img_button.setEnabled(False)
+        self.img_button.setText("")
+        self.img_button.setObjectName("img_button")
+        self.horizontalLayout.addWidget(self.img_button)
+        self.img_text = QtWidgets.QLineEdit(parent=self.image_box)
+        self.img_text.setEnabled(False)
+        self.img_text.setObjectName("img_text")
+        self.horizontalLayout.addWidget(self.img_text)
+        self.img_file = QtWidgets.QToolButton(parent=self.image_box)
+        self.img_file.setObjectName("img_file")
+        self.horizontalLayout.addWidget(self.img_file)
+        self.verticalLayout.addLayout(self.horizontalLayout)
+        self.img_alert = QtWidgets.QLabel(parent=self.image_box)
+        self.img_alert.setText("")
+        self.img_alert.setObjectName("img_alert")
+        self.verticalLayout.addWidget(self.img_alert)
+        self.gridLayout_2.addLayout(self.verticalLayout, 1, 1, 1, 1)
+        self.gridLayout.addWidget(self.image_box, 2, 0, 1, 1)
+        self.labels_box = QtWidgets.QGroupBox(parent=self.centralwidget)
+        self.labels_box.setEnabled(False)
+        self.labels_box.setObjectName("labels_box")
+        self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.labels_box)
+        self.verticalLayout_3.setObjectName("verticalLayout_3")
+        self.labels_list = QtWidgets.QScrollArea(parent=self.labels_box)
+        self.labels_list.setWidgetResizable(True)
+        self.labels_list.setObjectName("labels_list")
+        self.scrollAreaWidgetContents = QtWidgets.QWidget()
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 651, 142))
+        self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
+        self.labels_list.setWidget(self.scrollAreaWidgetContents)
+        self.verticalLayout_3.addWidget(self.labels_list)
+        self.gridLayout.addWidget(self.labels_box, 4, 0, 1, 1)
+        self.segmentation_box = QtWidgets.QGroupBox(parent=self.centralwidget)
+        self.segmentation_box.setObjectName("segmentation_box")
+        self.horizontalLayout_5 = QtWidgets.QHBoxLayout(self.segmentation_box)
+        self.horizontalLayout_5.setObjectName("horizontalLayout_5")
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        self.img_button = QtWidgets.QToolButton(parent=self.widget)
-        self.img_button.setStyleSheet(
-            "QToolButton {\n"
-            '    font: 15pt "Ubuntu";\n'
-            "    background-color: transparent;\n"
-            "    border: 1px solid transparent;\n"
-            "    color: #FFFFFF; /* Couleur du texte */\n"
-            "}\n"
-            "\n"
-            "QToolButton:hover {\n"
-            "    background-color: rgba(0, 0, 0, 0.2); /* Couleur de fond lorsqu'il est survolé */\n"
-            "}\n"
-            "\n"
-            "QToolButton:pressed {\n"
-            "    background-color: rgba(0, 0, 0, 0.4); /* Couleur de fond lorsqu'il est cliqué */\n"
-            "}"
-        )
-        self.img_button.setCheckable(True)
-        self.img_button.setObjectName("img_button")
-        self.horizontalLayout_2.addWidget(self.img_button)
-        self.img_box = QtWidgets.QCheckBox(parent=self.widget)
-        self.img_box.setEnabled(False)
-        self.img_box.setMaximumSize(QtCore.QSize(131, 16777215))
-        self.img_box.setStyleSheet(
-            "QCheckBox::indicator {\n" "    width: 23px;\n" "    height: 23px;\n" "}"
-        )
-        self.img_box.setText("")
-        self.img_box.setCheckable(True)
-        self.img_box.setObjectName("img_box")
-        self.horizontalLayout_2.addWidget(self.img_box)
-        self.verticalLayout.addLayout(self.horizontalLayout_2)
-        self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
-        self.horizontalLayout_3.setObjectName("horizontalLayout_3")
-        self.seg_button = QtWidgets.QToolButton(parent=self.widget)
-        self.seg_button.setStyleSheet(
-            "QToolButton {\n"
-            '    font: 15pt "Ubuntu";\n'
-            "    background-color: transparent;\n"
-            "    border: 1px solid transparent;\n"
-            "    color: #FFFFFF; /* Couleur du texte */\n"
-            "}\n"
-            "\n"
-            "QToolButton:hover {\n"
-            "    background-color: rgba(0, 0, 0, 0.2); /* Couleur de fond lorsqu'il est survolé */\n"
-            "}\n"
-            "\n"
-            "QToolButton:pressed {\n"
-            "    background-color: rgba(0, 0, 0, 0.4); /* Couleur de fond lorsqu'il est cliqué */\n"
-            "}"
-        )
+        self.seg_button = QtWidgets.QCheckBox(parent=self.segmentation_box)
+        self.seg_button.setEnabled(False)
+        self.seg_button.setText("")
         self.seg_button.setObjectName("seg_button")
-        self.horizontalLayout_3.addWidget(self.seg_button)
-        self.seg_box = QtWidgets.QCheckBox(parent=self.widget)
-        self.seg_box.setEnabled(False)
-        self.seg_box.setMaximumSize(QtCore.QSize(131, 16777215))
-        self.seg_box.setStyleSheet(
-            "QCheckBox::indicator {\n" "    width: 23px;\n" "    height: 23px;\n" "}"
-        )
-        self.seg_box.setText("")
-        self.seg_box.setCheckable(True)
-        self.seg_box.setObjectName("seg_box")
-        self.horizontalLayout_3.addWidget(self.seg_box)
-        self.verticalLayout.addLayout(self.horizontalLayout_3)
-        self.continue_button = QtWidgets.QPushButton(parent=self.widget)
-        self.continue_button.setStyleSheet(
-            "QPushButton {\n"
-            "    background-color: transparent;\n"
-            "    border: 1px solid transparent;\n"
-            "    color: #FFFFFF; /* Couleur du texte */\n"
-            "}\n"
-            "\n"
-            "QPushButton:hover {\n"
-            "    background-color: rgba(0, 0, 0, 0.2); /* Couleur de fond lorsqu'il est survolé */\n"
-            "}\n"
-            "\n"
-            "QPushButton:pressed {\n"
-            "    background-color: rgba(0, 0, 0, 0.4); /* Couleur de fond lorsqu'il est cliqué */\n"
-            "}\n"
-            "\n"
-            ""
-        )
-        self.continue_button.setObjectName("continue_button")
-        self.verticalLayout.addWidget(self.continue_button)
-        self.horizontalLayout.addWidget(self.widget)
+        self.horizontalLayout_2.addWidget(self.seg_button)
+        self.seg_text = QtWidgets.QLineEdit(parent=self.segmentation_box)
+        self.seg_text.setEnabled(False)
+        self.seg_text.setObjectName("seg_text")
+        self.horizontalLayout_2.addWidget(self.seg_text)
+        self.seg_file = QtWidgets.QToolButton(parent=self.segmentation_box)
+        self.seg_file.setObjectName("seg_file")
+        self.horizontalLayout_2.addWidget(self.seg_file)
+        self.verticalLayout_2.addLayout(self.horizontalLayout_2)
+        self.seg_alert = QtWidgets.QLabel(parent=self.segmentation_box)
+        self.seg_alert.setText("")
+        self.seg_alert.setObjectName("seg_alert")
+        self.verticalLayout_2.addWidget(self.seg_alert)
+        self.horizontalLayout_5.addLayout(self.verticalLayout_2)
+        self.gridLayout.addWidget(self.segmentation_box, 3, 0, 1, 1)
+        MainWindow.setCentralWidget(self.centralwidget)
+        self.menubar = QtWidgets.QMenuBar(parent=MainWindow)
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 691, 22))
+        self.menubar.setObjectName("menubar")
+        MainWindow.setMenuBar(self.menubar)
+        self.statusbar = QtWidgets.QStatusBar(parent=MainWindow)
+        self.statusbar.setObjectName("statusbar")
+        MainWindow.setStatusBar(self.statusbar)
 
-        self.retranslateUi(Dialog)
-        QtCore.QMetaObject.connectSlotsByName(Dialog)
+        self.retranslateUi(MainWindow)
+        QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-    def retranslateUi(self, Dialog):
+    def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
-        self.welcome_label.setText(_translate("Dialog", "Welcome"))
-        self.img_button.setText(_translate("Dialog", "Image file"))
-        self.seg_button.setText(_translate("Dialog", "Segmentation file"))
-        self.continue_button.setText(_translate("Dialog", "Continue"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.exit_button.setText(_translate("MainWindow", "Exit"))
+        self.continue_button.setText(_translate("MainWindow", "Continue"))
+        self.welcome_label.setText(_translate("MainWindow", "Welcome"))
+        self.app_descr.setText(_translate("MainWindow", "Hello world!"))
+        self.image_box.setTitle(_translate("MainWindow", "Images:"))
+        self.img_file.setText(_translate("MainWindow", "Browse..."))
+        self.labels_box.setTitle(_translate("MainWindow", "Select organs to visualise:"))
+        self.segmentation_box.setTitle(_translate("MainWindow", "Segmentation labels:"))
+        self.seg_file.setText(_translate("MainWindow", "Browse..."))
 
 
 if __name__ == "__main__":
     import sys
-
     app = QtWidgets.QApplication(sys.argv)
-    Dialog = QtWidgets.QDialog()
-    ui = Ui_Dialog()
-    ui.setupUi(Dialog)
-    Dialog.show()
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
     sys.exit(app.exec())

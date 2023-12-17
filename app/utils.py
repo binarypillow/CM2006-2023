@@ -1,5 +1,6 @@
 import os
 import sys
+import yaml
 
 
 def get_root_dir():
@@ -26,3 +27,24 @@ def get_abs_path(rel_path=""):
     """
     root = get_root_dir()
     return os.path.join(root, f"app/{rel_path}")
+
+
+def get_keys_from_yaml(file_path):
+    """
+    Retrieves the keys (organs' name) from a YAML file.
+
+    Args:
+        file_path (str): The path to the YAML file.
+
+    Returns:
+        list: A list of keys extracted from the YAML file.
+    """
+    with open(file_path, "r") as file:
+        data = yaml.safe_load(file)
+    return list(data.keys())
+
+
+def get_index_from_key(key, file_path):
+    with open(file_path, "r") as file:
+        data = yaml.safe_load(file)
+    return data[key]

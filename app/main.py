@@ -18,6 +18,7 @@ def main():
     app.setWindowIcon(QIcon(get_abs_path("resources/icons/window/logo.svg")))
 
     welcome = WelcomeWindow()
+
     welcome.show()
 
     # Use this to display only the second window

@@ -5,10 +5,7 @@ import nibabel as nib
 from vtkmodules.util.numpy_support import numpy_to_vtk
 from app.stereo_dialog import StereoParam
 from app.ui import main_interface
-
-# Visualize fewer organs instead of 13, so it is faster
-global nb_organs
-nb_organs = 5
+from app.utils import get_index_from_key, get_abs_path
 
 
 def setStereoValues(ipd, angle):
@@ -17,7 +14,8 @@ def setStereoValues(ipd, angle):
 
 
 class MainWindow(QtWidgets.QMainWindow):
-    def __init__(self, path_img, path_label):
+    def __init__(self, path_img, path_label, checked_labels):
+        self.checked_labels = checked_labels
         # Load the nii.gz file with the images
         self.img_nii = nib.load(path_img)
         self.img_data = self.img_nii.get_fdata()
@@ -92,6 +90,12 @@ class MainWindow(QtWidgets.QMainWindow):
         self.interactor.Start()
 
         ##############################################################################################
+        # MENU TOOLS BAR
+
+        # Exit menu button
+        self.ui.actionClose.triggered.connect(self.close)
+
+        ##############################################################################################
         # INTERACTIONS AND BUTTONS
 
         # Know the position of the camera each right-click: just for us, to better place the camera
@@ -111,10 +115,9 @@ class MainWindow(QtWidgets.QMainWindow):
         # Slide for opacity change
         self.ui.slider.valueChanged.connect(self.onOpacityChanged)
 
-        # Hide organs aren't showed in the slider
-        while self.ui.comboBox.count() > nb_organs:
-            i = self.ui.comboBox.count() - 1
-            self.ui.comboBox.removeItem(i)
+        # Create the slider list
+        for organ in self.checked_labels:
+            self.ui.comboBox.addItem(organ)
 
         # Change the view and show volume rendering if the glass button is clicked
         self.ui.glass_button.clicked.connect(self.onGlassButtonClicked)
@@ -128,7 +131,22 @@ class MainWindow(QtWidgets.QMainWindow):
         # Choose stereo parameters. It opens a new dialog window
         self.ui.stereo_param_button.clicked.connect(self.onStereoParamClicked)
 
+        self.ui.actionClose.triggered.connect(self.close)
+
     def get_camera_position(self, obj, event):
+        """
+        Retrieves the position and roll angle of the camera.
+
+        This method is triggered by a right-click mouse event and prints the current position and roll angle of the
+        camera. The camera position and roll angle can be used for making adjustments in focus mode.
+
+        Args:
+            obj: The object that triggered the event.
+            event: The event that occurred.
+
+        Returns:
+            None
+        """
         # Get the position of the camera at right click mouse to make adjustments for focus mode
         position = self.renderer.GetActiveCamera().GetPosition()
         angle = self.renderer.GetActiveCamera().GetRoll()
@@ -136,10 +154,30 @@ class MainWindow(QtWidgets.QMainWindow):
         print("Camera's Roll :", angle)
 
     def onStereoParamClicked(self):
+        """
+        Handles the click event of the stereo parameter button.
+
+        This method opens the stereo parameter window and connects the values to the setStereoValues function.
+        The stereo parameter window allows the user to adjust the stereo settings.
+
+        Returns:
+            None
+        """
         self.stereo_window.values.connect(setStereoValues)
         self.stereo_window.show()
 
     def onStereoClicked(self):
+        """
+        Handles the click event of the stereo button.
+
+        This method toggles stereo rendering based on the state of the stereo button.
+        When the button is checked, it enables stereo rendering and displays stereo parameters.
+        When the button is unchecked, it disables stereo rendering and hides stereo parameters.
+        The method updates the window and applies the changes to the rendering.
+
+        Returns:
+            None
+        """
         if self.ui.stereo_button.isChecked():
             self.vtk_widget.GetRenderWindow().SetStereoTypeToInterlaced()
             self.vtk_widget.GetRenderWindow().StereoRenderOn()
@@ -154,6 +192,16 @@ class MainWindow(QtWidgets.QMainWindow):
         self.vtk_widget.GetRenderWindow().Render()
 
     def onComboBoxChanged(self):
+        """
+        Handles the change event of the combo box.
+
+        This method changes the selected organ based on the current index of the combo box.
+        It updates the opacity slider position based on the opacity of the selected actor.
+        The method triggers the corresponding actions for the glass button and volume button.
+
+        Returns:
+            None
+        """
         # Change organ
         selected_index = self.ui.comboBox.currentIndex()
         selected_actor = self.segmented_actors[selected_index]
@@ -168,6 +216,17 @@ class MainWindow(QtWidgets.QMainWindow):
         self.onVolumeButtonClicked()
 
     def onGlassButtonClicked(self):
+        """
+        Handles the click event of the glass button.
+
+        This method toggles between different views based on the state of the glass button.
+        When the button is checked, the view changes and volume rendering possibility appears.
+        When the button is unchecked, volume rendering disappears and the volume becomes a surface.
+        The method updates the visibility of the volume button and triggers the corresponding actions.
+
+        Returns:
+            None
+        """
         if self.ui.glass_button.isChecked():
             # The view changes and volume rendering possibility appear
             print("CHANGE THE VIEW HERE")
@@ -179,6 +238,19 @@ class MainWindow(QtWidgets.QMainWindow):
             self.onVolumeButtonClicked()
 
     def onOpacityChanged(self, value_slider):
+        """
+        Handles the change event of the opacity slider.
+
+        This method adjusts the opacity of the selected organ based on the value of the opacity slider.
+        The opacity is calculated as a percentage of the maximum value of the slider.
+        The method updates the opacity of the selected actor and refreshes the window.
+
+        Args:
+            value_slider (int): The value of the opacity slider.
+
+        Returns:
+            None
+        """
         # Adjust opacity for a selected organ
         selected_index = self.ui.comboBox.currentIndex()
         selected_actor = self.segmented_actors[selected_index]
@@ -191,6 +263,17 @@ class MainWindow(QtWidgets.QMainWindow):
         self.vtk_widget.GetRenderWindow().Render()
 
     def onVolumeButtonClicked(self):
+        """
+        Handles the click event of the volume button.
+
+        This method toggles between volume rendering and surface rendering based on the state of the volume button.
+        When the button is checked, it launches volume rendering of the selected organ. When the button is unchecked,
+        it launches surface rendering. The method updates the actors in the renderer accordingly and refreshes the
+        window.
+
+        Returns:
+            None
+        """
         if self.ui.volume_button.isChecked():
             # If the button is checked: launch volume rendering of the selected organ
             selected_index = self.ui.comboBox.currentIndex()
@@ -218,13 +301,20 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def createListSegmentedOrgans(self):
         """
-        :return: list of vtk data containing each organ. Used for both surface and volume rendering
+        Creates a list of segmented organs.
+
+        Returns:
+            list: A list of vtk data containing each organ. Used for both surface and volume rendering.
         """
+
         organs = []
-        for label in range(1, nb_organs + 1):  # 13 organs to segment
+        for label in self.checked_labels:  # iterate over labels_keys
             organ_data = self.img_data.copy()
             organ_data[
-                self.labels_data != label
+                self.labels_data
+                != get_index_from_key(
+                    label, get_abs_path("resources/config/labels.yml")
+                )
             ] = 0  # Select only the organ with the specific label
 
             # Convert the numpy array to VTK image data
@@ -241,12 +331,14 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def createSegmentedSurfaceActors(self):
         """
-        :return: list of actors. For each organ, create a surface actor from the segmentation data and the CT scan
+        Creates surface actors for segmented organs.
+
+        Returns:
+            list: A list of actors. For each organ, create a surface actor from the segmentation data and the CT scan.
         """
 
         actors = []
-
-        for organ in range(nb_organs):  # 13 organs
+        for organ in range(len(self.checked_labels)):
             # Filter data
             cast_filter = vtk.vtkImageCast()
             cast_filter.SetInputData(self.segmented_organs[organ])
@@ -286,11 +378,15 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def createSegmentedVolumeActors(self):
         """
-        :return: list of actors. For each organ, create a volume actor from the segmentation data and the CT scan
+        Creates volume actors for segmented organs.
+
+        Returns:
+            list: A list of actors. For each organ, create a volume actor from the segmentation data and the CT scan.
         """
+
         actors = []
         # For each organ, create an actor from the segmentation data and the CT scan
-        for organ in range(nb_organs):  # 13 organs
+        for organ in range(len(self.checked_labels)):
             volume_mapper = vtk.vtkFixedPointVolumeRayCastMapper()
             volume_mapper.SetInputData(self.segmented_organs[organ])
 

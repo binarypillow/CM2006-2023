@@ -14,283 +14,97 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1017, 516)
+        MainWindow.setStyleSheet("QToolButton {\n"
+"    background-color: transparent;\n"
+"}")
         self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
-        self.centralwidget.setStyleSheet(
-            "QWidget#centralwidget {\n"
-            "    background-color: qlineargradient(spread:reflect, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(34, 148, 157, 255), stop:0.890052 rgba(255, 177, 177, 255));\n"
-            "}\n"
-            ""
-        )
+        self.centralwidget.setStyleSheet("")
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.main_layout = QtWidgets.QVBoxLayout()
-        self.main_layout.setContentsMargins(20, -1, 20, -1)
+        self.main_layout.setContentsMargins(10, 10, 10, 5)
         self.main_layout.setSpacing(5)
         self.main_layout.setObjectName("main_layout")
-        self.organ_layout = QtWidgets.QHBoxLayout()
-        self.organ_layout.setContentsMargins(0, -1, 0, -1)
-        self.organ_layout.setSpacing(40)
-        self.organ_layout.setObjectName("organ_layout")
-        self.comboBox = QtWidgets.QComboBox(parent=self.centralwidget)
+        self.label = QtWidgets.QLabel(parent=self.centralwidget)
+        self.label.setObjectName("label")
+        self.main_layout.addWidget(self.label)
+        self.groupBox = QtWidgets.QGroupBox(parent=self.centralwidget)
+        self.groupBox.setObjectName("groupBox")
+        self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.groupBox)
+        self.horizontalLayout_3.setObjectName("horizontalLayout_3")
+        self.comboBox = QtWidgets.QComboBox(parent=self.groupBox)
         self.comboBox.setEnabled(True)
         self.comboBox.setMaximumSize(QtCore.QSize(16777215, 16777215))
-        self.comboBox.setStyleSheet(
-            "QComboBox {\n"
-            "    color: #FFFFFF; /* Couleur du texte */\n"
-            '    font: 15pt "Ubuntu";\n'
-            "    padding: 5px; /* Ajustement de la marge intérieure */\n"
-            "    border: 1px solid rgba(0, 25, 12, 0.4); /* Couleur de la bordure */\n"
-            "    border-radius: 5px; /* Arrondi des coins */\n"
-            "    background-color: transparent; /* Couleur de fond */\n"
-            "    selection-background-color: rgba(34, 148, 157, 1); /* Couleur de fond de la sélection */\n"
-            "\n"
-            "    padding-top: 1px; /* Ajustez la marge supérieure pour centrer verticalement le texte */\n"
-            "    padding-bottom: 1px;\n"
-            "}\n"
-            "\n"
-            "QComboBox:hover {\n"
-            "    border-color: #FFFFFF; /* Couleur de la bordure lorsque survolé */\n"
-            "}\n"
-            "\n"
-            "QComboBox::drop-down {\n"
-            "    border: none; /* Suppression de la flèche de liste déroulante par défaut */\n"
-            "}\n"
-            "\n"
-            "\n"
-            "QComboBox QAbstractItemView {\n"
-            "    border: 2px solid darkgray; /* Bordure de la liste déroulante */\n"
-            "    background-color:rgba(69, 154, 160, 0.7); \n"
-            "    selection-background-color: rgba(34, 148, 157, 1); /* Couleur de fond de la sélection */\n"
-            "}"
-        )
+        self.comboBox.setStyleSheet("")
         self.comboBox.setObjectName("comboBox")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.organ_layout.addWidget(self.comboBox)
+        self.horizontalLayout_3.addWidget(self.comboBox)
+        self.glass_button = QtWidgets.QRadioButton(parent=self.groupBox)
+        self.glass_button.setEnabled(True)
+        self.glass_button.setStyleSheet("")
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(get_abs_path("resources/icons/interface/search.svg")), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.glass_button.setIcon(icon)
+        self.glass_button.setIconSize(QtCore.QSize(18, 18))
+        self.glass_button.setObjectName("glass_button")
+        self.horizontalLayout_3.addWidget(self.glass_button)
+        self.main_layout.addWidget(self.groupBox)
+        self.verticalLayout = QtWidgets.QVBoxLayout()
+        self.verticalLayout.setContentsMargins(-1, -1, -1, 0)
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.volume_button = QtWidgets.QCheckBox(parent=self.centralwidget)
+        self.volume_button.setStyleSheet("")
+        self.volume_button.setObjectName("volume_button")
+        self.verticalLayout.addWidget(self.volume_button)
         self.slider = QtWidgets.QSlider(parent=self.centralwidget)
         self.slider.setMinimumSize(QtCore.QSize(100, 0))
         self.slider.setMaximumSize(QtCore.QSize(300, 16777215))
-        self.slider.setStyleSheet(
-            "QSlider::groove:horizontal {\n"
-            "    border: 1px solid #999999;\n"
-            "    height: 8px; /* the groove expands to the size of the slider by default. by giving it a height, it has a fixed size */\n"
-            "    background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #B1B1B1, stop:1 #c4c4c4);\n"
-            "    margin: 2px 0;\n"
-            "}\n"
-            "\n"
-            "QSlider::handle:horizontal {\n"
-            "    background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #b4b4b4, stop:1 #8f8f8f);\n"
-            "    border: 1px solid #5c5c5c;\n"
-            "    width: 18px;\n"
-            "    margin: -2px 0; /* handle is placed by default on the contents rect of the groove. Expand outside the groove */\n"
-            "    border-radius: 3px;\n"
-            "}\n"
-            "\n"
-            "QSlider::sub-page:horizontal {\n"
-            "    border: 1px solid #999999;\n"
-            "    height: 8px; /* the groove expands to the size of the slider by default. by giving it a height, it has a fixed size */\n"
-            "    background: rgba(0, 25, 12, 0.4);\n"
-            "    margin: 2px 0;\n"
-            "}"
-        )
+        self.slider.setStyleSheet("")
         self.slider.setSliderPosition(99)
         self.slider.setOrientation(QtCore.Qt.Orientation.Horizontal)
         self.slider.setObjectName("slider")
-        self.organ_layout.addWidget(self.slider)
-        self.glass_button = QtWidgets.QCheckBox(parent=self.centralwidget)
-        self.glass_button.setEnabled(True)
-        self.glass_button.setStyleSheet(
-            "QCheckBox {\n"
-            "    color: #FFFFFF; /* Couleur du texte */\n"
-            '    font: 15pt "Ubuntu";\n'
-            "}\n"
-            "\n"
-            "QCheckBox::indicator {\n"
-            "    border-radius: 10px;\n"
-            "    padding: 1.5px;\n"
-            "    background-color: rgba(255, 255, 255, 1); /* Couleur de fond de la case à cocher */\n"
-            "    border: 1px solid #FFFFFF; /* Couleur de la bordure de la case à cocher */\n"
-            "    width: 15px; /* Largeur de la case à cocher */\n"
-            "    height: 15px; /* Hauteur de la case à cocher */\n"
-            "}\n"
-            "\n"
-            "QCheckBox::indicator:hover {\n"
-            "    background-color: rgba(0, 0, 0, 0.2); /* Couleur de fond de la case à cocher lorsqu'elle est survolée */\n"
-            "}\n"
-            "\n"
-            "QCheckBox::indicator:checked {\n"
-            "    background-color: rgba(0, 255, 0, 0.4); /* Couleur de fond de la case à cocher lorsqu'elle est cochée */\n"
-            "    border-color: #FFFFFF;\n"
-            "}\n"
-            "\n"
-            ""
-        )
-        self.glass_button.setText("")
-        icon = QtGui.QIcon()
-        icon.addPixmap(
-            QtGui.QPixmap(
-                get_abs_path("resources/icons/interface/magnifying-glass.svg")
-            ),
-            QtGui.QIcon.Mode.Normal,
-            QtGui.QIcon.State.Off,
-        )
-        self.glass_button.setIcon(icon)
-        self.glass_button.setObjectName("glass_button")
-        self.organ_layout.addWidget(self.glass_button)
-        self.main_layout.addLayout(self.organ_layout)
-        self.volume_button = QtWidgets.QCheckBox(parent=self.centralwidget)
-        self.volume_button.setStyleSheet(
-            "QCheckBox {\n"
-            "    color: #FFFFFF; /* Couleur du texte */\n"
-            '    font: 15pt "Ubuntu";\n'
-            "}\n"
-            "\n"
-            "QCheckBox::indicator {\n"
-            "    border-radius: 10px;\n"
-            "    padding: 1.5px;\n"
-            "    background-color: rgba(255, 255, 255, 1); /* Couleur de fond de la case à cocher */\n"
-            "    border: 1px solid #FFFFFF; /* Couleur de la bordure de la case à cocher */\n"
-            "    width: 15px; /* Largeur de la case à cocher */\n"
-            "    height: 15px; /* Hauteur de la case à cocher */\n"
-            "}\n"
-            "\n"
-            "QCheckBox::indicator:hover {\n"
-            "    background-color: rgba(0, 0, 0, 0.2); /* Couleur de fond de la case à cocher lorsqu'elle est survolée */\n"
-            "}\n"
-            "\n"
-            "QCheckBox::indicator:checked {\n"
-            "    background-color: rgba(0, 255, 0, 0.4); /* Couleur de fond de la case à cocher lorsqu'elle est cochée */\n"
-            "    border-color: #FFFFFF;\n"
-            "}\n"
-            "\n"
-            ""
-        )
-        self.volume_button.setObjectName("volume_button")
-        self.main_layout.addWidget(
-            self.volume_button, 0, QtCore.Qt.AlignmentFlag.AlignLeft
-        )
-        self.label_button = QtWidgets.QCheckBox(parent=self.centralwidget)
-        self.label_button.setStyleSheet(
-            "QCheckBox {\n"
-            "    color: #FFFFFF; /* Couleur du texte */\n"
-            '    font: 15pt "Ubuntu";\n'
-            "}\n"
-            "\n"
-            "QCheckBox::indicator {\n"
-            "    border-radius: 10px;\n"
-            "    padding: 1.5px;\n"
-            "    background-color: rgba(255, 255, 255, 1); /* Couleur de fond de la case à cocher */\n"
-            "    border: 1px solid #FFFFFF; /* Couleur de la bordure de la case à cocher */\n"
-            "    width: 15px; /* Largeur de la case à cocher */\n"
-            "    height: 15px; /* Hauteur de la case à cocher */\n"
-            "}\n"
-            "\n"
-            "QCheckBox::indicator:hover {\n"
-            "    background-color: rgba(0, 0, 0, 0.2); /* Couleur de fond de la case à cocher lorsqu'elle est survolée */\n"
-            "}\n"
-            "\n"
-            "QCheckBox::indicator:checked {\n"
-            "    background-color: rgba(0, 255, 0, 0.4); /* Couleur de fond de la case à cocher lorsqu'elle est cochée */\n"
-            "    border-color: #FFFFFF;\n"
-            "}\n"
-            "\n"
-            ""
-        )
-        self.label_button.setObjectName("label_button")
-        self.main_layout.addWidget(self.label_button)
+        self.verticalLayout.addWidget(self.slider)
+        self.render_util = QtWidgets.QFrame(parent=self.centralwidget)
+        self.render_util.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
+        self.render_util.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
+        self.render_util.setObjectName("render_util")
+        self.verticalLayout.addWidget(self.render_util)
+        self.main_layout.addLayout(self.verticalLayout)
+        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Expanding)
+        self.main_layout.addItem(spacerItem)
+        self.groupBox_2 = QtWidgets.QGroupBox(parent=self.centralwidget)
+        self.groupBox_2.setObjectName("groupBox_2")
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.groupBox_2)
+        self.verticalLayout_2.setSizeConstraint(QtWidgets.QLayout.SizeConstraint.SetDefaultConstraint)
+        self.verticalLayout_2.setContentsMargins(-1, -1, 10, -1)
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
+        self.ruler_button = QtWidgets.QToolButton(parent=self.groupBox_2)
+        self.ruler_button.setStyleSheet("")
+        self.ruler_button.setObjectName("ruler_button")
+        self.verticalLayout_2.addWidget(self.ruler_button)
+        self.treeWidget = QtWidgets.QTreeWidget(parent=self.groupBox_2)
+        self.treeWidget.setObjectName("treeWidget")
+        self.treeWidget.headerItem().setText(0, "1")
+        self.verticalLayout_2.addWidget(self.treeWidget)
+        self.main_layout.addWidget(self.groupBox_2)
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.stereo_button = QtWidgets.QCheckBox(parent=self.centralwidget)
-        self.stereo_button.setStyleSheet(
-            "QCheckBox {\n"
-            "    color: #FFFFFF; /* Couleur du texte */\n"
-            '    font: 15pt "Ubuntu";\n'
-            "}\n"
-            "\n"
-            "QCheckBox::indicator {\n"
-            "    border-radius: 10px;\n"
-            "    padding: 1.5px;\n"
-            "    background-color: rgba(255, 255, 255, 1); /* Couleur de fond de la case à cocher */\n"
-            "    border: 1px solid #FFFFFF; /* Couleur de la bordure de la case à cocher */\n"
-            "    width: 15px; /* Largeur de la case à cocher */\n"
-            "    height: 15px; /* Hauteur de la case à cocher */\n"
-            "}\n"
-            "\n"
-            "QCheckBox::indicator:hover {\n"
-            "    background-color: rgba(0, 0, 0, 0.2); /* Couleur de fond de la case à cocher lorsqu'elle est survolée */\n"
-            "}\n"
-            "\n"
-            "QCheckBox::indicator:checked {\n"
-            "    background-color: rgba(0, 255, 0, 0.4); /* Couleur de fond de la case à cocher lorsqu'elle est cochée */\n"
-            "    border-color: #FFFFFF;\n"
-            "}\n"
-            "\n"
-            ""
-        )
+        self.stereo_button.setStyleSheet("")
         self.stereo_button.setObjectName("stereo_button")
-        self.horizontalLayout_2.addWidget(self.stereo_button)
+        self.horizontalLayout_2.addWidget(self.stereo_button, 0, QtCore.Qt.AlignmentFlag.AlignVCenter)
         self.stereo_param_button = QtWidgets.QToolButton(parent=self.centralwidget)
-        self.stereo_param_button.setStyleSheet(
-            "QToolButton {\n"
-            '    font: 15pt "Ubuntu";\n'
-            "    background-color: transparent;\n"
-            "    border: 1px solid transparent;\n"
-            "    color: #FFFFFF; /* Couleur du texte */\n"
-            "    border-radius: 10px;\n"
-            "    padding: 1.5px;\n"
-            "}\n"
-            "\n"
-            "QToolButton:hover {\n"
-            "    background-color: rgba(0, 0, 0, 0.2); /* Couleur de fond lorsqu'il est survolé */\n"
-            "}\n"
-            "\n"
-            "QToolButton:pressed {\n"
-            "    background-color: rgba(0, 0, 0, 0.4); /* Couleur de fond lorsqu'il est cliqué */\n"
-            "}"
-        )
+        self.stereo_param_button.setStyleSheet("")
         self.stereo_param_button.setText("")
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(
-            QtGui.QPixmap(get_abs_path("resources/icons/interface/gear.svg")),
-            QtGui.QIcon.Mode.Normal,
-            QtGui.QIcon.State.Off,
-        )
+        icon1.addPixmap(QtGui.QPixmap(get_abs_path("resources/icons/interface/cog.svg")), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         self.stereo_param_button.setIcon(icon1)
-        self.stereo_param_button.setIconSize(QtCore.QSize(30, 30))
+        self.stereo_param_button.setIconSize(QtCore.QSize(18, 18))
         self.stereo_param_button.setObjectName("stereo_param_button")
-        self.horizontalLayout_2.addWidget(self.stereo_param_button)
+        self.horizontalLayout_2.addWidget(self.stereo_param_button, 0, QtCore.Qt.AlignmentFlag.AlignHCenter|QtCore.Qt.AlignmentFlag.AlignVCenter)
+        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
+        self.horizontalLayout_2.addItem(spacerItem1)
         self.main_layout.addLayout(self.horizontalLayout_2)
-        self.ruler_button = QtWidgets.QToolButton(parent=self.centralwidget)
-        self.ruler_button.setStyleSheet(
-            "QToolButton {\n"
-            '    font: 15pt "Ubuntu";\n'
-            "    background-color: transparent;\n"
-            "    border: 1px solid transparent;\n"
-            "    color: #FFFFFF; /* Couleur du texte */\n"
-            "}\n"
-            "\n"
-            "QToolButton:hover {\n"
-            "    background-color: rgba(0, 0, 0, 0.2); /* Couleur de fond lorsqu'il est survolé */\n"
-            "}\n"
-            "\n"
-            "QToolButton:pressed {\n"
-            "    background-color: rgba(0, 0, 0, 0.4); /* Couleur de fond lorsqu'il est cliqué */\n"
-            "}"
-        )
-        self.ruler_button.setObjectName("ruler_button")
-        self.main_layout.addWidget(self.ruler_button)
         self.horizontalLayout.addLayout(self.main_layout)
         self.image_layout = QtWidgets.QGridLayout()
         self.image_layout.setObjectName("image_layout")
@@ -305,10 +119,82 @@ class Ui_MainWindow(object):
         self.menubar = QtWidgets.QMenuBar(parent=MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1017, 22))
         self.menubar.setObjectName("menubar")
+        self.menu = QtWidgets.QMenu(parent=self.menubar)
+        self.menu.setObjectName("menu")
+        self.menuAbout = QtWidgets.QMenu(parent=self.menubar)
+        self.menuAbout.setGeometry(QtCore.QRect(249, 344, 142, 68))
+        self.menuAbout.setLayoutDirection(QtCore.Qt.LayoutDirection.LeftToRight)
+        self.menuAbout.setObjectName("menuAbout")
+        self.menuView = QtWidgets.QMenu(parent=self.menubar)
+        self.menuView.setObjectName("menuView")
+        self.menuChange_view = QtWidgets.QMenu(parent=self.menuView)
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap(get_abs_path("resources/icons/interface/eye.svg")), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.menuChange_view.setIcon(icon2)
+        self.menuChange_view.setObjectName("menuChange_view")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(parent=MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
+        self.actionNew = QtGui.QAction(parent=MainWindow)
+        icon3 = QtGui.QIcon()
+        icon3.addPixmap(QtGui.QPixmap(get_abs_path("../../../../../../../../../.designer/resources/icons/interface/file.svg")), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.actionNew.setIcon(icon3)
+        self.actionNew.setObjectName("actionNew")
+        self.actionClose = QtGui.QAction(parent=MainWindow)
+        icon4 = QtGui.QIcon()
+        icon4.addPixmap(QtGui.QPixmap(get_abs_path("resources/icons/interface/times.svg")), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.actionClose.setIcon(icon4)
+        self.actionClose.setObjectName("actionClose")
+        self.actionSave = QtGui.QAction(parent=MainWindow)
+        icon5 = QtGui.QIcon()
+        icon5.addPixmap(QtGui.QPixmap(get_abs_path("resources/icons/interface/save.svg")), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.actionSave.setIcon(icon5)
+        self.actionSave.setObjectName("actionSave")
+        self.actionLoad = QtGui.QAction(parent=MainWindow)
+        icon6 = QtGui.QIcon()
+        icon6.addPixmap(QtGui.QPixmap(get_abs_path("resources/icons/interface/folder-open.svg")), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.actionLoad.setIcon(icon6)
+        self.actionLoad.setObjectName("actionLoad")
+        self.actionFront_view = QtGui.QAction(parent=MainWindow)
+        self.actionFront_view.setObjectName("actionFront_view")
+        self.actionBack_view = QtGui.QAction(parent=MainWindow)
+        self.actionBack_view.setObjectName("actionBack_view")
+        self.actionLeft_view = QtGui.QAction(parent=MainWindow)
+        self.actionLeft_view.setObjectName("actionLeft_view")
+        self.actionRight_view = QtGui.QAction(parent=MainWindow)
+        self.actionRight_view.setObjectName("actionRight_view")
+        self.actionShow_labels = QtGui.QAction(parent=MainWindow)
+        icon7 = QtGui.QIcon()
+        icon7.addPixmap(QtGui.QPixmap(get_abs_path("resources/icons/interface/tag.svg")), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.actionShow_labels.setIcon(icon7)
+        self.actionShow_labels.setObjectName("actionShow_labels")
+        self.actionBack_view_2 = QtGui.QAction(parent=MainWindow)
+        self.actionBack_view_2.setObjectName("actionBack_view_2")
+        self.actionLeft_view_2 = QtGui.QAction(parent=MainWindow)
+        self.actionLeft_view_2.setObjectName("actionLeft_view_2")
+        self.actionRight_view_2 = QtGui.QAction(parent=MainWindow)
+        self.actionRight_view_2.setObjectName("actionRight_view_2")
+        self.actionInfo = QtGui.QAction(parent=MainWindow)
+        icon8 = QtGui.QIcon()
+        icon8.addPixmap(QtGui.QPixmap(get_abs_path("resources/icons/interface/info.svg")), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.actionInfo.setIcon(icon8)
+        self.actionInfo.setObjectName("actionInfo")
+        self.menu.addAction(self.actionLoad)
+        self.menu.addAction(self.actionSave)
+        self.menu.addSeparator()
+        self.menu.addAction(self.actionClose)
+        self.menuAbout.addAction(self.actionInfo)
+        self.menuChange_view.addAction(self.actionFront_view)
+        self.menuChange_view.addAction(self.actionBack_view_2)
+        self.menuChange_view.addAction(self.actionLeft_view_2)
+        self.menuChange_view.addAction(self.actionRight_view_2)
+        self.menuView.addAction(self.actionShow_labels)
+        self.menuView.addSeparator()
+        self.menuView.addAction(self.menuChange_view.menuAction())
+        self.menubar.addAction(self.menu.menuAction())
+        self.menubar.addAction(self.menuView.menuAction())
+        self.menubar.addAction(self.menuAbout.menuAction())
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -316,28 +202,34 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.comboBox.setItemText(0, _translate("MainWindow", "Liver"))
-        self.comboBox.setItemText(1, _translate("MainWindow", "Right kidney"))
-        self.comboBox.setItemText(2, _translate("MainWindow", "Spleen"))
-        self.comboBox.setItemText(3, _translate("MainWindow", "Pancreas"))
-        self.comboBox.setItemText(4, _translate("MainWindow", "Aorta"))
-        self.comboBox.setItemText(5, _translate("MainWindow", "Inferior vena cava"))
-        self.comboBox.setItemText(6, _translate("MainWindow", "Right adrenal gland"))
-        self.comboBox.setItemText(7, _translate("MainWindow", "Left adrenal gland"))
-        self.comboBox.setItemText(8, _translate("MainWindow", "Gallbladder"))
-        self.comboBox.setItemText(9, _translate("MainWindow", "Esophagus"))
-        self.comboBox.setItemText(10, _translate("MainWindow", "Stomach"))
-        self.comboBox.setItemText(11, _translate("MainWindow", "Duodenum"))
-        self.comboBox.setItemText(12, _translate("MainWindow", "Left kidney"))
+        self.label.setText(_translate("MainWindow", "TextLabel"))
+        self.groupBox.setTitle(_translate("MainWindow", "Select organ"))
+        self.glass_button.setText(_translate("MainWindow", "Focus"))
         self.volume_button.setText(_translate("MainWindow", "Volume rendering"))
-        self.label_button.setText(_translate("MainWindow", "Label"))
-        self.stereo_button.setText(_translate("MainWindow", "Stereo rendering"))
-        self.ruler_button.setText(_translate("MainWindow", "Add ruler"))
+        self.groupBox_2.setTitle(_translate("MainWindow", "Rulers"))
+        self.ruler_button.setText(_translate("MainWindow", "Add new ruler"))
+        self.stereo_button.setText(_translate("MainWindow", "Enable stereo rendering"))
+        self.menu.setTitle(_translate("MainWindow", "File"))
+        self.menuAbout.setTitle(_translate("MainWindow", "About"))
+        self.menuView.setTitle(_translate("MainWindow", "View"))
+        self.menuChange_view.setTitle(_translate("MainWindow", "Change view"))
+        self.actionNew.setText(_translate("MainWindow", "New..."))
+        self.actionClose.setText(_translate("MainWindow", "Exit"))
+        self.actionSave.setText(_translate("MainWindow", "Save annotations..."))
+        self.actionLoad.setText(_translate("MainWindow", "Load annotations..."))
+        self.actionFront_view.setText(_translate("MainWindow", "Front view"))
+        self.actionBack_view.setText(_translate("MainWindow", "Back view"))
+        self.actionLeft_view.setText(_translate("MainWindow", "Left view"))
+        self.actionRight_view.setText(_translate("MainWindow", "Right view"))
+        self.actionShow_labels.setText(_translate("MainWindow", "Show labels"))
+        self.actionBack_view_2.setText(_translate("MainWindow", "Back view"))
+        self.actionLeft_view_2.setText(_translate("MainWindow", "Left view"))
+        self.actionRight_view_2.setText(_translate("MainWindow", "Right view"))
+        self.actionInfo.setText(_translate("MainWindow", "Version info"))
 
 
 if __name__ == "__main__":
     import sys
-
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()

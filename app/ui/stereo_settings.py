@@ -13,98 +13,65 @@ from app.utils import get_abs_path
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(517, 309)
+        Dialog.resize(353, 167)
+        Dialog.setStyleSheet("")
         self.horizontalLayout = QtWidgets.QHBoxLayout(Dialog)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.widget = QtWidgets.QWidget(parent=Dialog)
-        self.widget.setStyleSheet(
-            "QWidget#widget {\n"
-            "    background-color: qlineargradient(spread:reflect, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(34, 148, 157, 255), stop:0.890052 rgba(255, 177, 177, 255));\n"
-            "}"
-        )
+        self.widget.setStyleSheet("")
         self.widget.setObjectName("widget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.widget)
         self.verticalLayout.setObjectName("verticalLayout")
-        self.stereo_param_label = QtWidgets.QLabel(parent=self.widget)
-        self.stereo_param_label.setStyleSheet(
-            "color: rgb(255, 255, 255);\n" 'font: 18pt "Ubuntu";'
-        )
-        self.stereo_param_label.setObjectName("stereo_param_label")
-        self.verticalLayout.addWidget(
-            self.stereo_param_label, 0, QtCore.Qt.AlignmentFlag.AlignHCenter
-        )
+        self.label = QtWidgets.QLabel(parent=self.widget)
+        self.label.setObjectName("label")
+        self.verticalLayout.addWidget(self.label)
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.ipd_label = QtWidgets.QLabel(parent=self.widget)
-        self.ipd_label.setStyleSheet(
-            "color: rgb(255, 255, 255);\n" 'font: 15pt "Ubuntu";'
-        )
+        self.ipd_label.setStyleSheet("")
         self.ipd_label.setObjectName("ipd_label")
         self.horizontalLayout_2.addWidget(self.ipd_label)
+        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
+        self.horizontalLayout_2.addItem(spacerItem)
         self.ipd_line_edit = QtWidgets.QLineEdit(parent=self.widget)
-        self.ipd_line_edit.setStyleSheet(
-            "QLineEdit {\n"
-            "    color: rgba(0, 25, 12, 0.7); /* Couleur du texte */\n"
-            '    font: 15pt "Ubuntu";\n'
-            "    padding: 5px; /* Ajustement de la marge intérieure */\n"
-            "    border: 1px solid rgba(0, 25, 12, 0.4); /* Couleur de la bordure */\n"
-            "    border-radius: 5px; /* Arrondi des coins */\n"
-            "    background-color: transparent; /* Couleur de fond */\n"
-            "    selection-background-color: rgba(34, 148, 157, 1); /* Couleur de fond de la sélection */\n"
-            "\n"
-            "    padding-top: 1px; /* Ajustez la marge supérieure pour centrer verticalement le texte */\n"
-            "    padding-bottom: 1px;\n"
-            "}"
-        )
+        self.ipd_line_edit.setMaximumSize(QtCore.QSize(114, 16777215))
+        self.ipd_line_edit.setStyleSheet("")
         self.ipd_line_edit.setObjectName("ipd_line_edit")
-        self.horizontalLayout_2.addWidget(self.ipd_line_edit)
+        self.horizontalLayout_2.addWidget(self.ipd_line_edit, 0, QtCore.Qt.AlignmentFlag.AlignRight)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
         self.angle_label = QtWidgets.QLabel(parent=self.widget)
-        self.angle_label.setStyleSheet(
-            "color: rgb(255, 255, 255);\n" 'font: 15pt "Ubuntu";'
-        )
+        self.angle_label.setStyleSheet("")
         self.angle_label.setObjectName("angle_label")
         self.horizontalLayout_3.addWidget(self.angle_label)
+        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
+        self.horizontalLayout_3.addItem(spacerItem1)
         self.angle_line_edit = QtWidgets.QLineEdit(parent=self.widget)
-        self.angle_line_edit.setStyleSheet(
-            "QLineEdit {\n"
-            "    color: rgba(0, 25, 12, 0.7); /* Couleur du texte */\n"
-            '    font: 15pt "Ubuntu";\n'
-            "    padding: 5px; /* Ajustement de la marge intérieure */\n"
-            "    border: 1px solid rgba(0, 25, 12, 0.4); /* Couleur de la bordure */\n"
-            "    border-radius: 5px; /* Arrondi des coins */\n"
-            "    background-color: transparent; /* Couleur de fond */\n"
-            "    selection-background-color: rgba(34, 148, 157, 1); /* Couleur de fond de la sélection */\n"
-            "\n"
-            "    padding-top: 1px; /* Ajustez la marge supérieure pour centrer verticalement le texte */\n"
-            "    padding-bottom: 1px;\n"
-            "}"
-        )
+        self.angle_line_edit.setMaximumSize(QtCore.QSize(114, 16777215))
+        self.angle_line_edit.setStyleSheet("")
         self.angle_line_edit.setObjectName("angle_line_edit")
-        self.horizontalLayout_3.addWidget(self.angle_line_edit)
+        self.horizontalLayout_3.addWidget(self.angle_line_edit, 0, QtCore.Qt.AlignmentFlag.AlignRight)
         self.verticalLayout.addLayout(self.horizontalLayout_3)
+        spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Expanding)
+        self.verticalLayout.addItem(spacerItem2)
+        self.line = QtWidgets.QFrame(parent=self.widget)
+        self.line.setFrameShape(QtWidgets.QFrame.Shape.HLine)
+        self.line.setFrameShadow(QtWidgets.QFrame.Shadow.Sunken)
+        self.line.setObjectName("line")
+        self.verticalLayout.addWidget(self.line)
+        self.horizontalLayout_4 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_4.setObjectName("horizontalLayout_4")
+        spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
+        self.horizontalLayout_4.addItem(spacerItem3)
+        self.pushButton = QtWidgets.QPushButton(parent=self.widget)
+        self.pushButton.setObjectName("pushButton")
+        self.horizontalLayout_4.addWidget(self.pushButton)
         self.ok_button = QtWidgets.QPushButton(parent=self.widget)
-        self.ok_button.setStyleSheet(
-            "QPushButton {\n"
-            "    background-color: transparent;\n"
-            "    border: 1px solid transparent;\n"
-            "    color: #FFFFFF; /* Couleur du texte */\n"
-            "}\n"
-            "\n"
-            "QPushButton:hover {\n"
-            "    background-color: rgba(0, 0, 0, 0.2); /* Couleur de fond lorsqu'il est survolé */\n"
-            "}\n"
-            "\n"
-            "QPushButton:pressed {\n"
-            "    background-color: rgba(0, 0, 0, 0.4); /* Couleur de fond lorsqu'il est cliqué */\n"
-            "}\n"
-            "\n"
-            ""
-        )
+        self.ok_button.setStyleSheet("")
         self.ok_button.setObjectName("ok_button")
-        self.verticalLayout.addWidget(self.ok_button)
+        self.horizontalLayout_4.addWidget(self.ok_button)
+        self.verticalLayout.addLayout(self.horizontalLayout_4)
         self.horizontalLayout.addWidget(self.widget)
 
         self.retranslateUi(Dialog)
@@ -113,15 +80,15 @@ class Ui_Dialog(object):
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
-        self.stereo_param_label.setText(_translate("Dialog", "Stereo parameters"))
+        self.label.setText(_translate("Dialog", "Stereo parameters"))
         self.ipd_label.setText(_translate("Dialog", "Interpupillary distance (mm)"))
         self.angle_label.setText(_translate("Dialog", "Stereo angle"))
-        self.ok_button.setText(_translate("Dialog", "OK"))
+        self.pushButton.setText(_translate("Dialog", "Cancel"))
+        self.ok_button.setText(_translate("Dialog", "Confirm"))
 
 
 if __name__ == "__main__":
     import sys
-
     app = QtWidgets.QApplication(sys.argv)
     Dialog = QtWidgets.QDialog()
     ui = Ui_Dialog()
