@@ -110,10 +110,6 @@ class MainWindow(QtWidgets.QMainWindow):
         # Window for stereo parameters
         self.stereo_window = StereoParam()
 
-        # Volume rendering button and stereo parameters are hidden
-        self.ui.volume_button.setVisible(False)
-        self.ui.stereo_param_button.setVisible(False)
-
         # Change the actor from surface to volume if the volume button is checked
         self.ui.volume_button.setChecked(False)  # initial state : unchecked
         self.ui.volume_button.clicked.connect(self.onVolumeButtonClicked)
@@ -127,7 +123,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # Change the view and show volume rendering if the glass button is clicked
         self.ui.glass_button.clicked.connect(self.onGlassButtonClicked)
-        self.ui.color_button.clicked.connect(self.open_color_picker)
+        self.ui.color_button.clicked.connect(self.onColorButtonClicked)
 
         # Change the organ view and volume rendering if user changes the specified organ
         self.ui.comboBox.currentIndexChanged.connect(self.onComboBoxChanged)
@@ -173,7 +169,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.stereo_window.values.connect(setStereoValues)
         self.stereo_window.show()
 
-    def open_color_picker(self):
+    def onColorButtonClicked(self):
         """
         Opens a color picker and sets the color of the selected actor based on the chosen color.
 
@@ -185,15 +181,56 @@ class MainWindow(QtWidgets.QMainWindow):
 
         if chosen_color.isValid():
             selected_index = self.ui.comboBox.currentIndex()
-            selected_actor = self.segmented_actors[selected_index]
+            selected_surface_actor = self.segmented_surface_actors[selected_index]
+            selected_volume_actor = self.segmented_volume_actors[selected_index]
             rgb = chosen_color.redF(), chosen_color.greenF(), chosen_color.blueF()
-            if isinstance(selected_actor, vtk.vtkActor):
-                selected_actor.GetProperty().SetColor(rgb)
-                self.vtk_widget.GetRenderWindow().Render()
+
+            # Set color for the surface actor
+            selected_surface_actor.GetProperty().SetColor(rgb)
+
+            # Set color for the volume actor
+            color_func = vtk.vtkColorTransferFunction()
+            color_func.AddRGBPoint(0, 0, 0, 0)
+            color_func.AddRGBPoint(255, *rgb)
+            selected_volume_actor.GetProperty().SetColor(color_func)
+
+            self.vtk_widget.GetRenderWindow().Render()
             self.ui.color_button.setStyleSheet(
                 f"border: 0px; background-color: rgb{tuple(int(c * 255) for c in rgb)}"
             )
             self.colors[selected_index] = rgb
+
+    def onOpacityChanged(self, value_slider):
+        """
+        Handles the change event of the opacity slider.
+
+        This method adjusts the opacity of the selected organ based on the value of the opacity slider.
+        The opacity is calculated as a percentage of the maximum value of the slider.
+        The method updates the opacity of the selected actor and refreshes the window.
+
+        Args:
+            value_slider (int): The value of the opacity slider.
+
+        Returns:
+            None
+        """
+        # Adjust opacity for a selected organ
+        selected_index = self.ui.comboBox.currentIndex()
+        selected_surface_actor = self.segmented_surface_actors[selected_index]
+        selected_volume_actor = self.segmented_volume_actors[selected_index]
+        opacity = value_slider / 100 + 0.01
+
+        # Set opacity for the surface actor
+        selected_surface_actor.GetProperty().SetOpacity(opacity)
+
+        # Set opacity for the volume actor
+        opacity_func = vtk.vtkPiecewiseFunction()
+        opacity_func.AddPoint(0, 0)
+        opacity_func.AddPoint(255, opacity)
+        selected_volume_actor.GetProperty().SetScalarOpacity(opacity_func)
+
+        # Update window
+        self.vtk_widget.GetRenderWindow().Render()
 
     def onStereoClicked(self):
         """
@@ -211,11 +248,11 @@ class MainWindow(QtWidgets.QMainWindow):
             self.vtk_widget.GetRenderWindow().SetStereoTypeToInterlaced()
             self.vtk_widget.GetRenderWindow().StereoRenderOn()
             # Choose stereo parameters
-            self.ui.stereo_param_button.setVisible(True)
+            self.ui.stereo_param_button.setDisabled(False)
 
         else:
             self.vtk_widget.GetRenderWindow().StereoRenderOff()
-            self.ui.stereo_param_button.setVisible(False)
+            self.ui.stereo_param_button.setDisabled(True)
 
         # Update window
         self.vtk_widget.GetRenderWindow().Render()
@@ -265,37 +302,14 @@ class MainWindow(QtWidgets.QMainWindow):
         if self.ui.glass_button.isChecked():
             # The view changes and volume rendering possibility appear
             print("CHANGE THE VIEW HERE")
-            self.ui.volume_button.setVisible(True)
+            self.ui.volume_button.setDisabled(False)
+            self.ui.comboBox.setDisabled(True)
         else:
             # Volume rendering disappears and the volume becomes a surface
             self.ui.volume_button.setChecked(False)
-            self.ui.volume_button.setVisible(False)
+            self.ui.volume_button.setDisabled(True)
+            self.ui.comboBox.setDisabled(False)
             self.onVolumeButtonClicked()
-
-    def onOpacityChanged(self, value_slider):
-        """
-        Handles the change event of the opacity slider.
-
-        This method adjusts the opacity of the selected organ based on the value of the opacity slider.
-        The opacity is calculated as a percentage of the maximum value of the slider.
-        The method updates the opacity of the selected actor and refreshes the window.
-
-        Args:
-            value_slider (int): The value of the opacity slider.
-
-        Returns:
-            None
-        """
-        # Adjust opacity for a selected organ
-        selected_index = self.ui.comboBox.currentIndex()
-        selected_actor = self.segmented_actors[selected_index]
-        opacity = value_slider / 100
-
-        if isinstance(selected_actor, vtk.vtkActor):
-            selected_actor.GetProperty().SetOpacity(opacity)
-
-        # Update window
-        self.vtk_widget.GetRenderWindow().Render()
 
     def onVolumeButtonClicked(self):
         """
@@ -316,13 +330,9 @@ class MainWindow(QtWidgets.QMainWindow):
             self.segmented_actors[selected_index] = self.segmented_volume_actors[
                 selected_index
             ]
-            # We cannot adjust opacity for a volume
-            self.ui.op_slider.setVisible(False)
-
         else:
             # If the button is unchecked: launch surface rendering
             self.segmented_actors = list(self.segmented_surface_actors)
-            self.ui.op_slider.setVisible(True)
 
         # Delete existing actor of the renderer
         self.renderer.RemoveAllViewProps()
@@ -432,8 +442,11 @@ class MainWindow(QtWidgets.QMainWindow):
 
             # Create a VTK color transfer function
             color_func = vtk.vtkColorTransferFunction()
+            color = self.colors[
+                organ % len(self.colors)
+            ]  # Get the color of the corresponding surface actor
             color_func.AddRGBPoint(0, 0, 0, 0)
-            color_func.AddRGBPoint(255, 1, 1, 1)
+            color_func.AddRGBPoint(255, *color)
             volume_property.SetColor(color_func)
 
             # Create a VTK volume gradient opacity function
