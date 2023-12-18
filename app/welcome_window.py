@@ -1,5 +1,4 @@
-from PyQt6 import QtWidgets
-import nibabel as nib
+from PyQt6 import QtCore, QtWidgets
 from app.main_window import MainWindow
 from app.ui import welcome_interface
 from app.utils import get_keys_from_yaml, get_abs_path
@@ -32,6 +31,7 @@ class WelcomeWindow(QtWidgets.QMainWindow):
         for label in labels:
             checkbox_widget = QtWidgets.QCheckBox(label)
             checkbox_widget.setChecked(True)
+            checkbox_widget.stateChanged.connect(self.check_input)
             scroll_layout.addWidget(checkbox_widget)
         # Set the layout to the widget
         scroll_widget.setLayout(scroll_layout)
@@ -71,20 +71,24 @@ class WelcomeWindow(QtWidgets.QMainWindow):
             else:
                 alert.setStyleSheet("color: red;")
                 alert.setText("Invalid file format!")
-            self.check_files()
+            self.check_input()
 
-    def check_files(self):
+    def check_input(self):
         """
         Checks if the selected files have valid file formats.
 
-        This method checks if both the segmentation file and the image file have valid file formats.
-        If both files have valid formats, it enables the "continue button" and the "labels box".
-        Otherwise, it disables the "continue" button.
+        This method checks if both the segmentation file and the image file have valid file formats. It also checks
+        if any labels are checked. If both files have valid formats and at least one label is checked, it enables the
+        "continue button" and the "labels box". Otherwise, it disables the "continue" button.
 
         Returns:
             None
         """
-        if self.seg_path.endswith(".nii.gz") and self.img_path.endswith(".nii.gz"):
+        if (
+            self.seg_path.endswith(".nii.gz")
+            and self.img_path.endswith(".nii.gz")
+            and self.get_checked_labels()
+        ):
             self.ui.continue_button.setDisabled(False)
             self.ui.labels_box.setDisabled(False)
         else:
