@@ -11,7 +11,7 @@ from vtkmodules.util.numpy_support import numpy_to_vtk
 from app.stereo_dialog import StereoParam
 from app.ui import main_interface
 from app.utils import get_index_from_key, get_abs_path, convert_to_gray_scale
-
+from app.callback import TimerCallback
 
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self, path_img, path_label, checked_labels):
@@ -425,6 +425,12 @@ class MainWindow(QtWidgets.QMainWindow):
         if self.ui.glass_button.isChecked():
             # The view changes and volume rendering possibility appear
             print("CHANGE THE VIEW HERE")
+            selected_index = self.ui.organ_combo.currentIndex()
+
+            timer_call = TimerCallback(self.segmented_actors, selected_index)
+            self.interactor.AddObserver('TimerEvent', timer_call.execute)
+            self.interactor.CreateRepeatingTimer(10)
+
             self.ui.hist_group.setDisabled(True)
             self.ui.volume_button.setDisabled(False)
             self.ui.organ_combo.setDisabled(True)
