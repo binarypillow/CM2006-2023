@@ -2,3 +2,4 @@ __pycache__
 run.spec
 build/
 dist/
+history.yaml

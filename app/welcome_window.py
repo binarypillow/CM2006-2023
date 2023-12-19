@@ -2,6 +2,7 @@ from PyQt6 import QtCore, QtWidgets
 from app.main_window import MainWindow
 from app.ui import welcome_interface
 from app.utils import get_keys_from_yaml, get_abs_path
+import yaml, os
 
 
 class WelcomeWindow(QtWidgets.QMainWindow):
@@ -22,6 +23,14 @@ class WelcomeWindow(QtWidgets.QMainWindow):
         # Connect the "Continue" button to the function to open a new window
         self.ui.continue_button.clicked.connect(self.open_new_window)
 
+        self.history_path = "history.yaml"
+        history_exits = bool(os.path.exists(self.history_path))
+        if history_exits:
+            with open(self.history_path, "r") as f:
+                history = yaml.safe_load(f)
+                self.ui.img_text.setText(history["img_path"])
+                self.ui.seg_text.setText(history["seg_path"])
+
         # Create a QWidget and a QVBoxLayout
         scroll_widget = QtWidgets.QWidget()
         scroll_layout = QtWidgets.QVBoxLayout()
@@ -30,13 +39,22 @@ class WelcomeWindow(QtWidgets.QMainWindow):
         # For each label, create a QLabel and add it to the layout
         for label in labels:
             checkbox_widget = QtWidgets.QCheckBox(label)
-            checkbox_widget.setChecked(True)
+            if (
+                history_exits
+                and label in history["checked_labels"]
+                or not history_exits
+            ):
+                checkbox_widget.setChecked(True)
+            else:
+                checkbox_widget.setChecked(False)
             checkbox_widget.stateChanged.connect(self.check_input)
             scroll_layout.addWidget(checkbox_widget)
         # Set the layout to the widget
         scroll_widget.setLayout(scroll_layout)
         # Set the widget to the QScrollArea
         self.ui.labels_list.setWidget(scroll_widget)
+
+        self.check_input()
 
     def select_file(self, file_type):
         """
@@ -85,8 +103,8 @@ class WelcomeWindow(QtWidgets.QMainWindow):
             None
         """
         if (
-            self.seg_path.endswith(".nii.gz")
-            and self.img_path.endswith(".nii.gz")
+            self.ui.seg_text.text().endswith(".nii.gz")
+            and self.ui.img_text.text().endswith(".nii.gz")
             and self.get_checked_labels()
         ):
             self.ui.continue_button.setDisabled(False)
@@ -104,6 +122,17 @@ class WelcomeWindow(QtWidgets.QMainWindow):
         Returns:
             None
         """
+        # Save the path into a YAML file
+        with open(self.history_path, "w") as f:
+            yaml.dump(
+                {
+                    "img_path": self.img_path,
+                    "seg_path": self.seg_path,
+                    "checked_labels": self.get_checked_labels(),
+                },
+                f,
+            )
+
         # The next window is the main window
         self.next_window = MainWindow(
             self.img_path,
