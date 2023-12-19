@@ -302,7 +302,7 @@ class Ui_MainWindow(object):
         self.glass_button.setText(_translate("MainWindow", "Focus"))
         self.label_2.setText(_translate("MainWindow", "Color"))
         self.op_text.setText(_translate("MainWindow", "Opacity"))
-        self.volume_group.setTitle(_translate("MainWindow", "Volume rendering"))
+        self.volume_group.setTitle(_translate("MainWindow", "Volume rendering (only when Focus is active)"))
         self.volume_button.setText(_translate("MainWindow", "Enable volume rendering"))
         self.low_text.setText(_translate("MainWindow", "Lower threshold"))
         self.high_text.setText(_translate("MainWindow", "Higher threshold"))

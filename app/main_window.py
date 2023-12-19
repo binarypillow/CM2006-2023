@@ -594,7 +594,3 @@ class MainWindow(QtWidgets.QMainWindow):
             actors.append(volume_actor)
 
         return actors
-
-
-def convert_to_hounsfield(gray_value):
-    return (gray_value / 255) * 4000 - 1000
