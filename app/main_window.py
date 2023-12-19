@@ -1,12 +1,16 @@
 from PyQt6 import QtWidgets
 from PyQt6.QtWidgets import QColorDialog
+from matplotlib.figure import Figure
+import matplotlib.patches as patches
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+import numpy as np
 import vtk
 from vtkmodules.qt.QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
 import nibabel as nib
 from vtkmodules.util.numpy_support import numpy_to_vtk
 from app.stereo_dialog import StereoParam
 from app.ui import main_interface
-from app.utils import get_index_from_key, get_abs_path
+from app.utils import get_index_from_key, get_abs_path, convert_to_gray_scale
 
 
 class MainWindow(QtWidgets.QMainWindow):
@@ -21,7 +25,10 @@ class MainWindow(QtWidgets.QMainWindow):
         self.labels_data = labels_nii.get_fdata()
 
         # Create a list containing each organ separated
-        self.segmented_organs = self.createListSegmentedOrgans()
+        (
+            self.segmented_organs_data,
+            self.segmented_organs,
+        ) = self.createListSegmentedOrgans()
 
         # Colors for surface organs
         self.colors = [
@@ -115,14 +122,14 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # Create the slider list
         for organ in self.checked_labels:
-            self.ui.comboBox.addItem(organ)
+            self.ui.organ_combo.addItem(organ)
 
         # Change the view and show volume rendering if the glass button is clicked
         self.ui.glass_button.clicked.connect(self.onGlassButtonClicked)
         self.ui.color_button.clicked.connect(self.onColorButtonClicked)
 
         # Change the organ view and volume rendering if user changes the specified organ
-        self.ui.comboBox.currentIndexChanged.connect(self.onComboBoxChanged)
+        self.ui.organ_combo.currentIndexChanged.connect(self.onComboBoxChanged)
 
         # Display stereo if clicked. Display a parameter button to adjust stereo parameters
         self.ui.stereo_button.clicked.connect(self.onStereoClicked)
@@ -131,6 +138,107 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.stereo_param_button.clicked.connect(self.onStereoParamClicked)
 
         self.ui.actionClose.triggered.connect(self.close)
+
+        histogram_canvas = self.create_histogram(self.segmented_organs_data)
+        self.ui.hist_layout.addWidget(histogram_canvas)
+
+        self.ui.low_slider.valueChanged.connect(self.onSliderChanged)
+        self.ui.high_slider.valueChanged.connect(self.onSliderChanged)
+        self.ui.high_op_slider.valueChanged.connect(self.onSliderChanged)
+
+        self.ui.update_button.clicked.connect(self.onVolumeUpdate)
+
+    def onVolumeUpdate(self):
+        # Adjust opacity for a selected organ
+        selected_index = self.ui.organ_combo.currentIndex()
+        selected_surface_actor = self.segmented_surface_actors[selected_index]
+        selected_volume_actor = self.segmented_volume_actors[selected_index]
+        opacity = self.ui.op_slider.value() / 100
+
+        # Set opacity for the surface actor
+        selected_surface_actor.GetProperty().SetOpacity(opacity)
+
+        # Set opacity for the surface actor
+        selected_surface_actor.GetProperty().SetOpacity(opacity)
+
+        # Set opacity for the volume actor
+        opacity_func = vtk.vtkPiecewiseFunction()
+
+        opacity_func.AddPoint(self.ui.low_slider.value(), 0)
+        opacity_func.AddPoint(
+            self.ui.high_slider.value(), self.ui.high_op_slider.value() / 100
+        )
+        selected_volume_actor.GetProperty().SetScalarOpacity(opacity_func)
+        # Update window
+        self.vtk_widget.GetRenderWindow().Render()
+
+    def onSliderChanged(self):
+        # Remove the old histogram canvas
+        while self.ui.hist_layout.count():
+            child = self.ui.hist_layout.takeAt(0)
+            if child.widget():
+                child.widget().deleteLater()
+
+        # Create a new histogram canvas with the updated vertical line position
+        new_histogram_canvas = self.create_histogram(self.segmented_organs_data)
+
+        # Add the new histogram canvas to the layout
+        self.ui.hist_layout.addWidget(new_histogram_canvas)
+
+    def create_histogram(self, organs_data):
+        current_selected = self.ui.organ_combo.currentIndex()
+        organ_data = convert_to_gray_scale(organs_data[current_selected])
+        organ_data = organ_data[organ_data != 0]
+
+        # Calculate the histogram data
+        hist_data, bin_edges = np.histogram(organ_data, bins=256, range=(0, 256))
+
+        # Create a FigureCanvas object
+        canvas = FigureCanvas(Figure(figsize=(5, 3), dpi=100))
+
+        ax = canvas.figure.subplots()
+        # Create the histogram and get the bin values (counts)
+        counts, bins, _ = ax.hist(
+            hist_data,
+            bins=128,
+            range=[0, 256],
+            density=False,
+        )
+
+        # Normalize the bin values
+        counts_normalized = counts / np.sum(counts)
+
+        # Clear the current figure
+        ax.clear()
+
+        # Plot the histogram with the normalized frequencies
+        ax.bar(bins[:-1], counts_normalized, width=2, color="grey")
+
+        # Define the coordinates of the four points of the polygon
+        polygon_points = [
+            (self.ui.low_slider.value(), 0),
+            (self.ui.high_slider.value(), 0),
+            (self.ui.high_slider.value(), self.ui.high_op_slider.value() / 100),
+        ]
+        # Create a Polygon object
+        polygon = patches.Polygon(
+            polygon_points,
+            facecolor="lightgrey",
+            alpha=0.5,
+            linewidth=1.2,
+            linestyle="--",
+        )
+
+        # Add the polygon to the current axes
+        ax.add_patch(polygon)
+
+        ax.set_ylim([0, 1])
+
+        # Mark the vertices with gray dots
+        for point in polygon_points:
+            ax.scatter(*point, s=8, color="lightgrey", edgecolors="black")
+
+        return canvas
 
     def get_camera_position(self, obj, event):
         """
@@ -189,7 +297,7 @@ class MainWindow(QtWidgets.QMainWindow):
         chosen_color = color_dialog.getColor()
 
         if chosen_color.isValid():
-            selected_index = self.ui.comboBox.currentIndex()
+            selected_index = self.ui.organ_combo.currentIndex()
             selected_surface_actor = self.segmented_surface_actors[selected_index]
             selected_volume_actor = self.segmented_volume_actors[selected_index]
             rgb = chosen_color.redF(), chosen_color.greenF(), chosen_color.blueF()
@@ -209,7 +317,7 @@ class MainWindow(QtWidgets.QMainWindow):
             )
             self.colors[selected_index] = rgb
 
-    def onOpacityChanged(self, value_slider):
+    def onOpacityChanged(self):
         """
         Handles the change event of the opacity slider.
 
@@ -217,26 +325,19 @@ class MainWindow(QtWidgets.QMainWindow):
         The opacity is calculated as a percentage of the maximum value of the slider.
         The method updates the opacity of the selected actor and refreshes the window.
 
-        Args:
-            value_slider (int): The value of the opacity slider.
-
         Returns:
             None
         """
         # Adjust opacity for a selected organ
-        selected_index = self.ui.comboBox.currentIndex()
+        selected_index = self.ui.organ_combo.currentIndex()
         selected_surface_actor = self.segmented_surface_actors[selected_index]
-        selected_volume_actor = self.segmented_volume_actors[selected_index]
-        opacity = value_slider / 100 + 0.01
+        opacity = self.ui.op_slider.value() / 100
 
         # Set opacity for the surface actor
         selected_surface_actor.GetProperty().SetOpacity(opacity)
 
-        # Set opacity for the volume actor
-        opacity_func = vtk.vtkPiecewiseFunction()
-        opacity_func.AddPoint(0, 0)
-        opacity_func.AddPoint(255, opacity)
-        selected_volume_actor.GetProperty().SetScalarOpacity(opacity_func)
+        # Set opacity for the surface actor
+        selected_surface_actor.GetProperty().SetOpacity(opacity)
 
         # Update window
         self.vtk_widget.GetRenderWindow().Render()
@@ -278,11 +379,9 @@ class MainWindow(QtWidgets.QMainWindow):
             None
         """
         # Change organ
-        selected_index = self.ui.comboBox.currentIndex()
+        selected_index = self.ui.organ_combo.currentIndex()
         selected_actor = self.segmented_actors[selected_index]
 
-        # If the actor is a volume, we cannot adjust opacity
-        # If the actor is a surface, we must adjust the position of the slider with its opacity
         if isinstance(selected_actor, vtk.vtkActor):
             opacity = selected_actor.GetProperty().GetOpacity()
             self.ui.op_slider.setValue(int(opacity * 100))
@@ -295,6 +394,21 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.onGlassButtonClicked()
         self.onVolumeButtonClicked()
+
+        # Update the histogram
+        new_histogram_canvas = self.create_histogram(self.segmented_organs_data)
+
+        # Remove the old histogram canvas
+        while self.ui.hist_layout.count():
+            child = self.ui.hist_layout.takeAt(0)
+            if child.widget():
+                child.widget().deleteLater()
+
+        # Add the new histogram canvas to the layout
+        self.ui.hist_layout.addWidget(new_histogram_canvas)
+        self.ui.low_slider.setValue(0)
+        self.ui.high_slider.setValue(255)
+        self.ui.high_op_slider.setValue(100)
 
     def onGlassButtonClicked(self):
         """
@@ -311,13 +425,16 @@ class MainWindow(QtWidgets.QMainWindow):
         if self.ui.glass_button.isChecked():
             # The view changes and volume rendering possibility appear
             print("CHANGE THE VIEW HERE")
+            self.ui.hist_group.setDisabled(True)
             self.ui.volume_button.setDisabled(False)
-            self.ui.comboBox.setDisabled(True)
+            self.ui.organ_combo.setDisabled(True)
+            self.ui.op_slider.setDisabled(True)
         else:
             # Volume rendering disappears and the volume becomes a surface
             self.ui.volume_button.setChecked(False)
             self.ui.volume_button.setDisabled(True)
-            self.ui.comboBox.setDisabled(False)
+            self.ui.organ_combo.setDisabled(False)
+            self.ui.op_slider.setDisabled(False)
             self.onVolumeButtonClicked()
 
     def onVolumeButtonClicked(self):
@@ -334,14 +451,16 @@ class MainWindow(QtWidgets.QMainWindow):
         """
         if self.ui.volume_button.isChecked():
             # If the button is checked: launch volume rendering of the selected organ
-            selected_index = self.ui.comboBox.currentIndex()
+            selected_index = self.ui.organ_combo.currentIndex()
             self.segmented_actors = list(self.segmented_surface_actors)
             self.segmented_actors[selected_index] = self.segmented_volume_actors[
                 selected_index
             ]
+            self.ui.hist_group.setDisabled(False)
         else:
             # If the button is unchecked: launch surface rendering
             self.segmented_actors = list(self.segmented_surface_actors)
+            self.ui.hist_group.setDisabled(True)
 
         # Delete existing actor of the renderer
         self.renderer.RemoveAllViewProps()
@@ -362,6 +481,7 @@ class MainWindow(QtWidgets.QMainWindow):
         """
 
         organs = []
+        organs_data = []
         for label in self.checked_labels:  # iterate over labels_keys
             organ_data = self.img_data.copy()
             organ_data[
@@ -370,6 +490,7 @@ class MainWindow(QtWidgets.QMainWindow):
                     label, get_abs_path("resources/config/labels.yml")
                 )
             ] = 0  # Select only the organ with the specific label
+            organs_data.append(organ_data)
 
             # Convert the numpy array to VTK image data
             vtk_organ_data = vtk.vtkImageData()
@@ -379,9 +500,10 @@ class MainWindow(QtWidgets.QMainWindow):
 
             # Copy the numpy array to the VTK image data
             vtk_array = numpy_to_vtk(organ_data.flatten("F"), deep=True)
+
             vtk_organ_data.GetPointData().SetScalars(vtk_array)
             organs.append(vtk_organ_data)
-        return organs
+        return organs_data, organs
 
     def createSegmentedSurfaceActors(self):
         """
@@ -403,7 +525,7 @@ class MainWindow(QtWidgets.QMainWindow):
             contour.SetInputConnection(cast_filter.GetOutputPort())
             contour.ComputeNormalsOn()
             contour.ComputeGradientsOn()
-            contour.SetValue(0, 100)
+            contour.SetValue(0, 60)
 
             con_mapper = vtk.vtkPolyDataMapper()
             con_mapper.SetInputConnection(contour.GetOutputPort())
@@ -472,3 +594,7 @@ class MainWindow(QtWidgets.QMainWindow):
             actors.append(volume_actor)
 
         return actors
+
+
+def convert_to_hounsfield(gray_value):
+    return (gray_value / 255) * 4000 - 1000

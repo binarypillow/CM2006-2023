@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1017</width>
-    <height>516</height>
+    <width>1035</width>
+    <height>694</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -56,7 +56,7 @@
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_6">
            <item>
-            <widget class="QComboBox" name="comboBox">
+            <widget class="QComboBox" name="organ_combo">
              <property name="enabled">
               <bool>true</bool>
              </property>
@@ -139,8 +139,20 @@
              <property name="styleSheet">
               <string notr="true"/>
              </property>
+             <property name="minimum">
+              <number>0</number>
+             </property>
+             <property name="maximum">
+              <number>100</number>
+             </property>
+             <property name="value">
+              <number>100</number>
+             </property>
              <property name="sliderPosition">
-              <number>99</number>
+              <number>100</number>
+             </property>
+             <property name="tracking">
+              <bool>true</bool>
              </property>
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
@@ -162,22 +174,169 @@
            </item>
           </layout>
          </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="volume_group">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="title">
+         <string>Volume rendering (only when Focus is active)</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout">
          <item>
-          <layout class="QVBoxLayout" name="verticalLayout">
-           <item>
-            <widget class="QCheckBox" name="volume_button">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-             <property name="styleSheet">
-              <string notr="true"/>
-             </property>
-             <property name="text">
-              <string>Volume rendering</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
+          <widget class="QCheckBox" name="volume_button">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
+           <property name="text">
+            <string>Enable volume rendering</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="hist_group">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="title">
+            <string/>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_4">
+            <item>
+             <layout class="QGridLayout" name="func_layout">
+              <item row="2" column="0">
+               <layout class="QHBoxLayout" name="horizontalLayout_5">
+                <item>
+                 <widget class="QLabel" name="low_text">
+                  <property name="text">
+                   <string>Lower threshold</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSlider" name="low_slider">
+                  <property name="minimum">
+                   <number>0</number>
+                  </property>
+                  <property name="maximum">
+                   <number>255</number>
+                  </property>
+                  <property name="value">
+                   <number>0</number>
+                  </property>
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="invertedAppearance">
+                   <bool>false</bool>
+                  </property>
+                  <property name="invertedControls">
+                   <bool>false</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="Line" name="line">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="high_text">
+                  <property name="text">
+                   <string>Higher threshold</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSlider" name="high_slider">
+                  <property name="maximum">
+                   <number>255</number>
+                  </property>
+                  <property name="value">
+                   <number>255</number>
+                  </property>
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer_4">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
+              </item>
+              <item row="0" column="0">
+               <widget class="QLabel" name="label_3">
+                <property name="text">
+                 <string>Histogram and opacity function</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="QPushButton" name="update_button">
+                <property name="maximumSize">
+                 <size>
+                  <width>48</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>Update</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <layout class="QVBoxLayout" name="hist_layout"/>
+              </item>
+              <item row="1" column="1">
+               <layout class="QVBoxLayout" name="verticalLayout_6">
+                <item alignment="Qt::AlignHCenter">
+                 <widget class="QLabel" name="label_4">
+                  <property name="text">
+                   <string>Opacity</string>
+                  </property>
+                 </widget>
+                </item>
+                <item alignment="Qt::AlignHCenter">
+                 <widget class="QSlider" name="high_op_slider">
+                  <property name="maximum">
+                   <number>100</number>
+                  </property>
+                  <property name="singleStep">
+                   <number>1</number>
+                  </property>
+                  <property name="value">
+                   <number>100</number>
+                  </property>
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
          </item>
         </layout>
        </widget>
@@ -228,6 +387,30 @@
          </item>
         </layout>
        </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="QRadioButton" name="labels_button">
+          <property name="text">
+           <string>Show labels</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -308,7 +491,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1017</width>
+     <width>1035</width>
      <height>22</height>
     </rect>
    </property>
@@ -324,8 +507,8 @@
    <widget class="QMenu" name="menuAbout">
     <property name="geometry">
      <rect>
-      <x>249</x>
-      <y>344</y>
+      <x>240</x>
+      <y>203</y>
       <width>142</width>
       <height>68</height>
      </rect>
@@ -355,8 +538,6 @@
      <addaction name="actionLeft_view_2"/>
      <addaction name="actionRight_view_2"/>
     </widget>
-    <addaction name="actionShow_labels"/>
-    <addaction name="separator"/>
     <addaction name="menuChange_view"/>
    </widget>
    <addaction name="menu"/>
@@ -367,7 +548,7 @@
   <action name="actionNew">
    <property name="icon">
     <iconset>
-     <normaloff>../../../../../../../../../../.designer/resources/icons/interface/file.svg</normaloff>../../../../../../../../../../.designer/resources/icons/interface/file.svg</iconset>
+     <normaloff>../../../../../../../../../../../../.designer/resources/icons/interface/file.svg</normaloff>../../../../../../../../../../../../.designer/resources/icons/interface/file.svg</iconset>
    </property>
    <property name="text">
     <string>New...</string>
@@ -423,7 +604,7 @@
   <action name="actionShow_labels">
    <property name="icon">
     <iconset>
-     <normaloff>../resources/icons/interface/tag.svg</normaloff>../resources/icons/interface/tag.svg</iconset>
+     <normaloff>../../../../../../../../../../.designer/resources/icons/interface/tag.svg</normaloff>../../../../../../../../../../.designer/resources/icons/interface/tag.svg</iconset>
    </property>
    <property name="text">
     <string>Show labels</string>
