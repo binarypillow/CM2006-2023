@@ -13,6 +13,7 @@ from app.ui import main_interface
 from app.utils import get_index_from_key, get_abs_path, convert_to_gray_scale
 from app.callback import TimerCallback
 
+
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self, path_img, path_label, checked_labels):
         self.checked_labels = checked_labels
@@ -184,6 +185,10 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # Add the new histogram canvas to the layout
         self.ui.hist_layout.addWidget(new_histogram_canvas)
+
+        # Set constraints to avoid an invalid or empty interval
+        self.ui.low_slider.setMaximum(self.ui.high_slider.value() - 1)
+        self.ui.high_slider.setMinimum(self.ui.low_slider.value() + 1)
 
     def create_histogram(self, organs_data):
         current_selected = self.ui.organ_combo.currentIndex()
@@ -428,7 +433,7 @@ class MainWindow(QtWidgets.QMainWindow):
             selected_index = self.ui.organ_combo.currentIndex()
 
             timer_call = TimerCallback(self.segmented_actors, selected_index)
-            self.interactor.AddObserver('TimerEvent', timer_call.execute)
+            self.interactor.AddObserver("TimerEvent", timer_call.execute)
             self.interactor.CreateRepeatingTimer(10)
 
             self.ui.hist_group.setDisabled(True)
