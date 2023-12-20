@@ -20,8 +20,8 @@ Use `python make_dist.py` to make a standalone executable file. (Tested only on 
 - [ ] Ruler history tree
 - [ ] Ruler utility
 - [ ] Focus animation
-- [ ] About menu dialog
-- [ ] Volume histogram slider <- @binarypillow
+- [ ] About menu dialog < @binarypillow
+- [X] Volume histogram slider
 - [X] Stereo rendering settings
 - [X] Color picker
 - [X] Stereo rendering
