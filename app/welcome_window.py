@@ -29,7 +29,9 @@ class WelcomeWindow(QtWidgets.QMainWindow):
             with open(self.history_path, "r") as f:
                 history = yaml.safe_load(f)
                 self.ui.img_text.setText(history["img_path"])
+                self.img_path = history["img_path"]
                 self.ui.seg_text.setText(history["seg_path"])
+                self.seg_path = history["seg_path"]
 
         # Create a QWidget and a QVBoxLayout
         scroll_widget = QtWidgets.QWidget()
