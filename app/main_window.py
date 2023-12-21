@@ -94,6 +94,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.interactor.Initialize()
         self.interactor.Start()
 
+        self.default_focal = self.renderer.GetActiveCamera().GetFocalPoint()
+
         # Window for about dialog
         self.about_window = AboutText()
 
@@ -471,8 +473,7 @@ class MainWindow(QtWidgets.QMainWindow):
             self.onVolumeButtonClicked()
 
             # Focal point goes back to normal and all organs have an opacity of 1
-                165.02192783355713, 181.29668045043945, 146.2511444091797
-            )
+            self.renderer.GetActiveCamera().SetFocalPoint(self.default_focal)
             for actor in self.segmented_actors:
                 actor.GetProperty().SetOpacity(1)
 
