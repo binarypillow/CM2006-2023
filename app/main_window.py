@@ -9,6 +9,7 @@ from vtkmodules.qt.QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
 import nibabel as nib
 from vtkmodules.util.numpy_support import numpy_to_vtk
 from app.stereo_dialog import StereoParam
+from app.about_dialog import AboutText
 from app.ui import main_interface
 from app.utils import get_index_from_key, get_abs_path, convert_to_gray_scale
 from app.callback import TimerCallback
@@ -93,8 +94,14 @@ class MainWindow(QtWidgets.QMainWindow):
         self.interactor.Initialize()
         self.interactor.Start()
 
+        # Window for about dialog
+        self.about_window = AboutText()
+
         ##############################################################################################
         # MENU TOOLS BAR
+
+        # About menu button
+        self.ui.actionInfo.triggered.connect(self.onAboutClicked)
 
         # Exit menu button
         self.ui.actionClose.triggered.connect(self.close)
@@ -281,6 +288,19 @@ class MainWindow(QtWidgets.QMainWindow):
         self.stereo_window.setModal(True)  # Make the dialog modal
         self.stereo_window.show()
 
+    def onAboutClicked(self):
+        """
+        Handles the click event of the about menu button.
+
+        This method opens the about window.
+
+        Returns:
+            None
+        """
+
+        self.about_window.setModal(True)  # Make the dialog modal
+        self.about_window.show()
+
     def setStereoValues(self, ipd):
         # Get the active camera from the renderer
         camera = self.renderer.GetActiveCamera()
@@ -431,7 +451,9 @@ class MainWindow(QtWidgets.QMainWindow):
             # The view changes
             selected_index = self.ui.organ_combo.currentIndex()
 
-            timer_call = TimerCallback(self.segmented_actors, selected_index, self.renderer.GetActiveCamera())
+            timer_call = TimerCallback(
+                self.segmented_actors, selected_index, self.renderer.GetActiveCamera()
+            )
             self.interactor.AddObserver("TimerEvent", timer_call.execute)
             self.interactor.CreateRepeatingTimer(10)
 
@@ -449,7 +471,8 @@ class MainWindow(QtWidgets.QMainWindow):
             self.onVolumeButtonClicked()
 
             # Focal point goes back to normal and all organs have an opacity of 1
-            self.renderer.GetActiveCamera().SetFocalPoint(165.02192783355713, 181.29668045043945, 146.2511444091797)
+                165.02192783355713, 181.29668045043945, 146.2511444091797
+            )
             for actor in self.segmented_actors:
                 actor.GetProperty().SetOpacity(1)
 
