@@ -76,13 +76,16 @@ class WelcomeWindow(QtWidgets.QMainWindow):
             if file_type == "image":
                 self.img_path = file_path
                 self.ui.img_text.insert(self.img_path)
+                button = self.ui.img_button
                 alert = self.ui.img_alert
             else:
                 self.seg_path = file_path
                 self.ui.seg_text.insert(self.seg_path)
+                button = self.ui.seg_button
                 alert = self.ui.seg_alert
 
             if file_path.endswith(".nii.gz"):
+                button.setChecked(True)
                 alert.setStyleSheet("color: green;")
                 alert.setText("Valid file format!")
             else:
@@ -106,13 +109,9 @@ class WelcomeWindow(QtWidgets.QMainWindow):
             and self.ui.img_text.text().endswith(".nii.gz")
             and self.get_checked_labels()
         ):
-            self.ui.img_button.setChecked(True)
-            self.ui.seg_button.setChecked(True)
             self.ui.continue_button.setDisabled(False)
             self.ui.labels_box.setDisabled(False)
         else:
-            self.ui.img_button.setChecked(True)
-            self.ui.seg_button.setChecked(False)
             self.ui.continue_button.setDisabled(True)
 
     def open_new_window(self):
