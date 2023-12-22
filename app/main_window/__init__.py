@@ -170,6 +170,15 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.surface_value.setText(f"{area:,.2f} mm²")
         self.ui.volume_value.setText(f"{volume:,.2f} mm³")
 
+        # ---- LABELS
+        self.ui.labels_button.clicked.connect(self.on_labels_button_clicked)
+        self.arrows = self.create_arrow_text()
+        for arrow, text in self.arrows:
+            self.renderer.AddActor(arrow)
+            self.renderer.AddActor(text)
+
+        self.interactor.AddObserver(vtk.vtkCommand.ModifiedEvent, self.on_camera_change)
+
         # ---- DEBUG
         # Know the position of the camera each right-click: just for us, to better place the camera
         self.interactor.AddObserver("RightButtonPressEvent", self.get_camera_position)
@@ -204,6 +213,9 @@ class MainWindow(QtWidgets.QMainWindow):
 
     # ---- MEASURES
     from ._measures import calculate_surface_volume
+
+    # ---- LABELS
+    from ._labels import on_labels_button_clicked, create_arrow_text, update_arrow_and_text, on_camera_change
 
     def on_stereo_param_clicked(self):
         """Handles the click event of the stereo parameter button."""
