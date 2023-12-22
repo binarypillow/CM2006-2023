@@ -46,6 +46,16 @@ def get_keys_from_yaml(file_path):
 
 
 def get_index_from_key(key, file_path):
+    """
+    Retrieves the value associated with the given key from a YAML file.
+
+    Args:
+        key (str): The key to search for in the YAML file.
+        file_path (str): The path to the YAML file.
+
+    Returns:
+        Any: The value associated with the given key.
+    """
     with open(file_path, "r") as file:
         data = yaml.safe_load(file)
     return data[key]

@@ -2,7 +2,6 @@ import sys
 from PyQt6 import QtWidgets
 from PyQt6.QtGui import QIcon
 from app.welcome_window import WelcomeWindow
-from app.main_window import MainWindow
 from app.utils import get_abs_path
 
 
@@ -18,15 +17,9 @@ def main():
     app.setWindowIcon(QIcon(get_abs_path("resources/icons/window/logo.svg")))
 
     welcome = WelcomeWindow()
-
+    # Set the window title
+    welcome.setWindowTitle("File selection")
     welcome.show()
-
-    # Use this to display only the second window
-    # img_path = "data/images/FLARE22_Tr_0001_0000.nii.gz"
-    # label_path = "data/labels/FLARE22_Tr_0001.nii.gz"
-
-    # main_window = MainWindow(img_path, label_path)
-    # main_window.show()
 
     sys.exit(app.exec())
 

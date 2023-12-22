@@ -25,16 +25,10 @@ class Ui_Dialog(object):
         font.setWeight(50)
         self.name_text.setFont(font)
         self.name_text.setObjectName("name_text")
-        self.verticalLayout.addWidget(
-            self.name_text,
-            0,
-            QtCore.Qt.AlignmentFlag.AlignHCenter | QtCore.Qt.AlignmentFlag.AlignVCenter,
-        )
+        self.verticalLayout.addWidget(self.name_text, 0, QtCore.Qt.AlignmentFlag.AlignHCenter|QtCore.Qt.AlignmentFlag.AlignVCenter)
         self.version_text = QtWidgets.QLabel(parent=Dialog)
         self.version_text.setObjectName("version_text")
-        self.verticalLayout.addWidget(
-            self.version_text, 0, QtCore.Qt.AlignmentFlag.AlignHCenter
-        )
+        self.verticalLayout.addWidget(self.version_text, 0, QtCore.Qt.AlignmentFlag.AlignHCenter)
         self.groupBox = QtWidgets.QGroupBox(parent=Dialog)
         self.groupBox.setTitle("")
         self.groupBox.setObjectName("groupBox")
@@ -46,28 +40,16 @@ class Ui_Dialog(object):
         self.info_text.setFont(font)
         self.info_text.setTextFormat(QtCore.Qt.TextFormat.AutoText)
         self.info_text.setScaledContents(False)
-        self.info_text.setAlignment(
-            QtCore.Qt.AlignmentFlag.AlignJustify | QtCore.Qt.AlignmentFlag.AlignVCenter
-        )
+        self.info_text.setAlignment(QtCore.Qt.AlignmentFlag.AlignJustify|QtCore.Qt.AlignmentFlag.AlignVCenter)
         self.info_text.setWordWrap(True)
         self.info_text.setObjectName("info_text")
         self.verticalLayout_3.addWidget(self.info_text)
         self.verticalLayout.addWidget(self.groupBox)
-        spacerItem = QtWidgets.QSpacerItem(
-            20,
-            40,
-            QtWidgets.QSizePolicy.Policy.Minimum,
-            QtWidgets.QSizePolicy.Policy.Expanding,
-        )
+        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Expanding)
         self.verticalLayout.addItem(spacerItem)
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        spacerItem1 = QtWidgets.QSpacerItem(
-            40,
-            20,
-            QtWidgets.QSizePolicy.Policy.Expanding,
-            QtWidgets.QSizePolicy.Policy.Minimum,
-        )
+        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem1)
         self.ok_button = QtWidgets.QPushButton(parent=Dialog)
         self.ok_button.setObjectName("ok_button")
@@ -83,18 +65,12 @@ class Ui_Dialog(object):
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
         self.name_text.setText(_translate("Dialog", "VisualApp"))
         self.version_text.setText(_translate("Dialog", "Version 0.0.1"))
-        self.info_text.setText(
-            _translate(
-                "Dialog",
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris condimentum sapien vel elit tincidunt ultricies. Nam aliquam lacus non mi convallis, ac fringilla velit hendrerit. Sed malesuada fringilla purus, consectetur dignissim dui dignissim sed.",
-            )
-        )
+        self.info_text.setText(_translate("Dialog", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris condimentum sapien vel elit tincidunt ultricies. Nam aliquam lacus non mi convallis, ac fringilla velit hendrerit. Sed malesuada fringilla purus, consectetur dignissim dui dignissim sed."))
         self.ok_button.setText(_translate("Dialog", "Ok"))
 
 
 if __name__ == "__main__":
     import sys
-
     app = QtWidgets.QApplication(sys.argv)
     Dialog = QtWidgets.QDialog()
     ui = Ui_Dialog()

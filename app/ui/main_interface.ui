@@ -86,7 +86,7 @@
              </property>
              <property name="icon">
               <iconset>
-               <normaloff>../resources/icons/interface/search.svg</normaloff>../resources/icons/interface/search.svg</iconset>
+               <normaloff>../../../../../../../../../../.designer/resources/icons/interface/search.svg</normaloff>../../../../../../../../../../.designer/resources/icons/interface/search.svg</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -556,7 +556,7 @@
           </property>
           <property name="icon">
            <iconset>
-            <normaloff>../resources/icons/interface/cog.svg</normaloff>../resources/icons/interface/cog.svg</iconset>
+            <normaloff>../../../../../../../../../../.designer/resources/icons/interface/cog.svg</normaloff>../../../../../../../../../../.designer/resources/icons/interface/cog.svg</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -615,8 +615,8 @@
      <rect>
       <x>215</x>
       <y>125</y>
-      <width>142</width>
-      <height>68</height>
+      <width>134</width>
+      <height>66</height>
      </rect>
     </property>
     <property name="layoutDirection">
@@ -637,7 +637,7 @@
      </property>
      <property name="icon">
       <iconset>
-       <normaloff>../resources/icons/interface/eye.svg</normaloff>../resources/icons/interface/eye.svg</iconset>
+       <normaloff>../../../../../../../../../../.designer/resources/icons/interface/eye.svg</normaloff>../../../../../../../../../../.designer/resources/icons/interface/eye.svg</iconset>
      </property>
      <addaction name="actionFront_view"/>
      <addaction name="actionBack_view_2"/>
@@ -663,7 +663,7 @@
   <action name="actionClose">
    <property name="icon">
     <iconset>
-     <normaloff>../resources/icons/interface/times.svg</normaloff>../resources/icons/interface/times.svg</iconset>
+     <normaloff>../../../../../../../../../../.designer/resources/icons/interface/times.svg</normaloff>../../../../../../../../../../.designer/resources/icons/interface/times.svg</iconset>
    </property>
    <property name="text">
     <string>Exit</string>
@@ -672,7 +672,7 @@
   <action name="actionSave">
    <property name="icon">
     <iconset>
-     <normaloff>../resources/icons/interface/save.svg</normaloff>../resources/icons/interface/save.svg</iconset>
+     <normaloff>../../../../../../../../../../.designer/resources/icons/interface/save.svg</normaloff>../../../../../../../../../../.designer/resources/icons/interface/save.svg</iconset>
    </property>
    <property name="text">
     <string>Save annotations...</string>
@@ -681,7 +681,7 @@
   <action name="actionLoad">
    <property name="icon">
     <iconset>
-     <normaloff>../resources/icons/interface/folder-open.svg</normaloff>../resources/icons/interface/folder-open.svg</iconset>
+     <normaloff>../../../../../../../../../../.designer/resources/icons/interface/folder-open.svg</normaloff>../../../../../../../../../../.designer/resources/icons/interface/folder-open.svg</iconset>
    </property>
    <property name="text">
     <string>Load annotations...</string>
@@ -710,7 +710,7 @@
   <action name="actionShow_labels">
    <property name="icon">
     <iconset>
-     <normaloff>../../../../../../../../../../.designer/resources/icons/interface/tag.svg</normaloff>../../../../../../../../../../.designer/resources/icons/interface/tag.svg</iconset>
+     <normaloff>../../../../../../../../../../../../.designer/resources/icons/interface/tag.svg</normaloff>../../../../../../../../../../../../.designer/resources/icons/interface/tag.svg</iconset>
    </property>
    <property name="text">
     <string>Show labels</string>
@@ -734,7 +734,7 @@
   <action name="actionInfo">
    <property name="icon">
     <iconset>
-     <normaloff>../resources/icons/interface/info.svg</normaloff>../resources/icons/interface/info.svg</iconset>
+     <normaloff>../../../../../../../../../../.designer/resources/icons/interface/info.svg</normaloff>../../../../../../../../../../.designer/resources/icons/interface/info.svg</iconset>
    </property>
    <property name="text">
     <string>Version info</string>
