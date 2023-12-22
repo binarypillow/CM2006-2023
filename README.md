@@ -32,4 +32,4 @@ Use `python make_dist.py` to make a standalone executable file. (Tested only on 
 
 ## "Nice to have" TO-DOs
 - [ ] Loading animation between welcome and main interface
-- [ ] Saved history of the previously loaded files paths.
+- [X] Saved history of the previously loaded files paths.
