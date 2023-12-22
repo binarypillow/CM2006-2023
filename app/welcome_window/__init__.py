@@ -36,7 +36,7 @@ class WelcomeWindow(QtWidgets.QMainWindow):
         # For each label, create a QLabel and add it to the layout
         for label in labels_list:
             checkbox_widget = QtWidgets.QCheckBox(label)
-            if history and label in history["checked_labels"]:
+            if history and label in history["checked_labels"] or not history:
                 checkbox_widget.setChecked(True)
             else:
                 checkbox_widget.setChecked(False)
