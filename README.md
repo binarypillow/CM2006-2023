@@ -13,14 +13,14 @@ Use `python make_dist.py` to make a standalone executable file. (Tested only on 
 
 ## TO-DOs
 - [ ] Add qss stylesheet
+- [ ] Save/load annotations (such as previous rulers ?)
+- [ ] Change view animation (front/back/left/right/default in menubar)
 - [ ] Surface/Area labels
 - [ ] Organs names labels
-- [ ] Save/load annotations (such as previous rulers ?)
-- [ ] Change view animation (front/back/left/right in menubar)
-- [ ] Ruler history tree
-- [ ] Ruler utility
-- [ ] Focus animation
-- [ ] About menu dialog < @binarypillow
+- [X] Ruler history tree
+- [X] Ruler utility
+- [X] Focus animation
+- [X] About menu dialog
 - [X] Volume histogram slider
 - [X] Stereo rendering settings
 - [X] Color picker
