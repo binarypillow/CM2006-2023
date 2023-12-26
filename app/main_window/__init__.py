@@ -85,7 +85,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.renderer.GetActiveCamera().SetPosition(-0.68699, -371.3468, 61.26843)
         self.renderer.GetActiveCamera().Roll(110)
 
-        # Set interactor, initialize and start
+        # Set interactor, initialise and start
         self.interactor = self.vtk_widget.GetRenderWindow().GetInteractor()
         self.interactor.Initialize()
 
@@ -105,7 +105,7 @@ class MainWindow(QtWidgets.QMainWindow):
             f"border: 0px; background-color: rgb{tuple(int(c * 255) for c in self.colors[0])}"
         )
         # Connect the Color button to the function to change the color of the selected organ
-        self.ui.color_button.clicked.connect(self.on_color_button_clicked)
+        self.ui.color_button.clicked.connect(self.on_color_button)
         # Change the organ view and volume rendering if user changes the specified organ
         self.ui.organ_combo.currentIndexChanged.connect(self.on_combo_box_changed)
         # Connect the opacity slider to the function to change the opacity of the selected organ
@@ -170,15 +170,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.surface_value.setText(f"{area:,.2f} mm²")
         self.ui.volume_value.setText(f"{volume:,.2f} mm³")
 
-        # ---- LABELS
-        self.ui.labels_button.clicked.connect(self.on_labels_button_clicked)
-        self.arrows = self.create_arrow_text()
-        for arrow, text in self.arrows:
-            self.renderer.AddActor(arrow)
-            self.renderer.AddActor(text)
-
-        self.interactor.AddObserver(vtk.vtkCommand.ModifiedEvent, self.on_camera_change)
-
         # ---- DEBUG
         # Know the position of the camera each right-click: just for us, to better place the camera
         self.interactor.AddObserver("RightButtonPressEvent", self.get_camera_position)
@@ -192,7 +183,7 @@ class MainWindow(QtWidgets.QMainWindow):
     # ---- ORGAN SELECTION
     from ._focus import on_glass_button_clicked
     from ._combochange import on_combo_box_changed
-    from ._colorselection import on_color_button_clicked
+    from ._colorselection import on_color_button
     from ._opacitychange import on_opacity_changed
 
     # ---- VOLUME RENDERING
@@ -213,9 +204,6 @@ class MainWindow(QtWidgets.QMainWindow):
 
     # ---- MEASURES
     from ._measures import calculate_surface_volume
-
-    # ---- LABELS
-    from ._labels import on_labels_button_clicked, create_arrow_text, update_arrow_and_text, on_camera_change
 
     def on_stereo_param_clicked(self):
         """Handles the click event of the stereo parameter button."""

@@ -1,4 +1,4 @@
-from PyQt6 import QtWidgets
+from PyQt6 import QtCore, QtWidgets
 from app.ui import welcome_interface
 from app.utils import get_keys_from_yaml, get_abs_path
 from app.main_window import MainWindow

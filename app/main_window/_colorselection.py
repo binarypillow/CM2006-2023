@@ -2,7 +2,7 @@ from PyQt6.QtWidgets import QColorDialog
 import vtk
 
 
-def on_color_button_clicked(self):
+def on_color_button(self):
     """Opens a color picker and sets the color of the selected actor based on the chosen color."""
 
     color_dialog = QColorDialog(self)

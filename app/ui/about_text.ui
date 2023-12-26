@@ -13,6 +13,51 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QMainWindow {
+	background-color: #F8F9FA;
+}
+
+QGroupBox {
+    border: 1px solid #023047;
+    border-radius: 5px;
+    margin-top: 1ex;
+    font: 12px 'Roboto', sans-serif;
+    color: white;
+	background-color: white;
+}
+
+QGroupBox::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top left;
+    left: 4px;
+    padding: 2px 6px 2px 6px;
+    color: white;
+    background-color: #023047;
+    border-radius: 6px;
+}
+
+QGroupBox::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top left;
+    left: 4px;
+    padding: 2px 6px 2px 6px;
+    color: white;
+    background-color: #023047;
+    border-radius: 6px;
+}
+
+QPushButton{
+    font: 12px;
+    font-family: 'Roboto', sans-serif;
+	 color: black;
+    background-color: #FB8500;
+    border-radius: 10px;
+	 width: 60px;
+    height: 25px;
+}
+</string>
+  </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -20,20 +65,24 @@
       <widget class="QLabel" name="name_text">
        <property name="font">
         <font>
-         <pointsize>14</pointsize>
+         <pointsize>-1</pointsize>
          <weight>50</weight>
+         <italic>false</italic>
          <bold>false</bold>
         </font>
        </property>
+       <property name="styleSheet">
+        <string notr="true">font: 22px</string>
+       </property>
        <property name="text">
-        <string>VisualApp</string>
+        <string>&lt;App_name&gt;</string>
        </property>
       </widget>
      </item>
      <item alignment="Qt::AlignHCenter">
       <widget class="QLabel" name="version_text">
        <property name="text">
-        <string>Version 0.0.1</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Version 0.0.1&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </item>

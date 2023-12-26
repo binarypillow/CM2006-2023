@@ -14,8 +14,195 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1035, 694)
-        MainWindow.setStyleSheet("QToolButton#stereo_param_button {\n"
+        MainWindow.setStyleSheet("QSlider::groove:horizontal {\n"
+"    border: none;\n"
+"    background: #F8F9FA;\n"
+"    margin: 2px 0;\n"
+"}\n"
+"\n"
+"QSlider::handle:horizontal {\n"
+"    background: none;\n"
+"    border: 1px solid #219ebc;\n"
+"    background-color: #219ebc;\n"
+"    width: 20px;\n"
+"    margin: -2px 0;\n"
+"    border-radius: 4px;\n"
+"}\n"
+"\n"
+"QSlider::groove:vertical {\n"
+"    border: none;\n"
+"    background: #F8F9FA;\n"
+"    margin: 2px 0;\n"
+"}\n"
+"\n"
+"QSlider::handle:vertical {\n"
+"    background: none;\n"
+"    border: 1px solid #219ebc;\n"
+"    background-color: #219ebc;\n"
+"    height: 20px;\n"
+"    margin: -2px 0;\n"
+"    border-radius: 4px;\n"
+"}\n"
+"\n"
+"QTabWidget::pane {\n"
+"    border-top: 2px solid #219ebc;\n"
+"}\n"
+"\n"
+"QTabBar::tab {\n"
+"    border: 2px solid #8ecae6;\n"
+"     background-color: #8ecae6;\n"
+"    border-top-left-radius: 4px;\n"
+"    border-top-right-radius: 4px;\n"
+"    min-width: 17ex;\n"
+"    padding: 3px;\n"
+"    color: black;\n"
+"    font-weight: bold;\n"
+"}\n"
+"\n"
+"QTabBar::tab:selected {\n"
+"    background-color: #219ebc;\n"
+"    border-color: #219ebc;\n"
+"}\n"
+"\n"
+"\n"
+"QToolButton#stereo_param_button {\n"
 "    background-color: transparent;\n"
+"}\n"
+"QMainWindow {\n"
+"    background-color: #F8F9FA;\n"
+"}\n"
+"\n"
+"QLineEdit {\n"
+"    border: 1px solid #023047;\n"
+"    border-radius: 5px;\n"
+"    font: 10px \'Roboto\', sans-serif;\n"
+"    color: #023047;\n"
+"    background-color: white;\n"
+"}\n"
+"\n"
+"QLabel {\n"
+"    font: 11px \'Roboto\', sans-serif;\n"
+"    color: black;\n"
+"}\n"
+"\n"
+"QScrollArea {\n"
+"    background-color: white;\n"
+"    border: trasparent;\n"
+"}\n"
+"\n"
+"QVBoxLayout {\n"
+"    background-color: white;\n"
+"    border: trasparent;\n"
+"}\n"
+"\n"
+"QScrollBar::handle:vertical {\n"
+"    background-color: #219EBC;\n"
+"    min-height: 10px;\n"
+"    border-radius: 6px;\n"
+"}\n"
+"\n"
+"QScrollBar:vertical {\n"
+"    width: 12px;\n"
+"    border-radius: 0px;\n"
+"}\n"
+"\n"
+"QScrollBar::add-line:vertical{\n"
+"    height: 0px;\n"
+"    background: trasparent;\n"
+"}\n"
+"\n"
+"QGroupBox {\n"
+"    border: 1px solid #023047;\n"
+"    border-radius: 5px;\n"
+"    margin-top: 1ex;\n"
+"    font: 12px \'Roboto\', sans-serif;\n"
+"    color: white;\n"
+"    background-color: white;\n"
+"}\n"
+"\n"
+"QGroupBox::title {\n"
+"    subcontrol-origin: margin;\n"
+"    subcontrol-position: top left;\n"
+"    left: 4px;\n"
+"    padding: 2px 6px 2px 6px;\n"
+"    color: white;\n"
+"    background-color: #023047;\n"
+"    border-radius: 6px;\n"
+"}\n"
+"\n"
+"QGroupBox:disabled {\n"
+"    border: 1px solid rgba(2, 48, 71, 0.5);\n"
+"    border-radius: 5px;\n"
+"    margin-top: 1ex;\n"
+"    font: 12px \'Roboto\', sans-serif;\n"
+"    color: white;\n"
+"}\n"
+"\n"
+"QGroupBox::title {\n"
+"    subcontrol-origin: margin;\n"
+"    subcontrol-position: top left;\n"
+"    left: 4px;\n"
+"    padding: 2px 6px 2px 6px;\n"
+"    color: white;\n"
+"    background-color: #023047;\n"
+"    border-radius: 6px;\n"
+"}\n"
+"\n"
+"QPushButton#update_button{\n"
+"    font: 12px;\n"
+"    font-family: \'Roboto\', sans-serif;\n"
+"     color: black;\n"
+"    background-color: #FB8500;\n"
+"    border-radius: 12px;\n"
+"     width: 60px;\n"
+"    height: 25px;\n"
+"}\n"
+"\n"
+"QToolButton#newruler_button{\n"
+"    font: 12px;\n"
+"    font-family: \'Roboto\', sans-serif;\n"
+"     color: black;\n"
+"    background-color: #FB8500;\n"
+"    border-radius: 8px;\n"
+"     width: 60px;\n"
+"    height: 20px;\n"
+"}\n"
+"\n"
+"QToolButton:disabled#newruler_button{\n"
+"    font: 12px;\n"
+"    font-family: \'Roboto\', sans-serif;\n"
+"     color: rgba(0,0,0,0.5);\n"
+"    background-color:rgba( 251, 133, 0, 0.5);\n"
+"    border-radius: 8px;\n"
+"     width: 60px;\n"
+"    height: 20px;\n"
+"}\n"
+"\n"
+"QPushButton:disabled#update_button{\n"
+"    font: 12px;\n"
+"    font-family: \'Roboto\', sans-serif;\n"
+"     color: rgba(0,0,0,0.5);\n"
+"    background-color:rgba( 251, 133, 0, 0.5);\n"
+"    border-radius: 12px;\n"
+"     width: 60px;\n"
+"    height: 25px;\n"
+"}\n"
+"\n"
+"QRadioButton::indicator {\n"
+"    width: 13px;\n"
+"    height: 13px;\n"
+"    border-radius: 7px;\n"
+"    border: 1px solid #023047;\n"
+"}\n"
+"\n"
+"QRadioButton::indicator:checked {\n"
+"    background-color: #FB8500;\n"
+"}\n"
+"\n"
+"QCheckBox::indicator:checked{\n"
+"    background-color: #FB8500;\n"
+"    border: 1px solid #023047;\n"
+"    border-radius: 4px;\n"
 "}")
         self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
         self.centralwidget.setStyleSheet("")
@@ -29,11 +216,15 @@ class Ui_MainWindow(object):
         self.groupBox = QtWidgets.QGroupBox(parent=self.centralwidget)
         self.groupBox.setEnabled(True)
         font = QtGui.QFont()
+        font.setFamily("Roboto,sans-serif")
+        font.setPointSize(-1)
         font.setBold(False)
+        font.setItalic(False)
         font.setWeight(50)
         self.groupBox.setFont(font)
         self.groupBox.setObjectName("groupBox")
         self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.groupBox)
+        self.verticalLayout_3.setContentsMargins(-1, 20, -1, -1)
         self.verticalLayout_3.setObjectName("verticalLayout_3")
         self.horizontalLayout_6 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_6.setObjectName("horizontalLayout_6")
@@ -50,6 +241,7 @@ class Ui_MainWindow(object):
         icon.addPixmap(QtGui.QPixmap(get_abs_path("resources/icons/interface/search.svg")), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         self.glass_button.setIcon(icon)
         self.glass_button.setIconSize(QtCore.QSize(18, 18))
+        self.glass_button.setAutoExclusive(False)
         self.glass_button.setObjectName("glass_button")
         self.horizontalLayout_6.addWidget(self.glass_button)
         self.verticalLayout_3.addLayout(self.horizontalLayout_6)
@@ -58,8 +250,8 @@ class Ui_MainWindow(object):
         self.label_2 = QtWidgets.QLabel(parent=self.groupBox)
         self.label_2.setObjectName("label_2")
         self.horizontalLayout_4.addWidget(self.label_2)
-        self.color_button = QtWidgets.QToolButton(parent=self.groupBox)
-        self.color_button.setEnabled(True)
+        self.color_button = QtWidgets.QPushButton(parent=self.groupBox)
+        self.color_button.setMaximumSize(QtCore.QSize(24, 24))
         self.color_button.setText("")
         self.color_button.setObjectName("color_button")
         self.horizontalLayout_4.addWidget(self.color_button)
@@ -69,6 +261,7 @@ class Ui_MainWindow(object):
         self.op_slider = QtWidgets.QSlider(parent=self.groupBox)
         self.op_slider.setMinimumSize(QtCore.QSize(100, 0))
         self.op_slider.setMaximumSize(QtCore.QSize(300, 16777215))
+        self.op_slider.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.SizeHorCursor))
         self.op_slider.setStyleSheet("")
         self.op_slider.setMinimum(0)
         self.op_slider.setMaximum(100)
@@ -82,6 +275,8 @@ class Ui_MainWindow(object):
         self.horizontalLayout_4.addItem(spacerItem)
         self.verticalLayout_3.addLayout(self.horizontalLayout_4)
         self.user_frame.addWidget(self.groupBox)
+        spacerItem1 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Fixed)
+        self.user_frame.addItem(spacerItem1)
         self.tabWidget = QtWidgets.QTabWidget(parent=self.centralwidget)
         self.tabWidget.setEnabled(True)
         font = QtGui.QFont()
@@ -101,7 +296,10 @@ class Ui_MainWindow(object):
         self.hist_group = QtWidgets.QGroupBox(parent=self.volume_tab)
         self.hist_group.setEnabled(False)
         font = QtGui.QFont()
+        font.setFamily("Roboto,sans-serif")
+        font.setPointSize(-1)
         font.setBold(False)
+        font.setItalic(False)
         font.setWeight(50)
         self.hist_group.setFont(font)
         self.hist_group.setObjectName("hist_group")
@@ -115,6 +313,7 @@ class Ui_MainWindow(object):
         self.label_4.setObjectName("label_4")
         self.verticalLayout_6.addWidget(self.label_4, 0, QtCore.Qt.AlignmentFlag.AlignHCenter)
         self.high_op_slider = QtWidgets.QSlider(parent=self.hist_group)
+        self.high_op_slider.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.SizeVerCursor))
         self.high_op_slider.setMaximum(100)
         self.high_op_slider.setSingleStep(1)
         self.high_op_slider.setProperty("value", 100)
@@ -131,6 +330,7 @@ class Ui_MainWindow(object):
         self.low_text.setObjectName("low_text")
         self.horizontalLayout_5.addWidget(self.low_text)
         self.low_slider = QtWidgets.QSlider(parent=self.hist_group)
+        self.low_slider.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.SizeHorCursor))
         self.low_slider.setMinimum(0)
         self.low_slider.setMaximum(255)
         self.low_slider.setProperty("value", 0)
@@ -148,16 +348,18 @@ class Ui_MainWindow(object):
         self.high_text.setObjectName("high_text")
         self.horizontalLayout_5.addWidget(self.high_text)
         self.high_slider = QtWidgets.QSlider(parent=self.hist_group)
+        self.high_slider.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.SizeHorCursor))
         self.high_slider.setMaximum(255)
         self.high_slider.setProperty("value", 255)
         self.high_slider.setOrientation(QtCore.Qt.Orientation.Horizontal)
         self.high_slider.setObjectName("high_slider")
         self.horizontalLayout_5.addWidget(self.high_slider)
-        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
-        self.horizontalLayout_5.addItem(spacerItem1)
+        spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
+        self.horizontalLayout_5.addItem(spacerItem2)
         self.func_layout.addLayout(self.horizontalLayout_5, 1, 0, 1, 1)
         self.update_button = QtWidgets.QPushButton(parent=self.hist_group)
         self.update_button.setMaximumSize(QtCore.QSize(48, 16777215))
+        self.update_button.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.update_button.setObjectName("update_button")
         self.func_layout.addWidget(self.update_button, 1, 1, 1, 1)
         self.verticalLayout_4.addLayout(self.func_layout)
@@ -170,11 +372,15 @@ class Ui_MainWindow(object):
         self.verticalLayout_8.setObjectName("verticalLayout_8")
         self.measures_group = QtWidgets.QGroupBox(parent=self.measure_tab)
         font = QtGui.QFont()
+        font.setFamily("Roboto,sans-serif")
+        font.setPointSize(-1)
         font.setBold(False)
+        font.setItalic(False)
         font.setWeight(50)
         self.measures_group.setFont(font)
         self.measures_group.setObjectName("measures_group")
         self.verticalLayout_5 = QtWidgets.QVBoxLayout(self.measures_group)
+        self.verticalLayout_5.setContentsMargins(-1, 20, -1, -1)
         self.verticalLayout_5.setObjectName("verticalLayout_5")
         self.horizontalLayout_7 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_7.setObjectName("horizontalLayout_7")
@@ -185,8 +391,8 @@ class Ui_MainWindow(object):
         self.surface_value.setText("")
         self.surface_value.setObjectName("surface_value")
         self.horizontalLayout_7.addWidget(self.surface_value)
-        spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
-        self.horizontalLayout_7.addItem(spacerItem2)
+        spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
+        self.horizontalLayout_7.addItem(spacerItem3)
         self.verticalLayout_5.addLayout(self.horizontalLayout_7)
         self.horizontalLayout_8 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_8.setObjectName("horizontalLayout_8")
@@ -197,19 +403,22 @@ class Ui_MainWindow(object):
         self.volume_value.setText("")
         self.volume_value.setObjectName("volume_value")
         self.horizontalLayout_8.addWidget(self.volume_value)
-        spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
-        self.horizontalLayout_8.addItem(spacerItem3)
+        spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
+        self.horizontalLayout_8.addItem(spacerItem4)
         self.verticalLayout_5.addLayout(self.horizontalLayout_8)
         self.verticalLayout_8.addWidget(self.measures_group)
         self.groupBox_2 = QtWidgets.QGroupBox(parent=self.measure_tab)
         font = QtGui.QFont()
+        font.setFamily("Roboto,sans-serif")
+        font.setPointSize(-1)
         font.setBold(False)
+        font.setItalic(False)
         font.setWeight(50)
         self.groupBox_2.setFont(font)
         self.groupBox_2.setObjectName("groupBox_2")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.groupBox_2)
         self.verticalLayout_2.setSizeConstraint(QtWidgets.QLayout.SizeConstraint.SetDefaultConstraint)
-        self.verticalLayout_2.setContentsMargins(-1, -1, 10, -1)
+        self.verticalLayout_2.setContentsMargins(-1, 20, 10, -1)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.newruler_button = QtWidgets.QToolButton(parent=self.groupBox_2)
         self.newruler_button.setStyleSheet("")
@@ -228,28 +437,33 @@ class Ui_MainWindow(object):
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
         self.labels_button = QtWidgets.QRadioButton(parent=self.centralwidget)
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap(get_abs_path("resources/icons/interface/tag.svg")), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.labels_button.setIcon(icon1)
+        self.labels_button.setAutoExclusive(False)
         self.labels_button.setObjectName("labels_button")
         self.horizontalLayout_3.addWidget(self.labels_button)
-        spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
-        self.horizontalLayout_3.addItem(spacerItem4)
+        spacerItem5 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
+        self.horizontalLayout_3.addItem(spacerItem5)
         self.user_frame.addLayout(self.horizontalLayout_3)
-        spacerItem5 = QtWidgets.QSpacerItem(468, 13, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Expanding)
-        self.user_frame.addItem(spacerItem5)
+        spacerItem6 = QtWidgets.QSpacerItem(468, 13, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Expanding)
+        self.user_frame.addItem(spacerItem6)
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        spacerItem6 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
-        self.horizontalLayout_2.addItem(spacerItem6)
+        spacerItem7 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
+        self.horizontalLayout_2.addItem(spacerItem7)
         self.stereo_button = QtWidgets.QCheckBox(parent=self.centralwidget)
         self.stereo_button.setStyleSheet("")
         self.stereo_button.setObjectName("stereo_button")
         self.horizontalLayout_2.addWidget(self.stereo_button, 0, QtCore.Qt.AlignmentFlag.AlignVCenter)
         self.stereo_param_button = QtWidgets.QToolButton(parent=self.centralwidget)
         self.stereo_param_button.setEnabled(False)
+        self.stereo_param_button.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.stereo_param_button.setStyleSheet("")
         self.stereo_param_button.setText("")
-        icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap(get_abs_path("resources/icons/interface/cog.svg")), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
-        self.stereo_param_button.setIcon(icon1)
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap(get_abs_path("resources/icons/interface/cog.svg")), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.stereo_param_button.setIcon(icon2)
         self.stereo_param_button.setIconSize(QtCore.QSize(18, 18))
         self.stereo_param_button.setObjectName("stereo_param_button")
         self.horizontalLayout_2.addWidget(self.stereo_param_button, 0, QtCore.Qt.AlignmentFlag.AlignHCenter|QtCore.Qt.AlignmentFlag.AlignVCenter)
@@ -271,39 +485,39 @@ class Ui_MainWindow(object):
         self.menu = QtWidgets.QMenu(parent=self.menubar)
         self.menu.setObjectName("menu")
         self.menuAbout = QtWidgets.QMenu(parent=self.menubar)
-        self.menuAbout.setGeometry(QtCore.QRect(215, 125, 142, 68))
+        self.menuAbout.setGeometry(QtCore.QRect(207, 134, 142, 68))
         self.menuAbout.setLayoutDirection(QtCore.Qt.LayoutDirection.LeftToRight)
         self.menuAbout.setObjectName("menuAbout")
         self.menuView = QtWidgets.QMenu(parent=self.menubar)
         self.menuView.setObjectName("menuView")
         self.menuChange_view = QtWidgets.QMenu(parent=self.menuView)
-        icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap(get_abs_path("resources/icons/interface/eye.svg")), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
-        self.menuChange_view.setIcon(icon2)
+        icon3 = QtGui.QIcon()
+        icon3.addPixmap(QtGui.QPixmap(get_abs_path("resources/icons/interface/eye.svg")), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.menuChange_view.setIcon(icon3)
         self.menuChange_view.setObjectName("menuChange_view")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(parent=MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
         self.actionNew = QtGui.QAction(parent=MainWindow)
-        icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap(get_abs_path("../../../../../../../../../../../.designer/resources/icons/interface/file.svg")), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
-        self.actionNew.setIcon(icon3)
+        icon4 = QtGui.QIcon()
+        icon4.addPixmap(QtGui.QPixmap(get_abs_path("../../../../../../../../../../../.designer/resources/icons/interface/file.svg")), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.actionNew.setIcon(icon4)
         self.actionNew.setObjectName("actionNew")
         self.actionClose = QtGui.QAction(parent=MainWindow)
-        icon4 = QtGui.QIcon()
-        icon4.addPixmap(QtGui.QPixmap(get_abs_path("resources/icons/interface/times.svg")), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
-        self.actionClose.setIcon(icon4)
+        icon5 = QtGui.QIcon()
+        icon5.addPixmap(QtGui.QPixmap(get_abs_path("resources/icons/interface/times.svg")), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.actionClose.setIcon(icon5)
         self.actionClose.setObjectName("actionClose")
         self.actionSave = QtGui.QAction(parent=MainWindow)
-        icon5 = QtGui.QIcon()
-        icon5.addPixmap(QtGui.QPixmap(get_abs_path("resources/icons/interface/save.svg")), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
-        self.actionSave.setIcon(icon5)
+        icon6 = QtGui.QIcon()
+        icon6.addPixmap(QtGui.QPixmap(get_abs_path("resources/icons/interface/save.svg")), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.actionSave.setIcon(icon6)
         self.actionSave.setObjectName("actionSave")
         self.actionLoad = QtGui.QAction(parent=MainWindow)
-        icon6 = QtGui.QIcon()
-        icon6.addPixmap(QtGui.QPixmap(get_abs_path("resources/icons/interface/folder-open.svg")), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
-        self.actionLoad.setIcon(icon6)
+        icon7 = QtGui.QIcon()
+        icon7.addPixmap(QtGui.QPixmap(get_abs_path("resources/icons/interface/folder-open.svg")), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.actionLoad.setIcon(icon7)
         self.actionLoad.setObjectName("actionLoad")
         self.actionFront_view = QtGui.QAction(parent=MainWindow)
         self.actionFront_view.setObjectName("actionFront_view")
@@ -314,9 +528,9 @@ class Ui_MainWindow(object):
         self.actionRight_view = QtGui.QAction(parent=MainWindow)
         self.actionRight_view.setObjectName("actionRight_view")
         self.actionShow_labels = QtGui.QAction(parent=MainWindow)
-        icon7 = QtGui.QIcon()
-        icon7.addPixmap(QtGui.QPixmap(get_abs_path("../../../../../../../../../.designer/resources/icons/interface/tag.svg")), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
-        self.actionShow_labels.setIcon(icon7)
+        icon8 = QtGui.QIcon()
+        icon8.addPixmap(QtGui.QPixmap(get_abs_path("../../../../../../../../../../../.designer/resources/icons/interface/tag.svg")), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.actionShow_labels.setIcon(icon8)
         self.actionShow_labels.setObjectName("actionShow_labels")
         self.actionBack_view_2 = QtGui.QAction(parent=MainWindow)
         self.actionBack_view_2.setObjectName("actionBack_view_2")
@@ -325,9 +539,9 @@ class Ui_MainWindow(object):
         self.actionRight_view_2 = QtGui.QAction(parent=MainWindow)
         self.actionRight_view_2.setObjectName("actionRight_view_2")
         self.actionInfo = QtGui.QAction(parent=MainWindow)
-        icon8 = QtGui.QIcon()
-        icon8.addPixmap(QtGui.QPixmap(get_abs_path("resources/icons/interface/info.svg")), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
-        self.actionInfo.setIcon(icon8)
+        icon9 = QtGui.QIcon()
+        icon9.addPixmap(QtGui.QPixmap(get_abs_path("resources/icons/interface/info.svg")), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.actionInfo.setIcon(icon9)
         self.actionInfo.setObjectName("actionInfo")
         self.menu.addAction(self.actionLoad)
         self.menu.addAction(self.actionSave)
@@ -344,7 +558,7 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuAbout.menuAction())
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         MainWindow.setTabOrder(self.newruler_button, self.stereo_button)
         MainWindow.setTabOrder(self.stereo_button, self.stereo_param_button)

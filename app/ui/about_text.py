@@ -14,16 +14,61 @@ class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.resize(304, 244)
+        Dialog.setStyleSheet("QMainWindow {\n"
+"    background-color: #F8F9FA;\n"
+"}\n"
+"\n"
+"QGroupBox {\n"
+"    border: 1px solid #023047;\n"
+"    border-radius: 5px;\n"
+"    margin-top: 1ex;\n"
+"    font: 12px \'Roboto\', sans-serif;\n"
+"    color: white;\n"
+"    background-color: white;\n"
+"}\n"
+"\n"
+"QGroupBox::title {\n"
+"    subcontrol-origin: margin;\n"
+"    subcontrol-position: top left;\n"
+"    left: 4px;\n"
+"    padding: 2px 6px 2px 6px;\n"
+"    color: white;\n"
+"    background-color: #023047;\n"
+"    border-radius: 6px;\n"
+"}\n"
+"\n"
+"QGroupBox::title {\n"
+"    subcontrol-origin: margin;\n"
+"    subcontrol-position: top left;\n"
+"    left: 4px;\n"
+"    padding: 2px 6px 2px 6px;\n"
+"    color: white;\n"
+"    background-color: #023047;\n"
+"    border-radius: 6px;\n"
+"}\n"
+"\n"
+"QPushButton{\n"
+"    font: 12px;\n"
+"    font-family: \'Roboto\', sans-serif;\n"
+"     color: black;\n"
+"    background-color: #FB8500;\n"
+"    border-radius: 10px;\n"
+"     width: 60px;\n"
+"    height: 25px;\n"
+"}\n"
+"")
         self.horizontalLayout = QtWidgets.QHBoxLayout(Dialog)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.verticalLayout = QtWidgets.QVBoxLayout()
         self.verticalLayout.setObjectName("verticalLayout")
         self.name_text = QtWidgets.QLabel(parent=Dialog)
         font = QtGui.QFont()
-        font.setPointSize(14)
+        font.setPointSize(-1)
         font.setBold(False)
+        font.setItalic(False)
         font.setWeight(50)
         self.name_text.setFont(font)
+        self.name_text.setStyleSheet("font: 22px")
         self.name_text.setObjectName("name_text")
         self.verticalLayout.addWidget(self.name_text, 0, QtCore.Qt.AlignmentFlag.AlignHCenter|QtCore.Qt.AlignmentFlag.AlignVCenter)
         self.version_text = QtWidgets.QLabel(parent=Dialog)
@@ -63,8 +108,8 @@ class Ui_Dialog(object):
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
-        self.name_text.setText(_translate("Dialog", "VisualApp"))
-        self.version_text.setText(_translate("Dialog", "Version 0.0.1"))
+        self.name_text.setText(_translate("Dialog", "<App_name>"))
+        self.version_text.setText(_translate("Dialog", "<html><head/><body><p><span style=\" font-style:italic;\">Version 0.0.1</span></p></body></html>"))
         self.info_text.setText(_translate("Dialog", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris condimentum sapien vel elit tincidunt ultricies. Nam aliquam lacus non mi convallis, ac fringilla velit hendrerit. Sed malesuada fringilla purus, consectetur dignissim dui dignissim sed."))
         self.ok_button.setText(_translate("Dialog", "Ok"))
 

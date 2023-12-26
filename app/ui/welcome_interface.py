@@ -13,8 +13,117 @@ from app.utils import get_abs_path
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(691, 554)
-        MainWindow.setStyleSheet("QCheckBox::indicator:disabled#img_button,  QCheckBox::indicator:disabled#seg_button{\n"
+        MainWindow.resize(829, 610)
+        MainWindow.setStyleSheet("QMainWindow {\n"
+"    background-color: #F8F9FA\n"
+"}\n"
+"\n"
+"QLineEdit {\n"
+"    border: 1px solid #023047;\n"
+"    border-radius: 5px;\n"
+"    font: 10px \'Roboto\', sans-serif;\n"
+"    color: #023047;\n"
+"    background-color: white;\n"
+"}\n"
+"\n"
+"QLabel {\n"
+"    font: 11px \'Roboto\', sans-serif;\n"
+"    color: black;\n"
+"}\n"
+"\n"
+"QScrollArea {\n"
+"    background-color: white;\n"
+"    border: trasparent;\n"
+"}\n"
+"\n"
+"QVBoxLayout {\n"
+"    background-color: white;\n"
+"    border: trasparent;\n"
+"}\n"
+"\n"
+"QScrollBar::handle:vertical {\n"
+"    background-color: #219EBC;\n"
+"    min-height: 10px;\n"
+"    border-radius: 6px;\n"
+"}\n"
+"\n"
+"QScrollBar:vertical {\n"
+"    width: 12px;\n"
+"    border-radius: 0px;\n"
+"}\n"
+"\n"
+"QScrollBar::add-line:vertical{\n"
+"    height: 0px; \n"
+"    background: trasparent;\n"
+"}\n"
+"\n"
+"QGroupBox {\n"
+"    border: 1px solid #023047;\n"
+"    border-radius: 5px;\n"
+"    margin-top: 1ex;\n"
+"    font: 12px \'Roboto\', sans-serif;\n"
+"    color: white;\n"
+"    background-color: white;\n"
+"}\n"
+"\n"
+"QGroupBox::title {\n"
+"    subcontrol-origin: margin;\n"
+"    subcontrol-position: top left;\n"
+"    left: 4px;\n"
+"    padding: 2px 6px 2px 6px;\n"
+"    color: white;\n"
+"    background-color: #023047;\n"
+"    border-radius: 6px;\n"
+"}\n"
+"\n"
+"QPushButton{\n"
+"    font: 12px;\n"
+"    font-family: \'Roboto\', sans-serif;\n"
+"    color: white;\n"
+"    background-color: #023047;\n"
+"    border-radius: 12px;\n"
+"     width: 80px;\n"
+"    height: 25px;\n"
+"}\n"
+"\n"
+"QToolButton{\n"
+"    font: 12px;\n"
+"    font-family: \'Roboto\', sans-serif;\n"
+"    font-weight: 400;\n"
+"    color: black;\n"
+"    background-color: #FB8500;\n"
+"    border-radius: 6px;\n"
+"     width: 65px;\n"
+"    height: 15px;\n"
+"}\n"
+"\n"
+"QPushButton#continue_button{\n"
+"    font: 12px;\n"
+"    font-family: \'Roboto\', sans-serif;\n"
+"    color: black;\n"
+"    background-color: #FB8500;\n"
+"    border-radius: 12px;\n"
+"     width: 100px;\n"
+"    height: 25px;\n"
+"}\n"
+"\n"
+"QPushButton:disabled#continue_button{\n"
+"    font: 12px;\n"
+"    font-family: \'Roboto\', sans-serif;\n"
+"     color: rgba(0,0,0,0.5);\n"
+"    background-color:rgba( 251, 133, 0, 0.5);\n"
+"    border-radius: 12px;\n"
+"     width: 100px;\n"
+"    height: 25px;\n"
+"}\n"
+"\n"
+"QCheckBox::indicator:checked{\n"
+"    background-color: #FB8500;\n"
+"    border: 1px solid #023047;\n"
+"    border-radius: 4px;\n"
+"}\n"
+"\n"
+"QCheckBox::indicator:disabled#img_button,  QCheckBox::indicator:disabled#seg_button{\n"
 "    background-color: red;\n"
 "    border-radius: 4px;\n"
 "}\n"
@@ -29,11 +138,18 @@ class Ui_MainWindow(object):
         self.centralwidget.setStyleSheet("")
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
+        self.gridLayout.setContentsMargins(20, 10, 20, 10)
         self.gridLayout.setObjectName("gridLayout")
+        self.line = QtWidgets.QFrame(parent=self.centralwidget)
+        self.line.setFrameShape(QtWidgets.QFrame.Shape.HLine)
+        self.line.setFrameShadow(QtWidgets.QFrame.Shadow.Sunken)
+        self.line.setObjectName("line")
+        self.gridLayout.addWidget(self.line, 8, 0, 1, 1)
         self.buttons_group = QtWidgets.QHBoxLayout()
         self.buttons_group.setContentsMargins(9, -1, 9, -1)
         self.buttons_group.setObjectName("buttons_group")
         self.exit_button = QtWidgets.QPushButton(parent=self.centralwidget)
+        self.exit_button.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.exit_button.setObjectName("exit_button")
         self.buttons_group.addWidget(self.exit_button)
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
@@ -41,37 +157,40 @@ class Ui_MainWindow(object):
         self.continue_button = QtWidgets.QPushButton(parent=self.centralwidget)
         self.continue_button.setEnabled(False)
         self.continue_button.setMinimumSize(QtCore.QSize(0, 0))
+        self.continue_button.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.continue_button.setStyleSheet("")
         self.continue_button.setObjectName("continue_button")
         self.buttons_group.addWidget(self.continue_button, 0, QtCore.Qt.AlignmentFlag.AlignRight)
         self.gridLayout.addLayout(self.buttons_group, 9, 0, 1, 1)
         spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Minimum)
         self.gridLayout.addItem(spacerItem1, 7, 0, 1, 1)
-        self.line = QtWidgets.QFrame(parent=self.centralwidget)
-        self.line.setFrameShape(QtWidgets.QFrame.Shape.HLine)
-        self.line.setFrameShadow(QtWidgets.QFrame.Shadow.Sunken)
-        self.line.setObjectName("line")
-        self.gridLayout.addWidget(self.line, 8, 0, 1, 1)
-        self.app_text = QtWidgets.QLabel(parent=self.centralwidget)
-        self.app_text.setObjectName("app_text")
-        self.gridLayout.addWidget(self.app_text, 3, 0, 1, 1)
-        self.labels_box = QtWidgets.QGroupBox(parent=self.centralwidget)
-        self.labels_box.setEnabled(False)
-        self.labels_box.setObjectName("labels_box")
-        self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.labels_box)
-        self.verticalLayout_3.setObjectName("verticalLayout_3")
-        self.labels_list = QtWidgets.QScrollArea(parent=self.labels_box)
-        self.labels_list.setWidgetResizable(True)
-        self.labels_list.setObjectName("labels_list")
-        self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 651, 125))
-        self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
-        self.labels_list.setWidget(self.scrollAreaWidgetContents)
-        self.verticalLayout_3.addWidget(self.labels_list)
-        self.gridLayout.addWidget(self.labels_box, 6, 0, 1, 1)
+        self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_3.setContentsMargins(-1, 7, -1, -1)
+        self.horizontalLayout_3.setObjectName("horizontalLayout_3")
+        spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
+        self.horizontalLayout_3.addItem(spacerItem2)
+        self.label = QtWidgets.QLabel(parent=self.centralwidget)
+        self.label.setEnabled(True)
+        self.label.setMaximumSize(QtCore.QSize(64, 64))
+        self.label.setText("")
+        self.label.setTextFormat(QtCore.Qt.TextFormat.AutoText)
+        self.label.setPixmap(QtGui.QPixmap(get_abs_path("resources/icons/window/logo.svg")))
+        self.label.setScaledContents(True)
+        self.label.setObjectName("label")
+        self.horizontalLayout_3.addWidget(self.label, 0, QtCore.Qt.AlignmentFlag.AlignHCenter)
+        self.welcome_label = QtWidgets.QLabel(parent=self.centralwidget)
+        self.welcome_label.setStyleSheet("font: 40px \'Roboto\', sans-serif;\n"
+"\n"
+"")
+        self.welcome_label.setObjectName("welcome_label")
+        self.horizontalLayout_3.addWidget(self.welcome_label, 0, QtCore.Qt.AlignmentFlag.AlignHCenter)
+        spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
+        self.horizontalLayout_3.addItem(spacerItem3)
+        self.gridLayout.addLayout(self.horizontalLayout_3, 0, 0, 1, 1)
         self.images_box = QtWidgets.QGroupBox(parent=self.centralwidget)
         self.images_box.setObjectName("images_box")
         self.gridLayout_2 = QtWidgets.QGridLayout(self.images_box)
+        self.gridLayout_2.setContentsMargins(-1, 18, -1, -1)
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.verticalLayout = QtWidgets.QVBoxLayout()
         self.verticalLayout.setObjectName("verticalLayout")
@@ -87,6 +206,7 @@ class Ui_MainWindow(object):
         self.img_text.setObjectName("img_text")
         self.horizontalLayout.addWidget(self.img_text)
         self.img_file = QtWidgets.QToolButton(parent=self.images_box)
+        self.img_file.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.img_file.setObjectName("img_file")
         self.horizontalLayout.addWidget(self.img_file)
         self.verticalLayout.addLayout(self.horizontalLayout)
@@ -99,6 +219,7 @@ class Ui_MainWindow(object):
         self.segmentation_group = QtWidgets.QGroupBox(parent=self.centralwidget)
         self.segmentation_group.setObjectName("segmentation_group")
         self.horizontalLayout_5 = QtWidgets.QHBoxLayout(self.segmentation_group)
+        self.horizontalLayout_5.setContentsMargins(-1, 18, -1, -1)
         self.horizontalLayout_5.setObjectName("horizontalLayout_5")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout()
         self.verticalLayout_2.setObjectName("verticalLayout_2")
@@ -114,6 +235,7 @@ class Ui_MainWindow(object):
         self.seg_text.setObjectName("seg_text")
         self.horizontalLayout_2.addWidget(self.seg_text)
         self.seg_file = QtWidgets.QToolButton(parent=self.segmentation_group)
+        self.seg_file.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.seg_file.setObjectName("seg_file")
         self.horizontalLayout_2.addWidget(self.seg_file)
         self.verticalLayout_2.addLayout(self.horizontalLayout_2)
@@ -123,33 +245,28 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.addWidget(self.seg_alert)
         self.horizontalLayout_5.addLayout(self.verticalLayout_2)
         self.gridLayout.addWidget(self.segmentation_group, 5, 0, 1, 1)
-        self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
-        self.horizontalLayout_3.setContentsMargins(-1, 7, -1, -1)
-        self.horizontalLayout_3.setObjectName("horizontalLayout_3")
-        spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
-        self.horizontalLayout_3.addItem(spacerItem2)
-        self.label = QtWidgets.QLabel(parent=self.centralwidget)
-        self.label.setEnabled(True)
-        self.label.setMaximumSize(QtCore.QSize(48, 48))
-        self.label.setText("")
-        self.label.setTextFormat(QtCore.Qt.TextFormat.AutoText)
-        self.label.setPixmap(QtGui.QPixmap(get_abs_path("resources/icons/window/logo.svg")))
-        self.label.setScaledContents(True)
-        self.label.setObjectName("label")
-        self.horizontalLayout_3.addWidget(self.label, 0, QtCore.Qt.AlignmentFlag.AlignHCenter)
-        self.welcome_label = QtWidgets.QLabel(parent=self.centralwidget)
-        self.welcome_label.setStyleSheet("font: 30pt \"Ubuntu\";\n"
-"background-color: transparent;\n"
-"\n"
-"")
-        self.welcome_label.setObjectName("welcome_label")
-        self.horizontalLayout_3.addWidget(self.welcome_label, 0, QtCore.Qt.AlignmentFlag.AlignHCenter)
-        spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
-        self.horizontalLayout_3.addItem(spacerItem3)
-        self.gridLayout.addLayout(self.horizontalLayout_3, 0, 0, 1, 1)
+        self.labels_box = QtWidgets.QGroupBox(parent=self.centralwidget)
+        self.labels_box.setEnabled(False)
+        self.labels_box.setObjectName("labels_box")
+        self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.labels_box)
+        self.verticalLayout_3.setContentsMargins(-1, 18, -1, -1)
+        self.verticalLayout_3.setObjectName("verticalLayout_3")
+        self.labels_list = QtWidgets.QScrollArea(parent=self.labels_box)
+        self.labels_list.setWidgetResizable(True)
+        self.labels_list.setObjectName("labels_list")
+        self.scrollAreaWidgetContents = QtWidgets.QWidget()
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 769, 91))
+        self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
+        self.labels_list.setWidget(self.scrollAreaWidgetContents)
+        self.verticalLayout_3.addWidget(self.labels_list)
+        self.gridLayout.addWidget(self.labels_box, 6, 0, 1, 1)
+        self.app_text = QtWidgets.QLabel(parent=self.centralwidget)
+        self.app_text.setWordWrap(True)
+        self.app_text.setObjectName("app_text")
+        self.gridLayout.addWidget(self.app_text, 3, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(parent=MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 691, 22))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 829, 22))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(parent=MainWindow)
@@ -164,13 +281,13 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.exit_button.setText(_translate("MainWindow", "Exit"))
         self.continue_button.setText(_translate("MainWindow", "Continue"))
-        self.app_text.setText(_translate("MainWindow", "Hello world!"))
-        self.labels_box.setTitle(_translate("MainWindow", "Select organs to visualise:"))
-        self.images_box.setTitle(_translate("MainWindow", "Images:"))
+        self.welcome_label.setText(_translate("MainWindow", "<App_name>"))
+        self.images_box.setTitle(_translate("MainWindow", "Images"))
         self.img_file.setText(_translate("MainWindow", "Browse..."))
-        self.segmentation_group.setTitle(_translate("MainWindow", "Segmentation labels:"))
+        self.segmentation_group.setTitle(_translate("MainWindow", "Segmentation labels"))
         self.seg_file.setText(_translate("MainWindow", "Browse..."))
-        self.welcome_label.setText(_translate("MainWindow", "Welcome"))
+        self.labels_box.setTitle(_translate("MainWindow", "Select organs to visualise:"))
+        self.app_text.setText(_translate("MainWindow", "<html><head/><body><p align=\"justify\">This application can be used to visualise and quantitatively measure abdominal organs\' features. It was specifically designed to work with the segmented organs prepared for the <a href=\"https://flare22.grand-challenge.org/\"><span style=\" text-decoration: underline; color:#0000ff;\">Fast and Low-resource semi-supervised Abdominal oRgan sEgmentation in CT （FLARE 2022)</span></a> project, but in the future it can easily be extended to be configured to work with other segmentations.</p><p align=\"justify\"><span style=\" font-weight:600;\">Instructions: </span>load the image file and associated segmentation file. By default, all 13 organs are rendered, but if necessary it is possible to remove the organs it is not desired to see by unchecking the check box associated with them. The \'Continue\' button is only enabled when both files have been correctly selected.</p></body></html>"))
 
 
 if __name__ == "__main__":

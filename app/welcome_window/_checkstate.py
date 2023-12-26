@@ -7,6 +7,10 @@ def check_state(self):
     ):
         self.ui.continue_button.setDisabled(False)
         self.ui.labels_box.setDisabled(False)
+    elif self.ui.seg_text.text().endswith(
+        ".nii.gz"
+    ) and self.ui.img_text.text().endswith(".nii.gz"):
+        self.ui.continue_button.setDisabled(True)
     else:
         self.ui.continue_button.setDisabled(True)
         self.ui.labels_box.setDisabled(True)
