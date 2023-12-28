@@ -5,7 +5,7 @@ import nibabel as nib
 from app.stereo_dialog import StereoParam
 from app.about_dialog import AboutText
 from app.ui import main_interface
-from app.main_window.callback import TimerCallback
+from app.main_window.callback import TimerCallback, TimerChangeView
 
 
 class MainWindow(QtWidgets.QMainWindow):
@@ -97,6 +97,10 @@ class MainWindow(QtWidgets.QMainWindow):
         # Close
         self.ui.actionClose.triggered.connect(self.close)
 
+        # View
+        for action in self.ui.menuChange_view.actions():
+            action.triggered.connect(self.on_action_view)
+
         # ---- ORGAN SELECTION
 
         for organ in self.checked_labels:  # Create the comboBox list
@@ -181,7 +185,7 @@ class MainWindow(QtWidgets.QMainWindow):
     from ._createlist import create_list_segmented_organs
 
     # ---- ORGAN SELECTION
-    from ._focus import on_glass_button_clicked
+    from ._focus import on_glass_button_clicked, on_action_view
     from ._combochange import on_combo_box_changed
     from ._colorselection import on_color_button
     from ._opacitychange import on_opacity_changed
@@ -225,5 +229,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # Get the position of the camera at right click mouse to make adjustments for focus mode
         position = self.renderer.GetActiveCamera().GetPosition()
         angle = self.renderer.GetActiveCamera().GetRoll()
+        focal = self.renderer.GetActiveCamera().GetFocalPoint()
         print("Camera's position :", position)
         print("Camera's Roll :", angle)
+        print("Camera's Focal point :", focal)

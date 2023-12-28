@@ -33,12 +33,12 @@ class TimerCallback:
 
             # Change opacity
             actors_to_change = (
-                self.actors[: self.index_organ] + self.actors[self.index_organ + 1 :]
+                    self.actors[: self.index_organ] + self.actors[self.index_organ + 1:]
             )
             for actor in actors_to_change:
                 opacity_value = (
-                    self.actors[self.index_organ].GetProperty().GetOpacity()
-                    - self.timer_count * 0.05
+                        self.actors[self.index_organ].GetProperty().GetOpacity()
+                        - self.timer_count * 0.05
                 )
                 if opacity_value > 0.05:
                     actor.GetProperty().SetOpacity(opacity_value)
@@ -48,3 +48,45 @@ class TimerCallback:
             self.timer_count += 1
 
         obj.GetRenderWindow().Render()
+
+
+class TimerChangeView:
+    def __init__(self, target_view, target_roll, camera):
+        self.target_view = target_view
+        self.target_roll = target_roll
+        self.camera = camera
+        self.initial_position = camera.GetPosition()
+        self.initial_roll = camera.GetRoll()
+        self.animation_running = True
+        self.continue_roll = True
+        self.continue_position = True
+        self.animation_step = 0.1
+        self.tolerance = 0.5
+
+    def execute(self, obj, event):
+        if self.animation_running:
+            new_roll = self.camera.GetRoll()
+            new_position = self.camera.GetPosition()
+
+            if self.continue_position:
+                self.initial_position = self.camera.GetPosition()
+                move_vector = [self.target_view[i] - self.initial_position[i] for i in range(3)]
+                new_position = [self.initial_position[i] + self.animation_step * move_vector[i] for i in range(3)]
+                self.camera.SetPosition(new_position)
+
+                if np.linalg.norm(np.array(self.target_view) - np.array(new_position)) < self.tolerance:
+                    self.continue_position = False
+
+            if self.continue_roll:
+                self.initial_roll = self.camera.GetRoll()
+                move_roll = self.target_roll - self.initial_roll
+                new_roll = self.initial_roll + self.animation_step * move_roll
+                self.camera.SetRoll(new_roll)
+
+                if np.abs(self.target_roll - new_roll) < self.tolerance:
+                    self.continue_roll = False
+
+            if not self.continue_position and not self.continue_roll:
+                self.animation_running = False
+
+            obj.GetRenderWindow().Render()
