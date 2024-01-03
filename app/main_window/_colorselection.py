@@ -23,6 +23,18 @@ def on_color_button(self):
         color_func.AddRGBPoint(255, *rgb)
         selected_volume_actor.GetProperty().SetColor(color_func)
 
+        # Get the corresponding arrow actor
+        selected_arrow_actor = self.arrows[selected_index][0]
+
+        # Set the colour of the arrow actor to be the same as the surface actor
+        selected_arrow_actor.GetProperty().SetColor(rgb)
+
+        # Get the corresponding text actor
+        selected_text_actor = self.arrows[selected_index][1]
+
+        # Set the colour of the text actor to be the same as the surface actor
+        selected_text_actor.GetProperty().SetColor(rgb)
+
         self.vtk_widget.GetRenderWindow().Render()
         self.ui.color_button.setStyleSheet(
             f"border: 0px; background-color: rgb{tuple(int(c * 255) for c in rgb)}"

@@ -41,7 +41,7 @@ def create_arrow_text(self):
 
         # Link the transparency of the arrow to the transparency of the surface
         arrow_actor.GetProperty().SetOpacity(actor.GetProperty().GetOpacity())
-        arrow_actor.GetProperty().SetColor(0, 0, 0)
+        arrow_actor.GetProperty().SetColor(actor.GetProperty().GetColor())
 
         # Get a cell from the polydata
         cell = polydata.GetCell(0)  # Get the first cell, adjust index as needed
@@ -63,7 +63,9 @@ def create_arrow_text(self):
 
         # Link the transparency of the arrow to the transparency of the surface
         text_actor.GetProperty().SetOpacity(actor.GetProperty().GetOpacity())
-        text_actor.GetProperty().SetColor(0, 0, 0)  # Black color for text
+        text_actor.GetProperty().SetColor(
+            actor.GetProperty().GetColor()
+        )  # Black color for text
 
         text_actor.SetPosition(point[0] + 200, point[1], point[2])
         text_actor.SetScale([6, 6, 6])
