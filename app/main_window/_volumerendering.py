@@ -20,6 +20,11 @@ def on_volume_button_clicked(self):
         self.segmented_actors = list(self.segmented_surface_actors)
         self.ui.hist_group.setDisabled(True)
         self.ui.measure_tab.setDisabled(False)
+
+        for arrow, text in self.arrows:
+            self.renderer.AddActor(arrow)
+            self.renderer.AddActor(text)
+
         for actor in self.selected_cells:
             self.renderer.AddActor(actor)
 

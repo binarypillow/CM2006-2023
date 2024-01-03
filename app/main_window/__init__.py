@@ -194,7 +194,7 @@ class MainWindow(QtWidgets.QMainWindow):
     from ._createlist import create_list_segmented_organs
 
     # ---- ORGAN SELECTION
-    from ._focus import on_glass_button_clicked, on_action_view
+    from ._focusandcamera import on_glass_button_clicked, on_action_view
     from ._combochange import on_combo_box_changed
     from ._colorselection import on_color_button
     from ._opacitychange import on_opacity_changed
@@ -219,7 +219,12 @@ class MainWindow(QtWidgets.QMainWindow):
     from ._measures import calculate_surface_volume
 
     # ---- LABELS
-    from ._labels import on_labels_button_clicked, create_arrow_text, update_arrow_and_text, on_camera_change
+    from ._labels import (
+        on_labels_button_clicked,
+        create_arrow_text,
+        update_arrow_and_text,
+        on_camera_change,
+    )
 
     def on_stereo_param_clicked(self):
         """Handles the click event of the stereo parameter button."""

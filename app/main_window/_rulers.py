@@ -17,6 +17,13 @@ def on_left_button_press(self, obj, event, color):
     # Get the picked cell
     picked_cell = self.cell_picker.GetCellId()
 
+    # Get the picked actor
+    picked_actor = self.cell_picker.GetActor()
+
+    # Check if the picked actor is text
+    if isinstance(picked_actor, vtk.vtkVectorText):
+        return
+
     if picked_cell != -1:
         # Get the position of the picked cell
         picked_position = self.cell_picker.GetPickPosition()
