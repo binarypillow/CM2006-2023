@@ -1,4 +1,6 @@
 import vtk
+
+
 def on_labels_button_clicked(self):
     if self.ui.labels_button.isChecked():
         for arrow, text in self.arrows:
@@ -16,10 +18,8 @@ def create_arrow_text(self):
     labels = []
     for i in range(len(self.segmented_surface_actors)):
         arrow = vtk.vtkArrowSource()
-        arrow.SetShaftRadius(0.1)
+        arrow.SetShaftRadius(0.07)
         arrow.SetTipRadius(0.3)
-        arrow.SetTipLength(0.5)
-        length = 50
         arrow.SetTipLength(0.3)
 
         arrow_mapper = vtk.vtkPolyDataMapper()
@@ -39,11 +39,15 @@ def create_arrow_text(self):
         text_actor.GetProperty().SetColor(0, 0, 0)  # Black color for text
 
         center = self.segmented_surface_actors[i].GetCenter()
-        print(center)
-        text_actor.SetPosition(center[0] + 50, center[1] + 50, center[2] + 50)
-        arrow_actor.SetPosition(center[0] + 20, center[1] + 20, center[2] + 20)
+
+        arrow_actor.SetPosition(center)
+        arrow_actor.RotateZ(180)  # Orient the arrow towards the center
+        #arrow_actor.RotateWXYZ(90, 0, 1, 0)  # Correct orientation (adjust angles if needed)
+
+        text_actor.SetPosition(center[0] + 50, center[1], center[2])
+        arrow_actor.SetPosition(center[0] + 50, center[1], center[2])
         text_actor.SetScale([6, 6, 6])
-        arrow_actor.SetScale([5, 5, 5])
+        arrow_actor.SetScale([30, 15, 15])
 
         arrow_actor.SetVisibility(False)
         text_actor.SetVisibility(False)
