@@ -18,9 +18,9 @@ def create_arrow_text(self):
     labels = []
     for i in range(len(self.segmented_surface_actors)):
         arrow = vtk.vtkArrowSource()
-        arrow.SetShaftRadius(0.07)
-        arrow.SetTipRadius(0.3)
-        arrow.SetTipLength(0.3)
+        arrow.SetShaftRadius(0.05)
+        arrow.SetTipRadius(0.2)
+        arrow.SetTipLength(0.2)
 
         arrow_mapper = vtk.vtkPolyDataMapper()
         arrow_mapper.SetInputConnection(arrow.GetOutputPort())
@@ -40,6 +40,7 @@ def create_arrow_text(self):
 
         center = self.segmented_surface_actors[i].GetCenter()
 
+        arrow_actor.GetProperty().SetColor(0, 0, 0)
         arrow_actor.SetPosition(center)
         arrow_actor.RotateZ(180)  # Orient the arrow towards the center
         #arrow_actor.RotateWXYZ(90, 0, 1, 0)  # Correct orientation (adjust angles if needed)
