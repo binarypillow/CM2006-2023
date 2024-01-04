@@ -10,24 +10,24 @@ class TimerCallback:
         self.initial_focal_point = camera.GetFocalPoint()
         self.center = self.actors[index].GetCenter()
         self.animation_running = True
+        # Moving vector to get closer to the correct focal point
+        self.move_vector = [
+            self.center[i] - self.initial_focal_point[i] for i in range(3)
+        ]
+        self.tolerance = 0.5
 
     def execute(self, obj, event):
         if self.animation_running:
             self.initial_focal_point = self.camera.GetFocalPoint()
 
-            # Moving vector to get closer to the correct focal point
-            move_vector = [
-                self.center[i] - self.initial_focal_point[i] for i in range(3)
-            ]
-
             # Compute new position: add a part of the moving vector
             new_focal_point = [
-                self.initial_focal_point[i] + 0.1 * move_vector[i] for i in range(3)
+                self.initial_focal_point[i] + 0.1 * self.move_vector[i] for i in range(3)
             ]
             self.camera.SetFocalPoint(new_focal_point)
 
             # Check if camera has the correct focal point
-            if np.linalg.norm(np.array(self.center) - np.array(new_focal_point)) < 0.5:
+            if np.linalg.norm(np.array(self.center) - np.array(new_focal_point)) < self.tolerance:
                 # Stop animation
                 self.animation_running = False
 
@@ -60,8 +60,12 @@ class TimerChangeView:
         self.animation_running = True
         self.continue_roll = True
         self.continue_position = True
-        self.animation_step = 0.1
         self.tolerance = 0.5
+        self.move_vector = [self.target_view[i] - self.initial_position[i] for i in range(3)]
+        self.move_roll = self.target_roll - self.initial_roll
+        self.animation_step_pos = 0.01
+        self.animation_step_roll = 0.01
+        self.tolerance_roll = 180*self.animation_step_roll
 
     def execute(self, obj, event):
         if self.animation_running:
@@ -70,8 +74,7 @@ class TimerChangeView:
 
             if self.continue_position:
                 self.initial_position = self.camera.GetPosition()
-                move_vector = [self.target_view[i] - self.initial_position[i] for i in range(3)]
-                new_position = [self.initial_position[i] + self.animation_step * move_vector[i] for i in range(3)]
+                new_position = [self.initial_position[i] + self.animation_step_pos * self.move_vector[i] for i in range(3)]
                 self.camera.SetPosition(new_position)
 
                 if np.linalg.norm(np.array(self.target_view) - np.array(new_position)) < self.tolerance:
@@ -79,11 +82,11 @@ class TimerChangeView:
 
             if self.continue_roll:
                 self.initial_roll = self.camera.GetRoll()
-                move_roll = self.target_roll - self.initial_roll
-                new_roll = self.initial_roll + self.animation_step * move_roll
+
+                new_roll = self.initial_roll + self.animation_step_roll * self.move_roll
                 self.camera.SetRoll(new_roll)
 
-                if np.abs(self.target_roll - new_roll) < self.tolerance:
+                if np.abs(self.target_roll - new_roll) < self.tolerance_roll:
                     self.continue_roll = False
 
             if not self.continue_position and not self.continue_roll:
