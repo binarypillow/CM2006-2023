@@ -174,7 +174,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # ---- MEASURES
         # Calculate the surface area and the volume of the selected organ
-        volume, area = self.calculate_surface_volume()
+        area, volume = self.calculate_surface_volume()
         # Set the values
         self.ui.surface_value.setText(f"{area:,.2f} mm²")
         self.ui.volume_value.setText(f"{volume:,.2f} mm³")
