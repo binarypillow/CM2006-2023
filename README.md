@@ -13,7 +13,6 @@ Use `python make_dist.py` to make a standalone executable file. (Tested on Windo
 
 ## TO-DOs
 - [X] Add qss stylesheet
-- 
 - [X] Change view animation (front/back/left/right/default in menubar)
 - [X] Organs names labels
 - [X] Ruler history tree
