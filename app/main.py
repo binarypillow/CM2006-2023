@@ -9,7 +9,7 @@ def main():
     """
     Runs the main application.
 
-    This function initializes the application, sets the window icon, creates and shows the welcome window,
+    This function initialises the application, sets the window icon, creates and shows the welcome window
     and then exits the application after the event loop is finished.
     """
 

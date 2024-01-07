@@ -6,7 +6,18 @@ from app.utils import get_abs_path
 
 
 def on_left_button_press(self, obj, event, color):
-    """Handles the left button press event to perform picking and draw rulers between selected cells."""
+    """
+    Handles the left button press event.
+
+    Args:
+        self: The instance of the class.
+        obj: The object that triggered the event.
+        event: The event type.
+        color: The colour to use for the created actors.
+
+    Returns:
+        None
+    """
 
     # Get the position of the mouse click event
     click_pos = self.interactor.GetEventPosition()
@@ -69,7 +80,7 @@ def on_left_button_press(self, obj, event, color):
             actor = vtk.vtkActor()
             actor.SetMapper(mapper)
 
-            # Set the line style to dotted
+            # Set the line style to "dotted"
             actor.GetProperty().SetLineStipplePattern(0x00FF)
             actor.GetProperty().SetLineStippleRepeatFactor(5)
             actor.GetProperty().SetColor(color)
@@ -83,7 +94,7 @@ def on_left_button_press(self, obj, event, color):
             # Restore cursor shape
             self.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.ArrowCursor))
 
-            # Enable focus once the ruler is created
+            # Enable back the "focus" button once the ruler is created
             self.ui.glass_button.setDisabled(False)
             self.add_item_with_buttons(
                 len(self.selected_cell_positions) // 2, distance, color
@@ -99,7 +110,15 @@ def on_left_button_press(self, obj, event, color):
 
 
 def activate_left_click_event(self):
-    """Activates or deactivates the left click event for adding rulers between cells."""
+    """
+    Activates or deactivates the left click event functionality.
+
+    Args:
+        self: The instance of the class.
+
+    Returns:
+        None
+    """
 
     # if the state is True (active), delete the progresses and cancel the operation
     if self.newruler_state:
@@ -116,7 +135,7 @@ def activate_left_click_event(self):
     else:  # if the state is False (not active), activate the functionality
         # Change the cursor shape
         self.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
-        # Create a random color for the ruler
+        # Create a random colour for the ruler
         color = (random.random(), random.random(), random.random())
         # Create an observer for the left click events
         self.left_button_observer_id = self.interactor.AddObserver(
@@ -131,8 +150,18 @@ def activate_left_click_event(self):
 
 
 def add_item_with_buttons(self, text, dist, color):
-    """Adds an item with buttons to the rulers' list."""
+    """
+    Adds an item with buttons to the rulers list.
 
+    Args:
+        self: The instance of the class.
+        text: The text to display for the item.
+        dist: The distance measurement value.
+        color: The colour of the ruler.
+
+    Returns:
+        None
+    """
     item = QtWidgets.QListWidgetItem(f"ruler #{text}")
     self.ui.rulers_list.addItem(item)
     self.ui.rulers_list.setAlternatingRowColors(True)
@@ -155,13 +184,13 @@ def add_item_with_buttons(self, text, dist, color):
 
     color_button = (
         QtWidgets.QPushButton()
-    )  # Create a new QPushButton to store the ruler's color
+    )  # Create a new QPushButton to store the ruler's colour
     color_button.setStyleSheet(
         f"background-color: rgb{tuple(int(c * 255) for c in color)}; border-radius: 4px;"
     )
     color_button.setMaximumSize(10, 10)  # Set the maximum width and height
 
-    # Add the measurement's value in a label
+    # Add the measurement's value in the label
     label = QtWidgets.QLabel(f"{dist:.2f} mm")
 
     # Build the item
@@ -181,7 +210,16 @@ def add_item_with_buttons(self, text, dist, color):
 
 
 def delete_item(self, item):
-    """Deletes an item from the rulers list and removes the corresponding actors and positions."""
+    """
+    Deletes an item from the rulers list.
+
+    Args:
+        self: The instance of the class.
+        item: The item to delete.
+
+    Returns:
+        None
+    """
 
     row = self.ui.rulers_list.row(item)
     self.ui.rulers_list.takeItem(row)
@@ -205,7 +243,17 @@ def delete_item(self, item):
 
 
 def hide_item(self, item, button):
-    """Toggles the visibility of an item in the rulers list and updates the corresponding actors in the scene."""
+    """
+    Toggles the visibility of an item in the rulers list.
+
+    Args:
+        self: The instance of the class.
+        item: The item to hide or show.
+        button: The button associated with the item.
+
+    Returns:
+        None
+    """
 
     row = self.ui.rulers_list.row(item)
     # Check the state of the item and set the icon accordingly

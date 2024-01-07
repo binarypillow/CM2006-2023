@@ -2,7 +2,15 @@ from app.main_window.callback import TimerCallback, TimerChangeView
 
 
 def on_glass_button_clicked(self):
-    """Handles the click event of the glass button."""
+    """
+    Handles the click event of the glass button and performs actions based on its state.
+
+    Args:
+        self: The instance of the class.
+
+    Returns:
+        None
+    """
 
     if self.ui.glass_button.isChecked():
         # The view changes
@@ -14,27 +22,35 @@ def on_glass_button_clicked(self):
         self.interactor.AddObserver("TimerEvent", timer_call.execute)
         self.interactor.CreateRepeatingTimer(10)
 
-        # Volume rendering possibility appears
+        # Enable the volume rendering button and disable opacity slider and combobox
         self.ui.hist_group.setDisabled(True)
         self.ui.volume_button.setDisabled(False)
         self.ui.organ_combo.setDisabled(True)
         self.ui.op_slider.setDisabled(True)
     else:
-        # Volume rendering disappears and the volume becomes a surface
+        # Disable the volume rendering button and enable opacity slider and combobox
         self.ui.volume_button.setChecked(False)
         self.ui.volume_button.setDisabled(True)
         self.ui.organ_combo.setDisabled(False)
         self.ui.op_slider.setDisabled(False)
         self.on_volume_button_clicked()
 
-        # The Focal point goes back to normal and all organs have an opacity of 1
+        # The Focal point goes back to normal, and all organs have an opacity of 1
         self.renderer.GetActiveCamera().SetFocalPoint(self.default_focal)
         for actor in self.segmented_actors:
             actor.GetProperty().SetOpacity(1)
 
 
 def on_action_view(self):
-    """Change the camera view based on the selected action."""
+    """
+    Handles the view actions and changes the camera position and roll accordingly.
+
+    Args:
+        self: The instance of the class.
+
+    Returns:
+        None
+    """
 
     action = self.sender()  # Get the action that emits the signal
 
@@ -62,3 +78,20 @@ def on_action_view(self):
     timer_view = TimerChangeView(position, roll, self.renderer.GetActiveCamera())
     self.interactor.AddObserver("TimerEvent", timer_view.execute)
     self.interactor.CreateRepeatingTimer(10)
+
+
+def reset_view(self):
+    """
+    Resets the view of the camera to its initial position, roll, and focal point.
+
+    Args:
+        self: The instance of the class.
+
+    Returns:
+        None
+    """
+
+    self.renderer.GetActiveCamera().SetPosition(self.initial_camera_position)
+    self.renderer.GetActiveCamera().SetRoll(self.initial_camera_roll)
+    self.renderer.GetActiveCamera().SetFocalPoint(self.initial_camera_focal_point)
+    self.vtk_widget.GetRenderWindow().Render()

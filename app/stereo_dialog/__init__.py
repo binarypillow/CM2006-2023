@@ -11,8 +11,6 @@ class StereoParam(QtWidgets.QDialog):
     def __init__(self, ipd_value):
         super(StereoParam, self).__init__()
 
-        # ---- Variables initialization ----
-
         # ---- Interface initialization ----
         self.setWindowTitle("Stereo parameters")
         self.ui = stereo_settings.Ui_Dialog()
@@ -26,20 +24,40 @@ class StereoParam(QtWidgets.QDialog):
         # Connect the "Cancel" button to the function to close the window
         self.ui.cancel_button.clicked.connect(self.close)
 
-    # ---- Methods imports ----
+    # ---- Methods ----
     def updateOKButtonVisibility(self):
-        """Updates the visibility of the "Ok" button based on the IPD LineEdit value."""
-        # Check if the two LineEdits contain numbers
+        """
+        Updates the visibility of the OK button based on the validity of the input in the LineEdit.
+
+        Args:
+            self: The instance of the class.
+
+        Returns:
+            None
+        """
+
+        # Check if the input field contains a number
         ipd_text = self.ui.ipd_line_edit.text()
 
         try:
             _ = float(ipd_text)
+            # Enable the button
             self.ui.ok_button.setDisabled(False)
         except ValueError:
+            # Throw an error and disable the button
             self.ui.ok_button.setDisabled(True)
 
     def sendValues(self):
-        """Sends the IPD value to the first window and closes the dialog."""
+        """
+        Sends the value from the input field as a signal and closes the dialogue.
+
+        Args:
+            self: The instance of the class.
+
+        Returns:
+            None
+        """
+
         ipd_text = self.ui.ipd_line_edit.text()
         self.value.emit(float(ipd_text))
         self.close()

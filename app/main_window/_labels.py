@@ -2,22 +2,41 @@ import vtk
 
 
 def on_labels_button_clicked(self):
-    """Toggle the visibility of arrow and text actors based on the state of the labels button."""
+    """
+    Handles the click event of the "show labels" button and toggles the visibility of the arrow and text actors accordingly.
+
+    Args:
+        self: The instance of the class.
+
+    Returns:
+        None
+    """
 
     if self.ui.labels_button.isChecked():
         for arrow, text in self.arrows:
+            # Show the label
             arrow.SetVisibility(True)
             text.SetVisibility(True)
     else:
         for arrow, text in self.arrows:
+            # Hide the label
             arrow.SetVisibility(False)
             text.SetVisibility(False)
+
     # Update window
     self.vtk_widget.GetRenderWindow().Render()
 
 
 def create_arrow_text(self):
-    """Create arrow and text actors for each segmented surface actor."""
+    """
+    Creates arrow and text actors for each segmented organ.
+
+    Args:
+        self: The instance of the class.
+
+    Returns:
+        list: A list of arrow and text actors for each segmented organ.
+    """
 
     labels = []
     for i in range(len(self.segmented_surface_actors)):
@@ -78,7 +97,15 @@ def create_arrow_text(self):
 
 
 def update_arrow_and_text(self):
-    """Update the position of arrow and text actors based on the segmented surface actors."""
+    """
+    Updates the position of the arrow and text actors based on the position of the first point of each segmented organ.
+
+    Args:
+        self: The instance of the class.
+
+    Returns:
+        None
+    """
 
     for i in range(len(self.segmented_surface_actors)):
         actor = self.segmented_surface_actors[i]
@@ -106,5 +133,16 @@ def update_arrow_and_text(self):
 
 
 def on_camera_change(self, obj, event):
-    """Callback function triggered when the camera changes."""
+    """
+    Handles the camera change event and updates the position of the arrow and text actors accordingly.
+
+    Args:
+        self: The instance of the class.
+        obj: The object associated with the event.
+        event: The event that triggered the function.
+
+    Returns:
+        None
+    """
+
     self.update_arrow_and_text()

@@ -2,9 +2,17 @@ import vtk
 
 
 def on_combo_box_changed(self):
-    """Handles the change event of the combo box."""
+    """
+    Handles the change event of the combo box and updates the UI elements accordingly.
 
-    # Change organ
+    Args:
+        self: The instance of the class.
+
+    Returns:
+        None
+    """
+
+    # Get current organ index
     selected_index = self.ui.organ_combo.currentIndex()
     selected_actor = self.segmented_actors[selected_index]
 
@@ -12,7 +20,7 @@ def on_combo_box_changed(self):
         opacity = selected_actor.GetProperty().GetOpacity()
         self.ui.op_slider.setValue(int(opacity * 100))
 
-    # Update the active color widget with the color of the selected organ
+    # Update the colour button with the colour of the selected organ
     rgb = tuple(int(c * 255) for c in self.colors[selected_index % len(self.colors)])
     self.ui.color_button.setStyleSheet(f"border: 0px; background-color: rgb{rgb};")
 
@@ -33,6 +41,5 @@ def on_combo_box_changed(self):
 
     # Update volume and surface values
     area, volume = self.calculate_surface_volume()
-
     self.ui.surface_value.setText(f"{area:,.2f} mm²")
     self.ui.volume_value.setText(f"{volume:,.2f} mm³")

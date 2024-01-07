@@ -31,6 +31,7 @@ class WelcomeWindow(QtWidgets.QMainWindow):
         # Dynamically create the labels' list
         scroll_widget = QtWidgets.QWidget()
         scroll_layout = QtWidgets.QVBoxLayout()
+
         # Get the list of labels
         labels_list = get_keys_from_yaml(get_abs_path("/resources/config/labels.yml"))
         # For each label, create a QLabel and add it to the layout
@@ -43,6 +44,7 @@ class WelcomeWindow(QtWidgets.QMainWindow):
             checkbox_widget.stateChanged.connect(self.check_state)
             # Add the widget to the scroll down
             scroll_layout.addWidget(checkbox_widget)
+
         # Set the layout to the widget
         scroll_widget.setLayout(scroll_layout)
         # Set the widget to the QScrollArea
@@ -59,6 +61,7 @@ class WelcomeWindow(QtWidgets.QMainWindow):
 
     def open_new_window(self):
         """Open a new window and save the current state into a YAML file."""
+
         # Save the paths and the checked files into a YAML file
         self.save_history()
 

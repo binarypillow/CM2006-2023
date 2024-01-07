@@ -110,7 +110,7 @@ class Ui_Dialog(object):
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
         self.name_text.setText(_translate("Dialog", "<App_name>"))
         self.version_text.setText(_translate("Dialog", "<html><head/><body><p><span style=\" font-style:italic;\">Version 0.0.1</span></p></body></html>"))
-        self.info_text.setText(_translate("Dialog", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris condimentum sapien vel elit tincidunt ultricies. Nam aliquam lacus non mi convallis, ac fringilla velit hendrerit. Sed malesuada fringilla purus, consectetur dignissim dui dignissim sed."))
+        self.info_text.setText(_translate("Dialog", "This application is a work in progress and is not ready for production yet. Use it at your own risk."))
         self.ok_button.setText(_translate("Dialog", "Ok"))
 
 

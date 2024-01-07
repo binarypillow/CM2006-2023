@@ -2,7 +2,15 @@ import vtk
 
 
 def create_segmented_surface_actors(self):
-    """Creates surface actors for segmented organs."""
+    """
+    Create segmented surface actors for each checked label.
+
+    Args:
+        self: The instance of the class.
+
+    Returns:
+        list: A list of vtkActor objects representing the segmented surface actors.
+    """
 
     actors = []
     for organ in range(len(self.checked_labels)):
@@ -11,7 +19,7 @@ def create_segmented_surface_actors(self):
         cast_filter.SetInputData(self.segmented_organs[organ])
         cast_filter.SetOutputScalarTypeToUnsignedShort()
 
-        # Contour mapper : marching cubes
+        # Contour mapper: marching cubes
         contour = vtk.vtkMarchingCubes()
         contour.SetInputConnection(cast_filter.GetOutputPort())
         contour.ComputeNormalsOn()
@@ -21,14 +29,14 @@ def create_segmented_surface_actors(self):
         con_mapper = vtk.vtkPolyDataMapper()
         con_mapper.SetInputConnection(contour.GetOutputPort())
 
-        # Deactivate the scalar color to redefine a new color
+        # Deactivate the scalar colour to redefine a new colour
         con_mapper.ScalarVisibilityOff()
 
         # Set up the surface actor
         surface_actor = vtk.vtkActor()
         surface_actor.SetMapper(con_mapper)
 
-        # By default: one color per organ
+        # By default: one colour per organ
         color = self.colors[organ % len(self.colors)]
         surface_actor.GetProperty().SetColor(color)
 

@@ -860,15 +860,14 @@ QCheckBox::indicator:checked{
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="actionLoad"/>
     <addaction name="separator"/>
     <addaction name="actionClose"/>
    </widget>
    <widget class="QMenu" name="menuAbout">
     <property name="geometry">
      <rect>
-      <x>154</x>
-      <y>146</y>
+      <x>207</x>
+      <y>134</y>
       <width>142</width>
       <height>68</height>
      </rect>
@@ -898,7 +897,6 @@ QCheckBox::indicator:checked{
      <addaction name="actionLeft_view_2"/>
      <addaction name="actionRight_view_2"/>
     </widget>
-    <addaction name="actionReset_view"/>
     <addaction name="menuChange_view"/>
    </widget>
    <addaction name="menu"/>
@@ -939,7 +937,7 @@ QCheckBox::indicator:checked{
      <normaloff>../resources/icons/interface/folder-open.svg</normaloff>../resources/icons/interface/folder-open.svg</iconset>
    </property>
    <property name="text">
-    <string>Open new...</string>
+    <string>Load annotations...</string>
    </property>
   </action>
   <action name="actionFront_view">
@@ -993,11 +991,6 @@ QCheckBox::indicator:checked{
    </property>
    <property name="text">
     <string>Version info</string>
-   </property>
-  </action>
-  <action name="actionReset_view">
-   <property name="text">
-    <string>Reset view</string>
    </property>
   </action>
  </widget>

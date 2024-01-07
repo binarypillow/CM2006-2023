@@ -419,7 +419,7 @@ QCheckBox::indicator:checked#seg_button {
        <bool>false</bool>
       </property>
       <property name="title">
-       <string>Select organs to visualise:</string>
+       <string>Select organs to visualise</string>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <property name="topMargin">

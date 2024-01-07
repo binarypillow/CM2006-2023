@@ -9,7 +9,7 @@ from app.main_window.callback import TimerCallback, TimerChangeView
 
 
 class MainWindow(QtWidgets.QMainWindow):
-    """Main window for the visualization application."""
+    """Main window for the visualisation application."""
 
     def __init__(self, path_img, path_label, checked_labels):
         # ---- Variables initialization ----
@@ -20,7 +20,7 @@ class MainWindow(QtWidgets.QMainWindow):
         labels_nii = nib.load(path_label)
         self.labels_data = labels_nii.get_fdata()
 
-        # Set the colors for surface organs
+        # Set the colours for surface organs
         self.colors = [
             (0.86, 0.37, 0.34),  # Red
             (0.48, 0.77, 0.46),  # Green
@@ -89,20 +89,28 @@ class MainWindow(QtWidgets.QMainWindow):
         self.interactor = self.vtk_widget.GetRenderWindow().GetInteractor()
         self.interactor.Initialize()
 
+        # Store the initial camera settings
+        self.initial_camera_position = self.renderer.GetActiveCamera().GetPosition()
+        self.initial_camera_roll = self.renderer.GetActiveCamera().GetRoll()
+        self.initial_camera_focal_point = (
+            self.renderer.GetActiveCamera().GetFocalPoint()
+        )
+
         # ---- MENU TOOL BAR
         # About
-        self.ui.actionInfo.triggered.connect(self.on_about_clicked)
-        # Window for about
         self.about_window = AboutText()
+        self.ui.actionInfo.triggered.connect(self.on_about_clicked)
+        # Load new
+        self.ui.actionLoad.triggered.connect(self.on_load_clicked)
         # Close
         self.ui.actionClose.triggered.connect(self.close)
-
+        # Reset view
+        self.ui.actionReset_view.triggered.connect(self.reset_view)
         # View
         for action in self.ui.menuChange_view.actions():
             action.triggered.connect(self.on_action_view)
 
         # ---- ORGAN SELECTION
-
         for organ in self.checked_labels:  # Create the comboBox list
             self.ui.organ_combo.addItem(organ)
         self.ui.color_button.setStyleSheet(
@@ -121,7 +129,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.default_focal = self.renderer.GetActiveCamera().GetFocalPoint()
 
         # ---- VOLUME RENDERING
-
         # Change the actor from surface to volume if the volume button is checked
         self.ui.volume_button.setChecked(False)  # initial state: unchecked
         # Connect the button to the activate volume rendering for the selected organ
@@ -138,17 +145,15 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.update_button.clicked.connect(self.on_volume_update)
 
         # ---- STEREO RENDERING
-
         # Display stereo if clicked. Display a parameter button to adjust stereo parameters
         self.ui.stereo_button.clicked.connect(self.on_stereo_clicked)
         # Choose stereo parameters. It opens a new dialog window
         self.ui.stereo_param_button.clicked.connect(self.on_stereo_param_clicked)
         # Window for stereo parameters
-        self.current_ipd = self.renderer.GetActiveCamera().GetEyeAngle()
+        self.current_ipd = self.renderer.GetActiveCamera().GetEyeSeparation()
         self.stereo_window = StereoParam(self.current_ipd)
 
         # ---- RULERS
-
         self.selected_cells = []
         self.selected_cell_positions = []
         self.line_btw_cells = []
@@ -175,8 +180,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.volume_value.setText(f"{volume:,.2f} mm³")
 
         # ---- DEBUG
-        # Know the position of the camera each right-click: just for us, to better place the camera
-        self.interactor.AddObserver("RightButtonPressEvent", self.get_camera_position)
+        # The position of the camera each right-click: just for us, to better place the camera
+        # self.interactor.AddObserver("RightButtonPressEvent", self.get_camera_position)
 
         # ---- LABELS
         self.ui.labels_button.clicked.connect(self.on_labels_button_clicked)
@@ -194,7 +199,7 @@ class MainWindow(QtWidgets.QMainWindow):
     from ._createlist import create_list_segmented_organs
 
     # ---- ORGAN SELECTION
-    from ._focusandcamera import on_glass_button_clicked, on_action_view
+    from ._focusandcamera import on_glass_button_clicked, on_action_view, reset_view
     from ._combochange import on_combo_box_changed
     from ._colorselection import on_color_button
     from ._opacitychange import on_opacity_changed
@@ -227,22 +232,68 @@ class MainWindow(QtWidgets.QMainWindow):
     )
 
     def on_stereo_param_clicked(self):
-        """Handles the click event of the stereo parameter button."""
+        """
+        Opens the stereo parameter dialogue and connects the value signal to the set_stereo_values method.
+
+        Args:
+            self: The instance of the class.
+
+        Returns:
+            None
+        """
 
         # Pass the current eye angle
         self.stereo_window.value.connect(self.set_stereo_values)
-        self.stereo_window.setModal(True)  # Make the dialog modal
+        self.stereo_window.setModal(True)  # Make the dialogue modal
         self.stereo_window.show()
 
     def on_about_clicked(self):
-        """Handles the click event of the about menu button."""
+        """
+        Opens the "about" window as a modal dialogue.
 
-        self.about_window.setModal(True)  # Make the dialog modal
-        self.about_window.show()
+        Args:
+            self: The instance of the class.
+
+        Returns:
+            None
+        """
+
+        self.about_window.setModal(True)  # Make the dialogue modal
+        self.about_window.show()  # Show the window
+
+    def on_load_clicked(self):
+        """
+        Handles the click event of the load button.
+
+        Args:
+            self: The instance of the class.
+
+        Returns:
+            None
+        """
+
+        self.close()  # Close the current window
+
+        # Import here to avoid circular import error
+        from app.welcome_window import WelcomeWindow
+
+        welcome_window = WelcomeWindow()
+        welcome_window.show()  # Show "welcome" window
 
     # ---- DEBUG
     def get_camera_position(self, obj, event):
-        """Retrieves the position and roll angle of the camera."""
+        """
+        Gets the position, roll angle, and focal point of the camera at the right-click mouse event.
+
+        Args:
+            self: The instance of the class.
+            obj: The object associated with the event.
+            event: The event that triggered the function.
+
+        Returns:
+            None
+        """
+
         # Get the position of the camera at right click mouse to make adjustments for focus mode
         position = self.renderer.GetActiveCamera().GetPosition()
         angle = self.renderer.GetActiveCamera().GetRoll()

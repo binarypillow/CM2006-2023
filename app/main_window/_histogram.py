@@ -6,7 +6,16 @@ from app.utils import convert_to_gray_scale
 
 
 def create_histogram(self, organs_data):
-    """Creates a histogram plot for the selected organ data."""
+    """
+    Creates a histogram plot for the selected organ's data.
+
+    Args:
+        self: The instance of the class.
+        organs_data: The list of segmented organs' data.
+
+    Returns:
+        FigureCanvas: The canvas containing the histogram plot.
+    """
 
     current_selected = self.ui.organ_combo.currentIndex()
     organ_data = convert_to_gray_scale(organs_data[current_selected])
@@ -31,7 +40,7 @@ def create_histogram(self, organs_data):
     # Clear the current figure
     ax.clear()
 
-    # Plot the histogram with the normalized frequencies
+    # Plot the histogram with the normalised frequencies
     ax.bar(bins[:-1], counts_normalized, width=2, color="grey")
 
     # Define the coordinates of the four points of the polygon
@@ -62,7 +71,15 @@ def create_histogram(self, organs_data):
 
 
 def on_hist_slider_changed(self):
-    """Updates the histogram canvas and slider constraints when the slider values change."""
+    """
+    Handles the change event of the histogram sliders and updates the histogram canvas accordingly.
+
+    Args:
+        self: The instance of the class.
+
+    Returns:
+        None
+    """
 
     # Remove the old histogram canvas
     while self.ui.hist_layout.count():

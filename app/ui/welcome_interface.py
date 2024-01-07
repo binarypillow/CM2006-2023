@@ -286,7 +286,7 @@ class Ui_MainWindow(object):
         self.img_file.setText(_translate("MainWindow", "Browse..."))
         self.segmentation_group.setTitle(_translate("MainWindow", "Segmentation labels"))
         self.seg_file.setText(_translate("MainWindow", "Browse..."))
-        self.labels_box.setTitle(_translate("MainWindow", "Select organs to visualise:"))
+        self.labels_box.setTitle(_translate("MainWindow", "Select organs to visualise"))
         self.app_text.setText(_translate("MainWindow", "<html><head/><body><p align=\"justify\">This application can be used to visualise and quantitatively measure abdominal organs\' features. It was specifically designed to work with the segmented organs prepared for the <a href=\"https://flare22.grand-challenge.org/\"><span style=\" text-decoration: underline; color:#0000ff;\">Fast and Low-resource semi-supervised Abdominal oRgan sEgmentation in CT （FLARE 2022)</span></a> project, but in the future it can easily be extended to be configured to work with other segmentations.</p><p align=\"justify\"><span style=\" font-weight:600;\">Instructions: </span>load the image file and associated segmentation file. By default, all 13 organs are rendered, but if necessary it is possible to remove the organs it is not desired to see by unchecking the check box associated with them. The \'Continue\' button is only enabled when both files have been correctly selected.</p></body></html>"))
 
 

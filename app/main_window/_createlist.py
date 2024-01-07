@@ -4,7 +4,15 @@ from app.utils import get_index_from_key, get_abs_path
 
 
 def create_list_segmented_organs(self):
-    """Creates a list of segmented organs based on the checked labels."""
+    """
+    Creates a list of segmented organs' data and corresponding VTK image data.
+
+    Args:
+        self: The instance of the class.
+
+    Returns:
+        tuple: A tuple containing the list of segmented organs' data and the list of corresponding VTK image data.
+    """
 
     organs_data = []
     organs_vtk = []
@@ -14,6 +22,7 @@ def create_list_segmented_organs(self):
             self.labels_data
             != get_index_from_key(label, get_abs_path("/resources/config/labels.yml"))
         ] = 0  # Select only the organ with the specific label
+        # Store organ raw data
         organs_data.append(organ_data)
 
         # Convert the numpy array to VTK image data
@@ -27,4 +36,5 @@ def create_list_segmented_organs(self):
 
         vtk_organ_data.GetPointData().SetScalars(vtk_array)
         organs_vtk.append(vtk_organ_data)
+
     return organs_data, organs_vtk

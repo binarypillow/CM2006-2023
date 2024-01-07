@@ -11,6 +11,7 @@ def get_root_dir():
     Returns:
         str: The absolute path of the root directory.
     """
+
     return getattr(
         sys, "_MEIPASS", os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
     )
@@ -21,11 +22,12 @@ def get_abs_path(rel_path=""):
     Returns the absolute path by joining the root directory with the given relative path.
 
     Args:
-        rel_path (str): The relative path to be joined with the root directory. Defaults to an empty string.
+        rel_path (str): The relative path to be joined with the root directory. Default to an empty string.
 
     Returns:
         str: The absolute path obtained by joining the root directory and the relative path.
     """
+
     root = get_root_dir()
     return os.path.join(root, f"app/{rel_path}")
 
@@ -40,6 +42,7 @@ def get_keys_from_yaml(file_path):
     Returns:
         list: A list of keys extracted from the YAML file.
     """
+
     with open(file_path, "r") as file:
         data = yaml.safe_load(file)
     return list(data.keys())
@@ -56,6 +59,7 @@ def get_index_from_key(key, file_path):
     Returns:
         Any: The value associated with the given key.
     """
+
     with open(file_path, "r") as file:
         data = yaml.safe_load(file)
     return data[key]

@@ -14,7 +14,125 @@ class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.resize(337, 136)
-        Dialog.setStyleSheet("")
+        Dialog.setStyleSheet("QMainWindow {\n"
+"    background-color: #F8F9FA\n"
+"}\n"
+"\n"
+"QLineEdit {\n"
+"    border: 1px solid #023047;\n"
+"    border-radius: 5px;\n"
+"    font: 10px \'Roboto\', sans-serif;\n"
+"    color: #023047;\n"
+"    background-color: white;\n"
+"}\n"
+"\n"
+"QLabel {\n"
+"    font: 11px \'Roboto\', sans-serif;\n"
+"    color: black;\n"
+"}\n"
+"\n"
+"QScrollArea {\n"
+"    background-color: white;\n"
+"    border: trasparent;\n"
+"}\n"
+"\n"
+"QVBoxLayout {\n"
+"    background-color: white;\n"
+"    border: trasparent;\n"
+"}\n"
+"\n"
+"QScrollBar::handle:vertical {\n"
+"    background-color: #219EBC;\n"
+"    min-height: 10px;\n"
+"    border-radius: 6px;\n"
+"}\n"
+"\n"
+"QScrollBar:vertical {\n"
+"    width: 12px;\n"
+"    border-radius: 0px;\n"
+"}\n"
+"\n"
+"QScrollBar::add-line:vertical{\n"
+"    height: 0px; \n"
+"    background: trasparent;\n"
+"}\n"
+"\n"
+"QGroupBox {\n"
+"    border: 1px solid #023047;\n"
+"    border-radius: 5px;\n"
+"    margin-top: 1ex;\n"
+"    font: 12px \'Roboto\', sans-serif;\n"
+"    color: white;\n"
+"    background-color: white;\n"
+"}\n"
+"\n"
+"QGroupBox::title {\n"
+"    subcontrol-origin: margin;\n"
+"    subcontrol-position: top left;\n"
+"    left: 4px;\n"
+"    padding: 2px 6px 2px 6px;\n"
+"    color: white;\n"
+"    background-color: #023047;\n"
+"    border-radius: 6px;\n"
+"}\n"
+"\n"
+"QPushButton{\n"
+"    font: 12px;\n"
+"    font-family: \'Roboto\', sans-serif;\n"
+"    color: white;\n"
+"    background-color: #023047;\n"
+"    border-radius: 12px;\n"
+"     width: 80px;\n"
+"    height: 25px;\n"
+"}\n"
+"\n"
+"QToolButton{\n"
+"    font: 12px;\n"
+"    font-family: \'Roboto\', sans-serif;\n"
+"    font-weight: 400;\n"
+"    color: black;\n"
+"    background-color: #FB8500;\n"
+"    border-radius: 6px;\n"
+"     width: 65px;\n"
+"    height: 15px;\n"
+"}\n"
+"\n"
+"QPushButton#ok_button{\n"
+"    font: 12px;\n"
+"    font-family: \'Roboto\', sans-serif;\n"
+"    color: black;\n"
+"    background-color: #FB8500;\n"
+"    border-radius: 12px;\n"
+"     width: 100px;\n"
+"    height: 25px;\n"
+"}\n"
+"\n"
+"QPushButton:disabled#ok_button{\n"
+"    font: 12px;\n"
+"    font-family: \'Roboto\', sans-serif;\n"
+"     color: rgba(0,0,0,0.5);\n"
+"    background-color:rgba( 251, 133, 0, 0.5);\n"
+"    border-radius: 12px;\n"
+"     width: 100px;\n"
+"    height: 25px;\n"
+"}\n"
+"\n"
+"QCheckBox::indicator:checked{\n"
+"    background-color: #FB8500;\n"
+"    border: 1px solid #023047;\n"
+"    border-radius: 4px;\n"
+"}\n"
+"\n"
+"QCheckBox::indicator:disabled#img_button,  QCheckBox::indicator:disabled#seg_button{\n"
+"    background-color: red;\n"
+"    border-radius: 4px;\n"
+"}\n"
+"\n"
+"QCheckBox::indicator:checked#img_button,\n"
+"QCheckBox::indicator:checked#seg_button {\n"
+"    background-color: green;\n"
+"    border-radius: 4px;\n"
+"}")
         self.horizontalLayout = QtWidgets.QHBoxLayout(Dialog)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.widget = QtWidgets.QWidget(parent=Dialog)
@@ -38,6 +156,9 @@ class Ui_Dialog(object):
         self.ipd_line_edit.setStyleSheet("")
         self.ipd_line_edit.setObjectName("ipd_line_edit")
         self.horizontalLayout_2.addWidget(self.ipd_line_edit, 0, QtCore.Qt.AlignmentFlag.AlignRight)
+        self.label_2 = QtWidgets.QLabel(parent=self.widget)
+        self.label_2.setObjectName("label_2")
+        self.horizontalLayout_2.addWidget(self.label_2)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
         spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Expanding)
         self.verticalLayout.addItem(spacerItem1)
@@ -68,7 +189,8 @@ class Ui_Dialog(object):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
         self.label.setText(_translate("Dialog", "Stereo parameters"))
-        self.ipd_label.setText(_translate("Dialog", "Interpupillary distance (degree)"))
+        self.ipd_label.setText(_translate("Dialog", "Interpupillary distance (IPD)"))
+        self.label_2.setText(_translate("Dialog", "mm"))
         self.cancel_button.setText(_translate("Dialog", "Cancel"))
         self.ok_button.setText(_translate("Dialog", "Confirm"))
 

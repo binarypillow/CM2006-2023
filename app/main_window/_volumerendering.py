@@ -2,7 +2,15 @@ import vtk
 
 
 def on_volume_button_clicked(self):
-    """Handles the click event of the volume button."""
+    """
+    Handle the event when the volume button is clicked.
+
+    Args:
+        self: The instance of the class.
+
+    Returns:
+        None
+    """
 
     # Delete existing actor of the renderer
     self.renderer.RemoveAllViewProps()
@@ -13,11 +21,14 @@ def on_volume_button_clicked(self):
         self.segmented_actors[selected_index] = self.segmented_volume_actors[
             selected_index
         ]
+        # Disable the measurements' tab and enable histogram sliders
         self.ui.hist_group.setDisabled(False)
         self.ui.measure_tab.setDisabled(True)
     else:
         # If the button is unchecked: launch surface rendering
         self.segmented_actors = list(self.segmented_surface_actors)
+
+        # Enable the measurements' tab and disable histogram sliders
         self.ui.hist_group.setDisabled(True)
         self.ui.measure_tab.setDisabled(False)
 
@@ -40,8 +51,15 @@ def on_volume_button_clicked(self):
 
 
 def on_volume_update(self):
-    """Updates the opacity of the selected organ in the volume rendering using the points of the opacity
-    function."""
+    """
+    Adjust the opacity of the selected organ's surface and volume actors based on user input.
+
+    Args:
+        self: The instance of the class.
+
+    Returns:
+        None
+    """
 
     # Adjust opacity for a selected organ
     selected_index = self.ui.organ_combo.currentIndex()

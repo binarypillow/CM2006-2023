@@ -3,7 +3,15 @@ import vtk
 
 
 def on_color_button(self):
-    """Opens a color picker and sets the color of the selected actor based on the chosen color."""
+    """
+    Handles the click event of the colour button and sets the colour for the selected organ.
+
+    Args:
+        self: The instance of the class.
+
+    Returns:
+        None
+    """
 
     color_dialog = QColorDialog(self)
     chosen_color = color_dialog.getColor()
@@ -14,10 +22,10 @@ def on_color_button(self):
         selected_volume_actor = self.segmented_volume_actors[selected_index]
         rgb = chosen_color.redF(), chosen_color.greenF(), chosen_color.blueF()
 
-        # Set color for the surface actor
+        # Set colour for the surface actor
         selected_surface_actor.GetProperty().SetColor(rgb)
 
-        # Set color for the volume actor
+        # Set colour for the volume actor
         color_func = vtk.vtkColorTransferFunction()
         color_func.AddRGBPoint(0, 0, 0, 0)
         color_func.AddRGBPoint(255, *rgb)
@@ -36,6 +44,8 @@ def on_color_button(self):
         selected_text_actor.GetProperty().SetColor(rgb)
 
         self.vtk_widget.GetRenderWindow().Render()
+
+        # Update the colour of the button
         self.ui.color_button.setStyleSheet(
             f"border: 0px; background-color: rgb{tuple(int(c * 255) for c in rgb)}"
         )

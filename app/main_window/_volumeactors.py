@@ -2,7 +2,15 @@ import vtk
 
 
 def create_segmented_volume_actors(self):
-    """Creates volume actors for segmented organs."""
+    """
+    Create segmented volume actors for each checked label.
+
+    Args:
+        self: The instance of the class.
+
+    Returns:
+        list: A list of vtkVolume objects representing the segmented volume actors.
+    """
 
     actors = []
     # For each organ, create an actor from the segmentation data and the CT scan
