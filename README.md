@@ -37,6 +37,7 @@
       <a href="#screenshots">Screenshots</a>
     </li>
     <li><a href="#license">License</a></li>
+    <li><a href="#acknowledgments">Acknowledgments</a></li>
 </ol>
 </details>
 
@@ -113,3 +114,9 @@ Use `python make_dist.py` to make a standalone executable file. (Tested on Windo
 
 Distributed under the Apache License 2.0. See `LICENSE.txt` for more
 information.
+
+## Acknowledgments
+
+The application was realised using the [FLARE 2022](https://flare22.grand-challenge.org/) dataset as a starting point.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
