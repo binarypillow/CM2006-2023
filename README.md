@@ -33,6 +33,9 @@
       <a href="#tools">Tools</a>
     </li>
     <li><a href="#to-dos">To-dos</a></li>
+    <li>
+      <a href="#screenshots">Screenshots</a>
+    </li>
     <li><a href="#license">License</a></li>
 </ol>
 </details>
@@ -81,6 +84,29 @@ Use `python make_dist.py` to make a standalone executable file. (Tested on Windo
 - [X] Surface rendering
 - [x] Initial application
 
+## Screenshots
+
+- Welcome page
+
+  ![Welcome](screenshots/welcome.png)
+
+- Volume rendering
+
+  ![Volume](screenshots/volume.png)
+
+- Focus mode
+
+  ![Fosus](screenshots/focus.png)
+
+- Measuring rulers
+
+  ![Rulers](screenshots/rulers.png)
+
+- Organ labels
+
+  ![Labels](screenshots/labels.png)
+
+  
 <!-- LICENSE -->
 
 ## License
